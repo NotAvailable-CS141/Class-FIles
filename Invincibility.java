@@ -1,0 +1,41 @@
+/**
+ * CS 141: Intro to Programming and Problem Solving
+ * Professor: Edwin Rodr&iacute;guez
+ *
+ * Final Project
+ *
+ * This project is a text-based game where you play as a spy
+ * who must find the briefcase that is hidden in one of nine rooms
+ * inside of a building. There 6 ninjas that are roaming the building
+ * and will kill you if they are close enough to you. There are multiple power
+ * ups in the building such as one that will give you additional ammo if you used
+ * up all your ammo, gain invincibility, and one that will show you where the briefcase is.
+ *
+ * Team Not Available
+ *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
+ */
+package edu.cpp.cs.cs141.finalAssignment;
+
+/**
+ * This class represents the Invincibility pickup.
+ * When picked up, the spy becomes invulnerable from stabbing from enemy ninjas for 5 turns.
+ * 
+ * @author Zhihang Yao(Evan)
+ */
+public class Invincibility extends PickUp {
+
+	public Invincibility(int[] loc, boolean isActive) {
+		super(loc, isActive);
+	}
+	
+	/** 
+	 * Makes the spy invulnerable to stabbing from ninjas for 5 turns.
+	 * 
+	 * @see edu.cpp.cs.cs141.finalAssignment.PickUp#useAbility()
+	 */
+	@Override
+	public void useAbility() {
+		
+	}
+
+}
