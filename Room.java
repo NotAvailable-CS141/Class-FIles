@@ -14,7 +14,7 @@
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
-package edu.cpp.cs.cs141.finalAssignment;
+package edu.cpp.cs.cs141.FinalProject;
 
  
 public class Room {
