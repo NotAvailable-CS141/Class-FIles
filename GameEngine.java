@@ -1,9 +1,4 @@
 /**
- * 
- */
-package edu.cpp.cs.cs141.sg;
-
-/**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
  *
@@ -19,6 +14,8 @@ package edu.cpp.cs.cs141.sg;
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
+package edu.cpp.cs.cs141.FinalProject;
+
 public class GameEngine {
 	
 	/**
@@ -37,53 +34,25 @@ public class GameEngine {
 	/**
 	 * Methods
 	 */
-	boolean isGameOver(){
+	public boolean isGameOver(){
 		//Returns true if player has no more lives left, false otherwise
 	}
 	
-	boolean isPlayerDead() {
+	public boolean isPlayerDead() {
 		//Returns true if player's health is zero, false otherwise
 	}
 	
-	int[] getBriefcaseLocation() {
-		//Retrieves briefcase location from Grid
-
-	}
-	
-	int[] getNinjaLocation() {
-		//Retrieves ninja location from Grid
-		
-	}
-	
-	int[] getSpyLocation() {
-		//Retrieves spy location from Grid
-
-	}
-	
-	int[] setNinjaLocation() {
-		//Sets ninja location explicitly to Grid
-	}
-	
-	int[] setSpyLocation() {
-		//Sets spy location explicitly to Grid
-	}
-	
-	int[] setBriefcaseLocation() {
-		//Sets briefcase location explicitly to Grid
-
-	}
-	
-	void resetSpyLocation() {
+	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
 
 	}
 	
-	void pickUpPowerUp(){
+	public void pickUpPowerUp(){
 		//Evaluates which PowerUp type, then respective action taken
 
 	}
 	
-	void debugMode() {
+	public void debugMode() {
 		//Enables debug mode, lights are turned on in the building
 		
 	}
