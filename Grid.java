@@ -20,7 +20,7 @@ import java.lang.reflect.Array;
 
 public class Grid {
 
-private String[][] grid;
+private Space[][] grid;
 	
 private boolean fogOfWar;
 
@@ -29,7 +29,7 @@ private boolean fogOfWar;
 	 * @param String
 	 */
 	
-	public Grid(Array[][] String)
+	public Grid(Space[][] grid)
 	{
 		
 	}
@@ -37,42 +37,19 @@ private boolean fogOfWar;
 	/**
 	 * checks to see if there are and other units in the room to trigger an event
 	 */
-	public void getEntity()
-	{
-		
-	}
 	
 	/**
 	 * show some nice ascii art for a map
 	 */
-	public void displayBoard()
+	public String boardStateToString()
 	{
-		
+		return "";
 	}
 	
 	/** 
 	 * sets the visibility of all spaces on the grid to true
 	 */
 	public void debug()
-	{
-		
-	}
-	
-	/**
-	 * checks to see if the player is making a valid move
-	 */
-	public void validMove()
-	{
-	
-	}
-	
-	/**
-	 * sets:
-	 * the spy in the bottom left
-	 * the ninjas randomly 3 units away
-	 * the powerups randomly
-	 */
-	public void setEntityLocations()
 	{
 		
 	}
