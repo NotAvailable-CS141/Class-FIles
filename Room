@@ -1,0 +1,42 @@
+package qwertyuiop;
+
+public class Room {
+
+	private boolean visible;
+	
+	private boolean hasBriefcase;
+	
+	private boolean fogOfWar;
+	
+	/**
+	 * creates 9 rooms that the player cannot see the contents of
+	 * one of them has a briefcase in it
+	 * @param hasBriefcase
+	 * @param fogOfWar
+	 */
+	public Room(boolean hasBriefcase, boolean fogOfWar)
+	{
+		this.hasBriefcase=hasBriefcase;
+		this.fogOfWar=fogOfWar;
+	}
+	
+	/**
+	 * if the player enters the room with the briefcase returns true so the 
+	 * ui can tell the player they won
+	 * @return
+	 */
+	public boolean checkBriefcase()
+	{
+		return false;
+	}
+	
+	/**
+	 * sets the contents of a room to visible for if a player checks a room or the radar is located
+	 */
+	public void setVisible()
+	{
+	
+	}
+	
+	
+}
