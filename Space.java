@@ -21,13 +21,15 @@ public class Space {
     private int x;
     private int y;
     private boolean hasNinja;
+    private boolean visible;
     private pickUp pickUp;
 
-    public Space(int x, int y, Piece piece, Ninja ninja, pickUp pickUp) {
+    public Space(int x, int y, Piece piece, Ninja ninja, pickUp pickUp, boolean visible) {
         this.x = x;
         this.y = y;
         this.ninja = ninja;
-        this.pickUp=pickUp
+        this.pickUp=pickUp;
+        this.visible = visible;
     }
     
     public int getY() {
@@ -62,5 +64,11 @@ public class Space {
         
     }
 
+    public boolean getVisible() {
+        return false;
+    }
     
+     public void setVisible() {
+        
+    }
 }
