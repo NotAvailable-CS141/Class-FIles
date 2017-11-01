@@ -1,5 +1,3 @@
-package com.cs.cs141.project;
-
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -16,6 +14,8 @@ package com.cs.cs141.project;
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
+package edu.cpp.cs.cs141.finalAssignment;
+
  
 public class Room {
 
