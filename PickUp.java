@@ -14,15 +14,18 @@
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
-package edu.cpp.cs.cs141.finalAssignment;
+package edu.cpp.cs.cs141.FinalProject;
 
 /**
- * Represents the parent class of the pickups in the game:
+ * Represents the various pickups in the game:
  * Radar, Ammo, and Invincibility
  * 
  * @author Zhihang Yao(Evan)
  */
-public abstract class PickUp {
+public class PickUp {
+	public static enum PickUpType{AMMO, RADAR, INVINCIBILITY}
+	
+	public PickUpType type;
 	/**
 	 * The location of the item, represented by an array of length 2. 
 	 * First number represents what array it is in the grid, second 
@@ -41,12 +44,16 @@ public abstract class PickUp {
 	}
 	
 	/**
+	 * @param p 
+	 * 		The type of the pickup
 	 * @param loc 
 	 * 		An array of length 2 representing the coordinates of the object @see location
 	 * @param isActive 
 	 * 		@see isActiveOnGrid
 	 */
-	public PickUp(int[] loc, boolean isActive) {
+	public PickUp(PickUpType p, int[] loc, boolean isActive) {
+		type = p;
+		
 		location = new int[2];
 		location[0] = loc[0];
 		location[1] = loc[1];
@@ -54,16 +61,8 @@ public abstract class PickUp {
 		isActiveOnGrid = isActive;
 	}
 	
+	public PickUpType getType() {return type;}
 	public int[] getLocation() {return location;}
 	public boolean isActive() {return isActiveOnGrid;}
 	public void disable() {isActiveOnGrid = false;}
-	
-	/**
-	 * Apply whatever the pickup's ability is to the player.
-	 * 
-	 * Ammo: refills the spy's single bullet but does not give him an extra bullet if he already has one.
-	 * Radar: displays the location of the briefcase.
-	 * Invincibility: protects the spy from being stabbed by ninjas for five turns.
-	 */
-	public abstract void useAbility(); 
 }
