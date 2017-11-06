@@ -34,13 +34,23 @@ public class Spy {
 	 * The turns of invincibility left.
 	 */
 	private int invincibility=0;
+
+	/**
+	 * Creates a location object in Spy
+	 */
+	location loc = new location(0,0);
 	
 	
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
-	public void shoot() {
-		
+	public boolean shoot(ninja enemy) {
+		if(hasBullet) {
+			hasBullet = false;
+			
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -51,9 +61,9 @@ public class Spy {
 	}
 	
 	/**
-	 * The spy moves in the desired dirrection.
+	 * The spy moves in the desired direction
 	 */
-	public void move() {
+	public void move(int dir) {
 		if(invincibility>0) {
 			invincibility--;
 		}
