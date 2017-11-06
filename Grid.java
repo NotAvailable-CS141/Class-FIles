@@ -31,7 +31,13 @@ private boolean fogOfWar;
 	
 	public Grid(Space[][] grid)
 	{
-		
+		for(int i =0; i<9; i++)
+		{
+			for(int j =0; j<9; j++)
+		{
+			grid[i][j] = new Space();
+		}	
+		}
 	}
 	
 	/**
