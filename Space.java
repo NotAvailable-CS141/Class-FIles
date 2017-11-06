@@ -81,7 +81,7 @@ public class Space {
         
     }
     
-    public String toString(){
+    public String visual(){
         String spaceRepresentation;
         if(!visible)
         {
