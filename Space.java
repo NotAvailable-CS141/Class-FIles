@@ -20,9 +20,10 @@ public class Space {
 
     private int x;
     private int y;
+    private boolean hasPlayer;
     private boolean hasNinja;
     private boolean visible;
-    private pickUp pickUp;
+    private PickUp pickUp;
 
     public Space(int x, int y, Piece piece, Ninja ninja, pickUp pickUp, boolean visible) {
         this.x = x;
@@ -56,7 +57,7 @@ public class Space {
         
     }
 
-    public pickUp; getPickUp() {
+    public pickUp getPickUp() {
         return null;
     }
     
@@ -71,4 +72,39 @@ public class Space {
      public void setVisible() {
         
     }
+    
+    public String toString(){
+        String spaceRepresentation;
+        if(!visible)
+        {
+            spaceRepresentation = "*";
+        }
+        else
+        {
+        if(pickUp.getPickUp().equals("invulribility")
+           {
+               spaceRepresentation = "I";
+           }
+        else if(pickUp.getPickUp().equals("bullet")
+           {
+               spaceRepresentation = "B";
+           }
+        else if(pickUp.getPickUp().equals("radar")
+           {
+               spaceRepresentation = "R";
+           }
+        else if(hasNinja)
+           {
+                    spaceRepresentation = "N";
+           }
+        else if(hasPlayer)
+           {
+                    spaceRepresentation = "P";      
+           }
+        else
+           {
+                    spaceRepresentation = " ";
+           }
+        }
+     return "[" + spaceRepresentation + "]";
 }
