@@ -17,10 +17,8 @@
 package edu.cpp.cs.cs141.FinalProject;
 
  
-public class Room {
+public class Room extends Space{
 
-	private boolean visible;
-	
 	private boolean hasBriefcase;
 	
 	private boolean fogOfWar;
@@ -31,10 +29,10 @@ public class Room {
 	 * @param hasBriefcase
 	 * @param fogOfWar
 	 */
-	public Room(boolean hasBriefcase, boolean fogOfWar)
+	public Room(int x, int y, boolean hasBriefcase)
 	{
+		super(x,y);
 		this.hasBriefcase=hasBriefcase;
-		this.fogOfWar=fogOfWar;
 	}
 	
 	/**
