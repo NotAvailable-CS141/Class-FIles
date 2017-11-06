@@ -103,16 +103,25 @@ public class Space {
            }
         else if(hasNinja)
            {
-                    spaceRepresentation = "N";
+               spaceRepresentation = "N";
            }
         else if(hasPlayer)
            {
-                    spaceRepresentation = "P";      
+               spaceRepresentation = "P";      
            }
         else
            {
-                    spaceRepresentation = " ";
+               spaceRepresentation = " ";
            }
         }
+                if(this.getClass().equals("Room")
+           {
+               spaceRepresentation = "R";
+               if(this.getBriefCase())
+               {
+                   spaceRepresentation = "F";
+               }
+               
+           }
      return "[" + spaceRepresentation + "]";
 }
