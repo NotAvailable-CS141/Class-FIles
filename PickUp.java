@@ -25,7 +25,7 @@ package edu.cpp.cs.cs141.FinalProject;
 public class PickUp {
 	public static enum PickUpType{AMMO, RADAR, INVINCIBILITY}
 	
-	public PickUpType type;
+	private PickUpType type;
 	/**
 	 * The location of the item, represented by an array of length 2. 
 	 * First number represents what array it is in the grid, second 
