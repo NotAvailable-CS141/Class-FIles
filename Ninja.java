@@ -19,16 +19,12 @@ package edu.cpp.cs.cs141.FinalProject;
 
 public class Ninja {
 	
+	Location location = new Location(0, 0);
 	
-	/**
-	 * This will represent the horizontal coordinate of the ninja
-	 */
-	private int row;
-	
-	/**
-	 * This will represent the vertical coordinate of the ninja
-	 */
-	private int column;
+	public Ninja(int row, int column) {
+		
+		location.setLocation(row,column);
+	}
 	
 	/**
 	 *  The ninja will move in a random direction after checking to see if 
@@ -36,34 +32,6 @@ public class Ninja {
 	 */
 	public void move() {
 		
-	}
-
-	/**
-	 * @return the row the ninja is located
-	 */
-	public int getRow() {
-		return row;
-	}
-
-	/**
-	 * @param row the row to set for the ninja
-	 */
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	/**
-	 * @return the column the ninja is located
-	 */
-	public int getColumn() {
-		return column;
-	}
-
-	/**
-	 * @param column the column to set for the ninja
-	 */
-	public void setColumn(int column) {
-		this.column = column;
 	}
 	
 }
