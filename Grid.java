@@ -72,7 +72,7 @@ private boolean fogOfWar;
 		{
 			for(int j =0; j<9; j++)
 		{
-			board += grid[i][j];
+			board += grid[i][j].visual();
 		}	
 			board+= "\n";
 		}
