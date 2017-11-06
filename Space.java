@@ -25,12 +25,20 @@ public class Space {
     private boolean visible;
     private PickUp pickUp;
 
-    public Space(int x, int y, Piece piece, Ninja ninja, pickUp pickUp, boolean visible) {
+    public Space(int x, int y, boolean hasNinja, pickUp pickUp, boolean visible) {
         this.x = x;
         this.y = y;
         this.ninja = ninja;
         this.pickUp=pickUp;
         this.visible = visible;
+    }
+    
+     public Space(int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.ninja = false;
+        this.pickUp= null;
+        this.visible = false;
     }
     
     public int getY() {
