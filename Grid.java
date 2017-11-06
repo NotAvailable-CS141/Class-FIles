@@ -35,7 +35,12 @@ private boolean fogOfWar;
 		{
 			for(int j =0; j<9; j++)
 		{
-			grid[i][j] = new Space();
+				if(((i+1)%3==0) && ((j+1)%3==0)) 
+				{
+					grid[i][j] = new Room(i,j,false);
+				}
+					
+			grid[i][j] = new Space(i,j);
 		}	
 		}
 	}
