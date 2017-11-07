@@ -1,4 +1,4 @@
-package edu.cpp.cs.cs141.FinalProject;
+package edu.cpp.cs.cs141.project;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -33,8 +33,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		GameEngine engine = new GameEngine();
 		UserInterface ui = new UserInterface();
-		ui.start();
+		engine.startGame(ui);
 		
 	}
 
