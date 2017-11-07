@@ -1,4 +1,9 @@
 /**
+ * 
+ */
+package edu.cpp.cs.cs141.project;
+
+/**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
  *
@@ -14,8 +19,6 @@
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
-package edu.cpp.cs.cs141.FinalProject;
-
 public class GameEngine {
 	
 	/**
@@ -24,27 +27,83 @@ public class GameEngine {
 	private Spy spy;
 	private Ninja[] ninjas;
 	private PickUp[] pickups;
-	private Grid grid= new Grid();
+	private Grid grid = new Grid();
+	boolean playerDead = false;
+	boolean gameOver = false;
 	
 	int spyLives = 3;
-	
+	int randomX;
+	int randomY;
 	GameEngine(){
+		spy = new Spy();
+		ninjas = new Ninja[6];
+		for(int i = 0; i < ninjas.length; i++) {
+			ninjas[i] = new Ninja(randomX, randomY);
+		}
 	}
 	
 	/**
 	 * Methods
 	 */
+	
+	/**
+	 * The startGame method evaluates the user's choice that is displayed by the UserInterface method 
+	 * displayMainMenu(). If the user chose 1, a new game is started. If the user chose 2, UserInterface 
+	 * loadGameSave() method is called which returns the read information to the GameEngine. 
+	 * @param ui
+	 */
+	public void startGame(UserInterface ui) {
+		//Temporary grid display for testing
+		String strGrid = grid.visual();
+		ui.displayGrid(strGrid);
+		
+		//Actual game code
+		int mainMenuOption;
+		mainMenuOption = ui.displayMainMenu();
+		switch(mainMenuOption) {
+		case 1:
+			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
+			System.out.println(mainMenuOption);
+		case 2:
+			//Choosing 2 loads game save. ui.loadGameSave() should return the information
+			//read from file. Since it is not yet implemented, the return type is void.
+			
+			System.out.println(mainMenuOption);
+			//ui.loadGameSave();
+		default:
+			ui.displayUnexpectedError();
+			return; //Hands over control to Main which automatically exits program.
+		}
+		
+		
+	}
+	
+	/**
+	 * newGame() method is the main game loop when the user chooses to start a brand new game.
+	 */
+	public void newGame() {
+		
+	}
+	/**
+	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
+	 * @param gameData
+	 */
+	public void loadedGame(String gameData) {
+		
+	}
 	public boolean isGameOver(){
 		//Returns true if player has no more lives left, false otherwise
+		return gameOver;
 	}
 	
 	public boolean isPlayerDead() {
 		//Returns true if player's health is zero, false otherwise
+		return playerDead;
 	}
 	
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
-
+		
 	}
 	
 	public void pickUpPowerUp(){
@@ -56,7 +115,7 @@ public class GameEngine {
 		//Enables debug mode, lights are turned on in the building
 		
 	}
-
+	
 	/**
 	 * @return the grid
 	 */
@@ -70,7 +129,6 @@ public class GameEngine {
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
-	
 	
 
 }
