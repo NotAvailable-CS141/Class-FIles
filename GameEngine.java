@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.project;
+package edu.cpp.cs.cs141.FinalProject;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
