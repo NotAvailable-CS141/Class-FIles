@@ -61,6 +61,8 @@ public class PickUp {
 		isActiveOnGrid = isActive;
 	}
 	
+	
+	
 	public PickUpType getType() {return type;}
 	public int[] getLocation() {return location;}
 	public boolean isActive() {return isActiveOnGrid;}

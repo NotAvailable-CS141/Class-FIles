@@ -29,18 +29,26 @@ private boolean fogOfWar;
 	 * @param String
 	 */
 	
-	public Grid(Space[][] grid)
+	public Grid()
 	{
+		grid = new Space[9][9];
 		for(int i =0; i<9; i++)
 		{
 			for(int j =0; j<9; j++)
 		{
-				if(((i+1)%3==0) && ((j+1)%3==0)) 
+				if(((i+2)%3==0) && ((j+2)%3==0)) 
 				{
 					grid[i][j] = new Room(i,j,false);
+					//fill one of the rooms with a brief case
 				}
-					
-			grid[i][j] = new Space(i,j);
+				else {
+					grid[i][j] = new Space(i,j, false);
+					grid[i][j].setPickUp();
+					//Fill empty spaces randomly with drops
+					//Fill empty spaces with ninjas
+					//Fill the bottom left [8][0] with spy 
+				}
+				
 		}	
 		}
 	}
@@ -68,12 +76,14 @@ private boolean fogOfWar;
 	public String visual()
 	{
 		String board = "";
-		for(int i =0; i<9; i++)
-		{
+		for(int i =0; i<9; i++){
+		
 			for(int j =0; j<9; j++)
-		{
-			board += grid[i][j].visual();
-		}	
+			{
+				board += grid[i][j].toString();
+			}	
 			board+= "\n";
 		}
+	return board;
+   }
 }

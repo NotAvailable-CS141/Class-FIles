@@ -17,11 +17,14 @@
 
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.util.Scanner;
+
 public class UserInterface {
 	
-	UserInterface(){
-		
-	}
+	private GameEngine engine = new GameEngine();
+	private Scanner scan = new Scanner(System.in);
+	
+	
 	public void displayMainMenu() {
 		//Displays game menu at the start of the game
 	}
@@ -30,6 +33,12 @@ public class UserInterface {
 	}
 	public void displayGrid() {
 		//Displays game grid with all assets
+		
+		System.out.println(engine.getGrid().visual());
+		System.out.println("Word");
+		
+		
+		
 	}
 	public void displayStats() {
 		//Displays the statistics of the game such as lives left
@@ -45,6 +54,12 @@ public class UserInterface {
 	}
 	public void loadGameSave() {
 		//loads game save from file
+	}
+	public void start() {
+		// TODO Auto-generated method stub
+		displayGrid();
+		
+		
 	}
 
 }

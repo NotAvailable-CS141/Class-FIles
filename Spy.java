@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cpp.cs.cs141.finalProject;
+package edu.cpp.cs.cs141.FinalProject;
 
 /**
  * CS 141: Intro to Programming and Problem Solving
@@ -38,13 +38,13 @@ public class Spy {
 	/**
 	 * Creates a location object in Spy
 	 */
-	location loc = new location(0,0);
+	Location loc = new Location(8,0);
 	
 	
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
-	public boolean shoot(ninja enemy) {
+	public boolean shoot(Ninja enemy) {
 		if(hasBullet) {
 			hasBullet = false;
 			

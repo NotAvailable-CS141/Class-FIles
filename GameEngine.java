@@ -21,10 +21,10 @@ public class GameEngine {
 	/**
 	 * Fields
 	 */
-	Spy spy;
-	Ninja[] ninjas;
-	PickUp[] pickups;
-	Grid grid;
+	private Spy spy;
+	private Ninja[] ninjas;
+	private PickUp[] pickups;
+	private Grid grid= new Grid();
 	
 	int spyLives = 3;
 	
@@ -55,6 +55,20 @@ public class GameEngine {
 	public void debugMode() {
 		//Enables debug mode, lights are turned on in the building
 		
+	}
+
+	/**
+	 * @return the grid
+	 */
+	public Grid getGrid() {
+		return grid;
+	}
+
+	/**
+	 * @param grid the grid to set
+	 */
+	public void setGrid(Grid grid) {
+		this.grid = grid;
 	}
 	
 	

@@ -16,6 +16,8 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
+import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
+
 public class Space {
 
     private int x;
@@ -24,21 +26,28 @@ public class Space {
     private boolean hasNinja;
     private boolean visible;
     private PickUp pickUp;
+    private boolean isPickUp;
+    private boolean isRoom;
 
-    public Space(int x, int y, boolean hasNinja, pickUp pickUp, boolean visible) {
+    public Space(int x, int y, boolean hasNinja, PickUp pickUp, boolean visible, boolean isPick, boolean room) {
         this.x = x;
         this.y = y;
-        this.ninja = ninja;
+        this.hasNinja = hasNinja;
         this.pickUp=pickUp;
         this.visible = visible;
+        isPickUp = isPick;
+        isRoom =room;
     }
     
-     public Space(int x, int y) {
+     public Space(int x, int y, boolean isRoom) {
         this.x = x;
         this.y = y;
-        this.ninja = false;
-        this.pickUp= null;
+        this.hasNinja = false;
+       // this.pickUp= null;
         this.visible = false;
+        this.isPickUp = false;
+        this.isRoom=isRoom;
+        hasPlayer = false;
     }
     
     public int getY() {
@@ -65,12 +74,12 @@ public class Space {
         
     }
 
-    public pickUp getPickUp() {
+    public PickUp getPickUp() {
         return null;
     }
     
      public void setPickUp() {
-        
+    	
     }
 
     public boolean getVisible() {
@@ -81,47 +90,58 @@ public class Space {
         
     }
     
-    public String visual(){
+    /**
+     * @return
+     */
+    /**
+     * @return
+     */
+    public String toString(){
         String spaceRepresentation;
         if(!visible)
+        	//add debug mode boolean
         {
             spaceRepresentation = "*";
         }
-        else
-        {
-        if(pickUp.getPickUp().equals("invulribility")
-           {
-               spaceRepresentation = "I";
-           }
-        else if(pickUp.getPickUp().equals("bullet")
-           {
-               spaceRepresentation = "B";
-           }
-        else if(pickUp.getPickUp().equals("radar")
-           {
-               spaceRepresentation = "R";
-           }
-        else if(hasNinja)
-           {
-               spaceRepresentation = "N";
-           }
-        else if(hasPlayer)
-           {
-               spaceRepresentation = "P";      
-           }
-        else
-           {
-               spaceRepresentation = " ";
-           }
+        else  {
+        	if(isPickUp) {
+        		
+        		switch(pickUp.getType()) {
+        		case RADAR:
+        			spaceRepresentation = "R";
+        			break;
+        		case AMMO:
+        			spaceRepresentation = "B";
+        			break;
+        		case INVINCIBILITY:
+        			spaceRepresentation = "I";
+        			break;
+        		default: 
+        			break;
+       	
+        	    }		
+        	}
+        	 if(hasNinja)
+             {
+                 spaceRepresentation = "N";
+             }
+          else if(hasPlayer)
+             {
+                 spaceRepresentation = "P";      
+             }
+          else
+             {
+                 spaceRepresentation = " ";
+             }
+          
         }
-                if(this.getClass().equals("Room")
-           {
-               spaceRepresentation = "R";
-               if(this.getBriefCase())
-               {
-                   spaceRepresentation = "F";
-               }
-               
-           }
+        
+        if(isRoom) {
+            
+          	spaceRepresentation = "#";
+              //Briefcase room for debug   
+          }   	
+        
      return "[" + spaceRepresentation + "]";
+    }
 }
