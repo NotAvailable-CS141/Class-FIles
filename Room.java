@@ -32,7 +32,7 @@ public class Room extends Space{
 	public Room(int x, int y, boolean hasBriefcase)
 	{
 		super(x,y, true);
-		this.hasBriefcase=hasBriefcase;
+		this.hasBriefcase = hasBriefcase;
 	}
 	
 	/**

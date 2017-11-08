@@ -16,32 +16,19 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
-/**
- * Represents the various pickups in the game:
- * Radar, Ammo, and Invincibility
- * 
- * @author Zhihang Yao(Evan)
- */
 public class PickUp {
+	
+	Location location;
+	
 	public static enum PickUpType{AMMO, RADAR, INVINCIBILITY}
 	
 	private PickUpType type;
-	/**
-	 * The location of the item, represented by an array of length 2. 
-	 * First number represents what array it is in the grid, second 
-	 */
-	private int[] location;
 	
 	/**
 	 * Represents whether the pickup has not been touched by the player.
 	 * Remains true until the player touches it, to which it then becomes false, and the object despawns.
 	 */
 	private boolean isActiveOnGrid;
-	
-	public PickUp() {
-		location = new int[2];
-		isActiveOnGrid = false;
-	}
 	
 	/**
 	 * @param p 
@@ -51,20 +38,15 @@ public class PickUp {
 	 * @param isActive 
 	 * 		@see isActiveOnGrid
 	 */
-	public PickUp(PickUpType p, int[] loc, boolean isActive) {
+	public PickUp(PickUpType p, int x, int y, boolean isActive) {
 		type = p;
 		
-		location = new int[2];
-		location[0] = loc[0];
-		location[1] = loc[1];
+		location = new Location(x,y);
 		
 		isActiveOnGrid = isActive;
 	}
 	
-	
-	
 	public PickUpType getType() {return type;}
-	public int[] getLocation() {return location;}
 	public boolean isActive() {return isActiveOnGrid;}
 	public void disable() {isActiveOnGrid = false;}
 }

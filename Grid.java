@@ -16,7 +16,7 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
-import java.lang.reflect.Array;
+import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
 public class Grid {
 
@@ -35,27 +35,76 @@ private boolean fogOfWar;
 		for(int i =0; i<9; i++)
 		{
 			for(int j =0; j<9; j++)
-		{
+			{
 				if(((i+2)%3==0) && ((j+2)%3==0)) 
 				{
 					grid[i][j] = new Room(i,j,false);
-					//fill one of the rooms with a brief case
 				}
 				else {
 					grid[i][j] = new Space(i,j, false);
-					grid[i][j].setPickUp();
-					//Fill empty spaces randomly with drops
-					//Fill empty spaces with ninjas
-					//Fill the bottom left [8][0] with spy 
 				}
-				
-		}	
+			}	
 		}
+		placeEverything();
+	}
+		
+	public void placeEverything()
+	{
+		grid[8][0].setPlayer(true);
+		placePickUps();
+		placeNinjas();	
+		placeBriefcase();
 	}
 	
-	/**
-	 * checks to see if there are and other units in the room to trigger an event
-	 */
+	public void placeBriefcase() {
+		boolean hasPlacedBriefCase = false;
+		do {
+			int xPos = (int)(Math.random() * 9);
+			int yPos = (int)(Math.random() * 9);
+			if(grid[xPos][yPos].isRoom()) {
+				//Make the room have a briefcase
+				hasPlacedBriefCase = true;
+			}
+		}while(!hasPlacedBriefCase);
+		
+	}
+	
+	public void placePickUps() {
+		int numberOfPowerUps = 3;
+		do{
+			int xPos = (int)(Math.random() * 9);
+			int yPos = (int)(Math.random() * 9);		
+			if(grid[xPos][yPos].isRoom() || grid[xPos][yPos].hasPlayer() || grid[xPos][yPos].hasPickUp()){	
+			}else
+				{
+					if(numberOfPowerUps == 3)
+						grid[xPos][yPos].makePickUp(xPos,yPos, PickUpType.RADAR);
+					if(numberOfPowerUps == 2)
+						grid[xPos][yPos].makePickUp(xPos,yPos, PickUpType.AMMO);
+					if(numberOfPowerUps == 1)
+						grid[xPos][yPos].makePickUp(xPos,yPos, PickUpType.INVINCIBILITY);
+					numberOfPowerUps--;
+				}
+		  }
+		  while(numberOfPowerUps > 0);
+	}
+	
+	public void placeNinjas() {
+		int numberOfNinjas = 6;
+		do{
+			int xPos = (int)(Math.random() * 9);
+			int yPos = (int)(Math.random() * 9);
+			
+			if(grid[xPos][yPos].isRoom() || grid[xPos][yPos].hasPlayer() || grid[xPos][yPos].hasNinja() || (xPos > 5 && yPos < 3)){
+			}
+				else
+				{
+					grid[xPos][yPos].setNinja(true);
+					numberOfNinjas--;
+				}
+		  }
+		  while(numberOfNinjas > 0);
+	}
 	
 	/**
 	 * show some nice ascii art for a map

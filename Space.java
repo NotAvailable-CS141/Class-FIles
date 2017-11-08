@@ -33,115 +33,97 @@ public class Space {
         this.x = x;
         this.y = y;
         this.hasNinja = hasNinja;
-        this.pickUp=pickUp;
         this.visible = visible;
         isPickUp = isPick;
-        isRoom =room;
+        isRoom = room;
     }
     
      public Space(int x, int y, boolean isRoom) {
         this.x = x;
         this.y = y;
         this.hasNinja = false;
-       // this.pickUp= null;
         this.visible = false;
         this.isPickUp = false;
-        this.isRoom=isRoom;
+        this.isRoom = isRoom;
         hasPlayer = false;
     }
-    
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public boolean getNinja() {
-       return false;
-    }
-
-    public void setNinja() {
-        
-    }
-
-    public PickUp getPickUp() {
-        return null;
+     
+     public void makePickUp(int x, int y, PickUpType a) {
+    	 isPickUp = true;
+         pickUp = new PickUp(a,x,y,true);
+     }
+     
+     public void setPlayer(boolean a) {
+    	 hasPlayer = a;
+     }
+     
+    public boolean hasPlayer() {
+    	if(hasPlayer) {
+    		return true;
+    	}
+    	return false;
     }
     
-     public void setPickUp() {
-    	
+    public boolean isRoom() {
+    	if(isRoom) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean hasPickUp() {
+    	if(isPickUp) {
+    		return true;
+    	}
+    	return false;
     }
 
-    public boolean getVisible() {
-        return false;
+    public boolean hasNinja() {
+    	if(hasNinja) {
+    		return true;
+    	}
+    	return false;
+    }
+
+    public void setNinja(boolean a) {
+    	hasNinja = a;
     }
     
-     public void setVisible() {
-        
-    }
-    
-    /**
-     * @return
-     */
-    /**
-     * @return
-     */
-    public String toString(){
-        String spaceRepresentation;
-        if(!visible)
-        	//add debug mode boolean
-        {
-            spaceRepresentation = "*";
-        }
-        else  {
-        	if(isPickUp) {
-        		
-        		switch(pickUp.getType()) {
-        		case RADAR:
-        			spaceRepresentation = "R";
-        			break;
-        		case AMMO:
-        			spaceRepresentation = "B";
-        			break;
-        		case INVINCIBILITY:
-        			spaceRepresentation = "I";
-        			break;
-        		default: 
-        			break;
-       	
-        	    }		
-        	}
-        	 if(hasNinja)
-             {
-                 spaceRepresentation = "N";
-             }
-          else if(hasPlayer)
-             {
-                 spaceRepresentation = "P";      
-             }
-          else
-             {
-                 spaceRepresentation = " ";
-             }
-          
-        }
-        
-        if(isRoom) {
-            
-          	spaceRepresentation = "#";
-              //Briefcase room for debug   
-          }   	
-        
-     return "[" + spaceRepresentation + "]";
-    }
+     public String toString(){
+         String spaceRepresentation="";
+         if(visible) //automatically in debug for checkpoint
+         {
+             spaceRepresentation = "*";
+         }
+         else  {
+              if(isPickUp) {
+                  switch(pickUp.getType()) {
+                  case RADAR:
+                      spaceRepresentation = "R";
+                      break;
+                  case AMMO:
+                      spaceRepresentation = "A";
+                      break;
+                  case INVINCIBILITY:
+                      spaceRepresentation = "I";
+                      break;
+                }
+              }
+              if(hasNinja){
+                  spaceRepresentation += ",N";
+              }
+              if(hasPlayer){
+                  spaceRepresentation = "S";
+              }
+              if(isRoom) {
+               spaceRepresentation = "#";
+               //Briefcase room for debug
+           }
+         	 }
+         if(spaceRepresentation.equals("")) {
+             spaceRepresentation = " ";
+         }
+      return "[" + spaceRepresentation + "]";
+     }
 }
+
