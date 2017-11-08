@@ -22,7 +22,7 @@ public class Grid {
 
 private Space[][] grid;
 	
-private boolean fogOfWar;
+//private boolean fogOfWar;
 
 	/**
 	 * creates a grid of strings that represent different units
@@ -38,7 +38,7 @@ private boolean fogOfWar;
 			{
 				if(((i+2)%3==0) && ((j+2)%3==0)) 
 				{
-					grid[i][j] = new Room(i,j,false);
+					grid[i][j] = new Space(i,j,true);
 				}
 				else {
 					grid[i][j] = new Space(i,j, false);
@@ -62,7 +62,7 @@ private boolean fogOfWar;
 			int xPos = (int)(Math.random() * 9);
 			int yPos = (int)(Math.random() * 9);
 			if(grid[xPos][yPos].isRoom()) {
-				//Make the room have a briefcase
+				grid[xPos][yPos].setBriefcase(true);
 				hasPlacedBriefCase = true;
 			}
 		}while(!hasPlacedBriefCase);

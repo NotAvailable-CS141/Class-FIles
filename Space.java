@@ -29,14 +29,16 @@ public class Space {
     private boolean isPickUp;
     private boolean isRoom;
 
-    public Space(int x, int y, boolean hasNinja, PickUp pickUp, boolean visible, boolean isPick, boolean room) {
-        this.x = x;
-        this.y = y;
-        this.hasNinja = hasNinja;
-        this.visible = visible;
-        isPickUp = isPick;
-        isRoom = room;
-    }
+    private boolean hasBriefcase;
+    
+    //public Space(int x, int y, boolean hasNinja, PickUp pickUp, boolean visible, boolean isPick, boolean room) {
+    //    this.x = x;
+    //    this.y = y;
+    //    this.hasNinja = hasNinja;
+    //    this.visible = visible;
+    //    isPickUp = isPick;
+    //    isRoom = room;
+    //}
     
      public Space(int x, int y, boolean isRoom) {
         this.x = x;
@@ -46,7 +48,12 @@ public class Space {
         this.isPickUp = false;
         this.isRoom = isRoom;
         hasPlayer = false;
+        hasBriefcase = false;
     }
+     
+     public void setBriefcase(boolean a) {
+    	 hasBriefcase = a;
+     }
      
      public void makePickUp(int x, int y, PickUpType a) {
     	 isPickUp = true;
@@ -110,16 +117,17 @@ public class Space {
                 }
               }
               if(hasNinja){
-                  spaceRepresentation += ",N";
+                  spaceRepresentation += "N";
               }
               if(hasPlayer){
                   spaceRepresentation = "S";
               }
-              if(isRoom) {
-               spaceRepresentation = "#";
-               //Briefcase room for debug
-           }
-         	 }
+              if(hasBriefcase) {
+            	  spaceRepresentation = "B";
+              }else if(isRoom) {
+            	  spaceRepresentation = "#";
+              }
+           }        	 
          if(spaceRepresentation.equals("")) {
              spaceRepresentation = " ";
          }
