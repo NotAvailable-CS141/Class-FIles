@@ -15,19 +15,19 @@
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
 
-package edu.cpp.cs.cs141.project;
+package edu.cpp.cs.cs141.FinalProject;
 
 import java.util.Scanner;
 
 public class UserInterface {
-	Scanner sc;
-	UserInterface(){
-		sc = new Scanner(System.in);
-	}
+	
+	Scanner sc = new Scanner(System.in);
+	
 	public int getPlayerChoice() {
 		
-		int playerChoice = sc.nextInt();
+	    int playerChoice = sc.nextInt();
 		return playerChoice;
+		//exception Handle
 	}
 	
 	/**
@@ -42,25 +42,30 @@ public class UserInterface {
 	 */
 	public int displayMainMenu() {
 		
-		int playerChoice = 0;
-		
-		while(playerChoice == 0) {
+		boolean playerInput = false;
+		int playerChoice;
+		while(!playerInput) {
 			System.out.println("1. Start New Game.");
 			System.out.println("2. Load Game Save");
 			System.out.println("3. Help.");
-			System.out.println("Press any other key to Exit the game.");
+			System.out.println("4. Exit the game.");
 			
 			playerChoice = getPlayerChoice();
+			
 			switch (playerChoice) {
-			case 1: 
+			case 1:				
 				return playerChoice;
 			case 2:
 				return playerChoice;
 			case 3:
 				displayHelp();
-			default:
+				break;
+			case 4:
 				System.out.println("Exiting Game!");
 				System.exit(0);
+			default:
+				System.out.println("Invalid option. Please try again...");
+				break;
 			}
 		}
 		return 0;
@@ -74,7 +79,7 @@ public class UserInterface {
 	}
 	public void displayGrid(String grid) {
 		//Displays game grid with all assets
-		System.out.print(grid);
+		System.out.println(grid);
 	}
 	public void displayStats() {
 		//Displays the statistics of the game such as lives left
@@ -94,6 +99,11 @@ public class UserInterface {
 	}
 	public void loadGameSave() {
 		//loads game save from file
+	}
+
+	public void nextMove() {
+		System.out.println("What would you like to do next? Wack off?");
+		
 	}
 
 }

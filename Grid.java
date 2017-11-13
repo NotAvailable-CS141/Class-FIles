@@ -39,6 +39,7 @@ private Space[][] grid;
 				if(((i+2)%3==0) && ((j+2)%3==0)) 
 				{
 					grid[i][j] = new Space(i,j,true);
+					grid[i][j].setVisible(true);
 				}
 				else {
 					grid[i][j] = new Space(i,j, false);
@@ -119,7 +120,14 @@ private Space[][] grid;
 	 */
 	public void debug()
 	{
-		
+		for(int i =0; i<9; i++){
+			
+			for(int j =0; j<9; j++)
+			{
+				grid[i][j].setVisible(true);
+			}	
+		}
+		visual();
 	}
 	
 	public String visual()
@@ -135,4 +143,8 @@ private Space[][] grid;
 		}
 	return board;
    }
+	
+	public Space[][] getGrid() {
+		return grid;
+	}
 }

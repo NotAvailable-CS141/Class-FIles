@@ -27,19 +27,20 @@ public class GameEngine {
 	private Spy spy;
 	private Ninja[] ninjas;
 	private PickUp[] pickups;
-	private Grid grid = new Grid();
+	private Grid grid;
+	private UserInterface ui;
 	boolean playerDead = false;
 	boolean gameOver = false;
+
 	
-	int spyLives = 3;
-	int randomX;
-	int randomY;
+
 	GameEngine(){
+		ui = new UserInterface();
+		grid = new Grid();
 		spy = new Spy();
+		pickups = new PickUp[3];
 		ninjas = new Ninja[6];
-		for(int i = 0; i < ninjas.length; i++) {
-			ninjas[i] = new Ninja(randomX, randomY);
-		}
+		createEntities();
 	}
 	
 	/**
@@ -52,10 +53,10 @@ public class GameEngine {
 	 * loadGameSave() method is called which returns the read information to the GameEngine. 
 	 * @param ui
 	 */
-	public void startGame(UserInterface ui) {
+	public void startGame() {
 		//Temporary grid display for testing
-		String strGrid = grid.visual();
-		ui.displayGrid(strGrid);
+		
+		
 		
 		//Actual game code
 		int mainMenuOption;
@@ -63,16 +64,19 @@ public class GameEngine {
 		switch(mainMenuOption) {
 		case 1:
 			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
-			System.out.println(mainMenuOption);
+			newGame();
+			break;
 		case 2:
 			//Choosing 2 loads game save. ui.loadGameSave() should return the information
 			//read from file. Since it is not yet implemented, the return type is void.
 			
 			System.out.println(mainMenuOption);
 			//ui.loadGameSave();
+			break;
 		default:
+			System.out.println(mainMenuOption);
 			ui.displayUnexpectedError();
-			return; //Hands over control to Main which automatically exits program.
+			break; //Hands over control to Main which automatically exits program.
 		}
 		
 		
@@ -82,6 +86,10 @@ public class GameEngine {
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
 	public void newGame() {
+		while(!gameOver) {
+			ui.displayGrid(grid.visual());
+			ui.nextMove();
+		}
 		
 	}
 	/**
@@ -129,6 +137,26 @@ public class GameEngine {
 	public void setGrid(Grid grid) {
 		this.grid = grid;
 	}
+
+	public void createEntities() {
+		int ninjaCounter=0;
+		int pickCounter=0;
+		//loops thru grid
+		for(int x=0; x<9; x++) {
+			for(int y=0; y<9; y++) {
+				if(grid.getGrid()[x][y].hasNinja()) {
+					//makes ninja at each grid location
+					ninjas[ninjaCounter] = new Ninja(x,y);
+					ninjaCounter++;
+				}
+				//makes pickups at grid location
+				if(grid.getGrid()[x][y].hasPickUp()) {
+					pickups[pickCounter] = grid.getGrid()[x][y].getPickUp();
+					pickCounter++;
+				}
 	
+			}
+		}
+	}
 
 }

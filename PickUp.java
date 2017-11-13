@@ -33,8 +33,8 @@ public class PickUp {
 	/**
 	 * @param p 
 	 * 		The type of the pickup
-	 * @param x, y 
-	 * 		The x and y coordinates used to indicate the location of the Pickup
+	 * @param loc 
+	 * 		An array of length 2 representing the coordinates of the object @see location
 	 * @param isActive 
 	 * 		@see isActiveOnGrid
 	 */

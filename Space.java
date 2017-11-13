@@ -84,6 +84,10 @@ public class Space {
     	}
     	return false;
     }
+    
+    public PickUp getPickUp() {
+    	return pickUp;
+    }
 
     public boolean hasNinja() {
     	if(hasNinja) {
@@ -98,9 +102,12 @@ public class Space {
     
      public String toString(){
          String spaceRepresentation="";
-         if(visible) //automatically in debug for checkpoint
+         if(!visible) //automatically in debug for checkpoint
          {
              spaceRepresentation = "*";
+             if(hasPlayer){
+                 spaceRepresentation = "S";
+             }
          }
          else  {
               if(isPickUp) {
@@ -117,14 +124,12 @@ public class Space {
                 }
               }
               if(hasNinja){
-                  spaceRepresentation += "N";
+                  spaceRepresentation = "N";
               }
               if(hasPlayer){
                   spaceRepresentation = "S";
               }
-              if(hasBriefcase) {
-            	  spaceRepresentation = "B";
-              }else if(isRoom) {
+              if(isRoom) {
             	  spaceRepresentation = "#";
               }
            }        	 
@@ -133,5 +138,10 @@ public class Space {
          }
       return "[" + spaceRepresentation + "]";
      }
+
+	public void setVisible(boolean b) {
+		visible = b;
+		
+	}
 }
 
