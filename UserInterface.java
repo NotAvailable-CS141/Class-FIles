@@ -76,6 +76,7 @@ public class UserInterface {
 		System.out.println("from a building that is pitch black. There are also ninjas patrolling the building.");
 		System.out.println("The building has 9 rooms, which only one has the precious briefcase containing the documents.");
 		System.out.println("");
+		//Create and display a legend (Spy = S , Ninja = N, etc)
 	}
 	public void displayGrid(String grid) {
 		//Displays game grid with all assets
@@ -101,9 +102,18 @@ public class UserInterface {
 		//loads game save from file
 	}
 
-	public void nextMove() {
-		System.out.println("What would you like to do next? Wack off?");
+	public int getMove() {
+		//First ask which direction w' getDirection()
+		//Then ask what action.
+		//Use getPlayerChoice() for user input and use displayMainMenu() as reference for design
+		System.out.println("What would you like to do next?" + "\n" +
+							"1. ");
 		
+	}
+
+	public int getDirection() {
+		// asks for direction
+		return 0;
 	}
 
 }

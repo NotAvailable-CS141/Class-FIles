@@ -54,9 +54,6 @@ public class GameEngine {
 	 * @param ui
 	 */
 	public void startGame() {
-		//Temporary grid display for testing
-		
-		
 		
 		//Actual game code
 		int mainMenuOption;
@@ -78,8 +75,6 @@ public class GameEngine {
 			ui.displayUnexpectedError();
 			break; //Hands over control to Main which automatically exits program.
 		}
-		
-		
 	}
 	
 	/**
@@ -88,10 +83,16 @@ public class GameEngine {
 	public void newGame() {
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
-			ui.nextMove();
-		}
+			nextMove(ui.getDirection(), ui.nextMove());
+		}	
+	}
+	private void nextMove(int x, int y) {
+		//Direction int x
+		//Action int y
+		
 		
 	}
+
 	/**
 	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
 	 * @param gameData
