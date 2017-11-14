@@ -147,4 +147,22 @@ private Space[][] grid;
 	public Space[][] getGrid() {
 		return grid;
 	}
+	
+	public boolean isValidMove(Location start, Location end) {
+		if (end.getRow() > 8 || end.getCol() > 8 || end.getRow() < 0 || end.getCol() < 0) {
+			return false;
+		}
+		
+		if(grid[end.getRow()][end.getCol()].isRoom()) {
+			if(start.getRow()+1 != end.getRow() || start.getCol() != end.getCol()) {
+				return true;
+			}	
+		}
+		
+		if(grid[end.getRow()][end.getCol()].hasNinja()) {
+			return false;
+		}	
+		
+		return true;
+	}
 }
