@@ -130,8 +130,7 @@ private Space[][] grid;
 		visual();
 	}
 	
-	public String visual()
-	{
+	public String visual() {
 		String board = "";
 		for(int i =0; i<9; i++){
 		
@@ -142,7 +141,7 @@ private Space[][] grid;
 			board+= "\n";
 		}
 	return board;
-   }
+	}
 	
 	public Space[][] getGrid() {
 		return grid;
@@ -155,7 +154,7 @@ private Space[][] grid;
 		
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
 			if(start.getRow()+1 != end.getRow() || start.getCol() != end.getCol()) {
-				return false;
+				return true;
 			}	
 		}
 		

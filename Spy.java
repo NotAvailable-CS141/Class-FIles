@@ -40,7 +40,7 @@ public class Spy {
 	 */
 	Location loc = new Location(8,0);
 	
-	
+	public Location getLocation(){ return loc;}
 	/**
 	 * Allows the spy to shoot an enemy
 	 */

@@ -39,4 +39,17 @@ public class Location {
 		return array;
 	}
 	
+	public int getRow() {return row;}
+	public int getCol() {return column;}
+	
+	
+	/**
+	 * Checks whether one location(this) is adjacent to the other(l).
+	 * 
+	 * @param l the location this is being compared to.
+	 * @return whether l is adjacent to this
+	 */
+	public boolean adjacentTo(Location l) {
+		return Math.abs(getCol() - l.getCol()) == 1 && Math.abs(getRow() - l.getRow()) == 1;
+	}
 }

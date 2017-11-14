@@ -22,16 +22,17 @@ public class Ninja {
 	Location location = new Location(0, 0);
 	
 	public Ninja(int row, int column) {
-		
 		location.setLocation(row,column);
 	}
+	
+	public Location getLocation() {return location;}
 	
 	/**
 	 *  The ninja will move in a random direction after checking to see if 
 	 *  the spy is adjacent to it.
 	 */
-	public void move() {
-		
+	public void moveTo(Location l) {
+		location = l;
 	}
 	
 }

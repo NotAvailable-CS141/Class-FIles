@@ -54,6 +54,9 @@ public class GameEngine {
 	 * @param ui
 	 */
 	public void startGame() {
+		//Temporary grid display for testing
+		
+		
 		
 		//Actual game code
 		int mainMenuOption;
@@ -75,6 +78,8 @@ public class GameEngine {
 			ui.displayUnexpectedError();
 			break; //Hands over control to Main which automatically exits program.
 		}
+		
+		
 	}
 	
 	/**
@@ -83,16 +88,10 @@ public class GameEngine {
 	public void newGame() {
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
-			nextMove(ui.getDirection(), ui.nextMove());
-		}	
-	}
-	private void nextMove(int x, int y) {
-		//Direction int x
-		//Action int y
-		
+			ui.nextMove();
+		}
 		
 	}
-
 	/**
 	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
 	 * @param gameData
@@ -159,5 +158,38 @@ public class GameEngine {
 			}
 		}
 	}
-
+	
+	public void moveNinjas() {
+		for(Ninja n : ninjas) {
+			if(n.getLocation().adjacentTo(spy.getLocation())) {
+				//stabs the spy
+			}
+			
+			int direction;
+			int nRow = n.getLocation().getRow();
+			int nCol = n.getLocation().getCol();
+			Location endLoc = new Location(-1, -1);
+			
+			do {
+				direction = (int)(Math.random()*4) + 1;
+				switch(direction) {
+					case 1://up
+						endLoc = new Location(nRow-1, nCol);
+						break;
+					case 2://right
+						endLoc = new Location(nRow, nCol+1);
+						break;
+					case 3://down
+						endLoc = new Location(nRow+1, nCol);
+						break;
+					case 4://left
+						endLoc = new Location(nRow, nCol-1);
+						break;
+					default: break;
+				}
+			}while(grid.isValidMove(n.getLocation(), endLoc));
+				
+			n.moveTo(endLoc);	
+		}
+	}
 }
