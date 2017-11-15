@@ -83,6 +83,7 @@ public class GameEngine {
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
 	public void newGame() {
+		grid.debug();
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet());
@@ -308,7 +309,7 @@ public class GameEngine {
 						break;
 					default: break;
 				}
-			}while(grid.isValidMove(n.getLocation(), endLoc));
+			}while(!grid.isValidMove(n.getLocation(), endLoc));
 				
 			n.moveTo(endLoc);
 			grid.getGrid()[nRow][nCol].setNinja(false);

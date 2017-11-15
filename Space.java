@@ -110,27 +110,28 @@ public class Space {
              }
          }
          else  {
+        	 spaceRepresentation = "-";
               if(isPickUp) {
                   switch(pickUp.getType()) {
-                  case RADAR:
-                      spaceRepresentation = "R";
-                      break;
-                  case AMMO:
-                      spaceRepresentation = "A";
-                      break;
-                  case INVINCIBILITY:
-                      spaceRepresentation = "I";
-                      break;
-                }
+	                  case RADAR:
+	                      spaceRepresentation = "R";
+	                      break;
+	                  case AMMO:
+	                      spaceRepresentation = "A";
+	                      break;
+	                  case INVINCIBILITY:
+	                      spaceRepresentation = "I";
+	                      break;
+                  }
               }
               if(hasNinja){
                   spaceRepresentation = "N";
               }
-              if(hasPlayer){
-                  spaceRepresentation = "S";
-              }
               if(isRoom) {
             	  spaceRepresentation = "#";
+              }
+              if(hasPlayer){
+                  spaceRepresentation = "S";
               }
            }        	 
          if(spaceRepresentation.equals("")) {
