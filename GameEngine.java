@@ -229,6 +229,14 @@ public class GameEngine {
 		for(Ninja n : ninjas) {
 			if(n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
+				spy.takeDamage();
+				if(spy.getLives() <= 0) {
+					gameOver = true;
+				}
+				//moves the spy back to spawn point
+				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
+				spy.setLocation(new Location(0,0));
+				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 			}
 			
 			int direction;
@@ -255,7 +263,9 @@ public class GameEngine {
 				}
 			}while(grid.isValidMove(n.getLocation(), endLoc));
 				
-			n.moveTo(endLoc);	
+			n.moveTo(endLoc);
+			grid.getGrid()[nRow][nCol].setNinja(false);
+			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);
 		}
 	}
 }
