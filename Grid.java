@@ -161,9 +161,6 @@ private Space[][] grid;
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
 			if(start.getRow()!= end.getRow() || start.getCol() != end.getCol()) {
 				return false;
-			}	
-			else if (start.getRow()){
-				
 			}
 		}
 		
@@ -172,8 +169,8 @@ private Space[][] grid;
 		}
 		
 		if(grid[end.getRow()][end.getCol()].hasPlayer()) {
-            return false;
-        }
+            		return false;
+       		}
 		return true;
 	}
 }
