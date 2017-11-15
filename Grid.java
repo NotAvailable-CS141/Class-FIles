@@ -160,7 +160,11 @@ private Space[][] grid;
 		
 		if(grid[end.getRow()][end.getCol()].hasNinja()) {
 			return false;
-		}	
+		}
+		
+		if(grid[end.getRow()][end.getCol()].hasPlayer()) {
+			return false;
+		}
 		
 		return true;
 	}
