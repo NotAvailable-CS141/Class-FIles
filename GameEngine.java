@@ -88,76 +88,95 @@ public class GameEngine {
 			ui.displayStats(spy.getLives(), spy.hasBullet());
 			int playerMove = ui.getMove();
 			
-			
 			//MOVING
 			if (playerMove == 1) {
-				int playerDirection = ui.getDirection();
-				//Check the position to the right of the spy in the grid 
-				if (playerDirection == 1) {
-					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
-					Location futureLoc = new Location(spy.getLocation().getCol()+1, spy.getLocation().getRow());
-					
-					if(grid.isValidMove(currentLoc, futureLoc)) {
-						spy.move(1);
-						grid.movePlayer(currentLoc, futureLoc);
-					}
-				}
-				//Check the position to the left of the spy in the grid 
-				else if(playerDirection == 2) {
-					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
-					Location futureLoc = new Location(spy.getLocation().getCol()-1, spy.getLocation().getRow());
-					if(grid.isValidMove(currentLoc, futureLoc)) {
-						spy.move(2);
-						grid.movePlayer(currentLoc, futureLoc);
-					}
-				}
-				else if(playerDirection == 3) {
-					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
-					Location futureLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow()-1);
-					if(grid.isValidMove(currentLoc, futureLoc)) {
-						spy.move(3);
-						grid.movePlayer(currentLoc, futureLoc);
-					}
-				}
-				else if(playerDirection == 4) {
-					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
-					Location futureLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow()+1);
-					if(grid.isValidMove(currentLoc, futureLoc)) {
-						spy.move(4);
-						grid.movePlayer(currentLoc, futureLoc);
-					}
-				}
-				
+				spyMove();
 			}
 			//SHOOTING
 			else if(playerMove == 2) {
-				int playerDirection = ui.getDirection();
-				//Check the position to the right of the spy in the grid 
-				if (playerDirection == 1) {
-					spy.shoot();
-				}
-				//Check the position to the left of the spy in the grid 
-				else if(playerDirection == 2) {
-					spy.shoot();
-				}
-				else if(playerDirection == 3) {
-					spy.shoot();
-				}
-				else if(playerDirection == 4) {
-					spy.shoot();
-				}
+				spyShoot();
 			}
 			
 			//LOOKING
 			else if(playerMove == 3) {
-				int playerDirection = ui.getDirection();
-				//Check the position to the right of the spy in the grid 
-					grid.look(spy.getLocation(), playerDirection);
-				
+				spyLook();
 			}
 		}
-		
 	}
+
+	public void spyMove() {
+		int playerDirection = ui.getDirection();
+		//Check the position to the right of the spy in the grid 
+		if (playerDirection == 1) {//right
+			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
+			Location futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()+1);
+			
+			if(!grid.isValidMove(currentLoc, futureLoc)) {
+				ui.displayInvalidMoveError();
+			}
+			if(grid.isValidMove(currentLoc, futureLoc)) {
+				spy.move(1);
+				grid.movePlayer(currentLoc, futureLoc);
+			}
+		}
+		//Check the position to the left of the spy in the grid 
+		else if(playerDirection == 2) {//left
+			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
+			Location futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()-1);
+			if(!grid.isValidMove(currentLoc, futureLoc)) {
+				ui.displayInvalidMoveError();
+			}
+			if(grid.isValidMove(currentLoc, futureLoc)) {
+				spy.move(2);
+				grid.movePlayer(currentLoc, futureLoc);
+			}
+		}
+		else if(playerDirection == 3) {//up
+			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
+			Location futureLoc = new Location(spy.getLocation().getRow()-1, spy.getLocation().getCol());
+			if(!grid.isValidMove(currentLoc, futureLoc)) {
+				ui.displayInvalidMoveError();
+			}
+			if(grid.isValidMove(currentLoc, futureLoc)) {
+				spy.move(3);
+				grid.movePlayer(currentLoc, futureLoc);
+			}
+		}
+		else if(playerDirection == 4) {//down
+			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
+			Location futureLoc = new Location(spy.getLocation().getRow()+1, spy.getLocation().getCol());
+			if(!grid.isValidMove(currentLoc, futureLoc)) {
+				ui.displayInvalidMoveError();
+			}
+			if(grid.isValidMove(currentLoc, futureLoc)) {
+				spy.move(4);
+				grid.movePlayer(currentLoc, futureLoc);
+			}
+		}
+	}
+	public void spyShoot() {
+		int playerDirection = ui.getDirection();
+		//Check the position to the right of the spy in the grid 
+		if (playerDirection == 1) {
+			spy.shoot();
+		}
+		//Check the position to the left of the spy in the grid 
+		else if(playerDirection == 2) {
+			spy.shoot();
+		}
+		else if(playerDirection == 3) {
+			spy.shoot();
+		}
+		else if(playerDirection == 4) {
+			spy.shoot();
+		}
+	}
+	public void spyLook() {
+		int playerDirection = ui.getDirection();
+		//Check the position to the right of the spy in the grid 
+			grid.look(spy.getLocation(), playerDirection);
+	}
+
 	/**
 	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
 	 * @param gameData

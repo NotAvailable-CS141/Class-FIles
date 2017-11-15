@@ -130,6 +130,11 @@ public class UserInterface {
 		System.out.println("Unexpected Error Ocurred! Exiting Game.");
 		System.exit(0);
 	}
+	
+	public void displayInvalidMoveError() {
+		System.out.println("That move is not permitted. Please try again.");
+	}
+	
 	public void saveGame() {
 		//saves the game to file
 	}
@@ -172,12 +177,12 @@ public class UserInterface {
 			System.out.println("What direction?" + "\n" +
 				"1. Right"+ "\n" +
 				"2. Left"+ "\n" +
-				"3. Forward"+ "\n" +
-				"4. Back");
+				"3. Up"+ "\n" +
+				"4. Down");
 			
 			playerChoice = getPlayerChoice();
 			
-			if (playerChoice < 5 && playerChoice > 0) {
+			if ( playerChoice > 0 && playerChoice < 5) {
 				return playerChoice;
 			}
 			else {

@@ -32,13 +32,6 @@ public class Location {
 		column = y;
 	}
 	
-	public int[] getLocation() {
-		int[] array = new int[2];
-		array[0] = row;
-		array[1] = column;
-		return array;
-	}
-	
 	public int getRow() {return row;}
 	public int getCol() {return column;}
 	

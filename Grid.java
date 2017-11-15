@@ -80,9 +80,9 @@ private Space[][] grid;
 	
 	public void movePlayer(Location oldLoc, Location newLoc) {
 		//Set the old location of the player to false, meaning that he is no longer in that space
-		grid[oldLoc.getCol()][oldLoc.getRow()].setPlayer(false);
-		//Set new locatiion of the player to true
-		grid[newLoc.getCol()][newLoc.getRow()].setPlayer(true);
+		grid[oldLoc.getRow()][oldLoc.getCol()].setPlayer(false);
+		//Set new location of the player to true
+		grid[newLoc.getRow()][newLoc.getCol()].setPlayer(true);
 	}
 	
 	public void placeBriefcase() {
@@ -176,6 +176,12 @@ private Space[][] grid;
 	}
 	
 	public boolean isValidMove(Location start, Location end) {
+		if(grid[start.getRow()][start.getCol()].isRoom()) {
+			if(end.getCol() != start.getCol() || end.getRow()+1 != start.getRow()) {
+				return false;
+			}
+		}
+		
 		if (end.getRow() > 8 || end.getCol() > 8 || end.getRow() < 0 || end.getCol() < 0) {
 			return false;
 		}
