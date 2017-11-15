@@ -154,7 +154,7 @@ private Space[][] grid;
 		
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
 			if(start.getRow()+1 != end.getRow() || start.getCol() != end.getCol()) {
-				return true;
+				return false;
 			}	
 		}
 		
