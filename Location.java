@@ -50,6 +50,7 @@ public class Location {
 	 * @return whether l is adjacent to this
 	 */
 	public boolean adjacentTo(Location l) {
+		// hmmmm one line in the whole method I wonder which line was changed...
 		return (Math.abs(getCol() - l.getCol()) == 1 || Math.abs(getRow() - l.getRow()) == 1) && !(Math.abs(getCol() - l.getCol()) == 1 && Math.abs(getRow() - l.getRow()) == 1);
 	}
 }
