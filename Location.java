@@ -32,6 +32,13 @@ public class Location {
 		column = y;
 	}
 	
+	public int[] getLocation() {
+		int[] array = new int[2];
+		array[0] = row;
+		array[1] = column;
+		return array;
+	}
+	
 	public int getRow() {return row;}
 	public int getCol() {return column;}
 	
@@ -43,6 +50,6 @@ public class Location {
 	 * @return whether l is adjacent to this
 	 */
 	public boolean adjacentTo(Location l) {
-		return Math.abs(getCol() - l.getCol()) == 1 && Math.abs(getRow() - l.getRow()) == 1;
+		return (Math.abs(getCol() - l.getCol()) == 1 || Math.abs(getRow() - l.getRow()) == 1) && !(Math.abs(getCol() - l.getCol()) == 1 && Math.abs(getRow() - l.getRow()) == 1);
 	}
 }
