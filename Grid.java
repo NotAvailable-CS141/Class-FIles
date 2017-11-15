@@ -16,7 +16,7 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
-import edu.cpp.cs.cs141.sg.FinalProject.PickUpType;
+import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
 public class Grid {
 
