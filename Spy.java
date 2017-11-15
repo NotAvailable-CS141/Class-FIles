@@ -44,7 +44,7 @@ public class Spy {
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
-	public boolean shoot(Ninja enemy) {
+	public boolean shoot() {
 		if(hasBullet) {
 			hasBullet = false;
 			

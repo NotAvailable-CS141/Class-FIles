@@ -69,12 +69,9 @@ public class GameEngine {
 		case 2:
 			//Choosing 2 loads game save. ui.loadGameSave() should return the information
 			//read from file. Since it is not yet implemented, the return type is void.
-			
-			System.out.println(mainMenuOption);
 			//ui.loadGameSave();
 			break;
 		default:
-			System.out.println(mainMenuOption);
 			ui.displayUnexpectedError();
 			break; //Hands over control to Main which automatically exits program.
 		}
@@ -90,6 +87,9 @@ public class GameEngine {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet());
 			int playerMove = ui.getMove();
+			
+			
+			//MOVING
 			if (playerMove == 1) {
 				int playerDirection = ui.getDirection();
 				//Check the position to the right of the spy in the grid 
@@ -127,6 +127,32 @@ public class GameEngine {
 						grid.movePlayer(currentLoc, futureLoc);
 					}
 				}
+				
+			}
+			//SHOOTING
+			else if(playerMove == 2) {
+				int playerDirection = ui.getDirection();
+				//Check the position to the right of the spy in the grid 
+				if (playerDirection == 1) {
+					spy.shoot();
+				}
+				//Check the position to the left of the spy in the grid 
+				else if(playerDirection == 2) {
+					spy.shoot();
+				}
+				else if(playerDirection == 3) {
+					spy.shoot();
+				}
+				else if(playerDirection == 4) {
+					spy.shoot();
+				}
+			}
+			
+			//LOOKING
+			else if(playerMove == 3) {
+				int playerDirection = ui.getDirection();
+				//Check the position to the right of the spy in the grid 
+					grid.look(spy.getLocation(), playerDirection);
 				
 			}
 		}

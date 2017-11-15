@@ -16,7 +16,7 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
-import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
+import edu.cpp.cs.cs141.sg.FinalProject.PickUpType;
 
 public class Grid {
 
@@ -57,12 +57,34 @@ private Space[][] grid;
 		placeBriefcase();
 	}
 	
+	public void look(Location loc, int direction) {
+		//NEEDS BOUNDS CHECKING
+		if(loc.getCol()>2 && loc.getCol() < 7 && loc.getRow() > 2 && loc.getRow()<7) {
+			switch (direction) {
+			case 1: 
+				grid[loc.getCol()+1][loc.getRow()].setVisible(true);
+				grid[loc.getCol()+2][loc.getRow()].setVisible(true);
+			case 2: 
+				grid[loc.getCol()-1][loc.getRow()].setVisible(true);
+				grid[loc.getCol()-2][loc.getRow()].setVisible(true);
+			case 3: 
+				grid[loc.getCol()][loc.getRow()-1].setVisible(true);
+				grid[loc.getCol()][loc.getRow()-2].setVisible(true);
+			case 4: 
+				grid[loc.getCol()][loc.getRow()+1].setVisible(true);
+				grid[loc.getCol()][loc.getRow()+2].setVisible(true);
+		}
+		
+		}
+	}
+	
 	public void movePlayer(Location oldLoc, Location newLoc) {
 		//Set the old location of the player to false, meaning that he is no longer in that space
 		grid[oldLoc.getCol()][oldLoc.getRow()].setPlayer(false);
 		//Set new locatiion of the player to true
 		grid[newLoc.getCol()][newLoc.getRow()].setPlayer(true);
 	}
+	
 	public void placeBriefcase() {
 		boolean hasPlacedBriefCase = false;
 		do {
@@ -161,7 +183,7 @@ private Space[][] grid;
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
 			if(start.getRow()!= end.getRow() || start.getCol() != end.getCol()) {
 				return false;
-			}
+			}	
 		}
 		
 		if(grid[end.getRow()][end.getCol()].hasNinja()) {
@@ -169,8 +191,8 @@ private Space[][] grid;
 		}
 		
 		if(grid[end.getRow()][end.getCol()].hasPlayer()) {
-            		return false;
-       		}
+            return false;
+        }
 		return true;
 	}
 }
