@@ -48,9 +48,9 @@ public class Room extends Space{
 	/**
 	 * sets the contents of a room to visible for if a player checks a room or the radar is located
 	 */
-	public void setVisible()
+	public void setVisible(boolean visible)
 	{
-	
+		
 	}
 	
 	

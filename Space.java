@@ -136,7 +136,7 @@ public class Space {
          if(spaceRepresentation.equals("")) {
              spaceRepresentation = " ";
          }
-      return "[" + spaceRepresentation + "]";
+         return "[" + spaceRepresentation + "]";
      }
 
 	public void setVisible(boolean b) {

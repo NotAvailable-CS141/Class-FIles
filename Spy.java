@@ -41,6 +41,12 @@ public class Spy {
 	Location loc = new Location(8,0);
 	
 	public Location getLocation(){ return loc;}
+	public void setLocation(Location l) {loc = l;}
+	public int getLives() {return lives;}
+	public void takeDamage() {lives--;}
+	public boolean isInvincible() {return invincibility > 0;}
+	public void setInvincible(int i) {invincibility = i;}
+	public void reload() {hasBullet = true;}
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
@@ -90,14 +96,6 @@ public class Spy {
 		if (lives > 0) {
 			lives--;
 		}
-	}
-	
-	/**
-	 * 
-	 * @return Spy's number of lives left
-	 */
-	public int getLives() {
-		return lives;
 	}
 	
 	public int hasBullet() {

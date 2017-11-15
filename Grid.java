@@ -168,7 +168,7 @@ private Space[][] grid;
 			}	
 			board+= "\n";
 		}
-	return board;
+		return board;
 	}
 	
 	public Space[][] getGrid() {
@@ -181,7 +181,7 @@ private Space[][] grid;
 		}
 		
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
-			if(start.getRow()!= end.getRow() || start.getCol() != end.getCol()) {
+			if(start.getRow()+1 != end.getRow() || start.getCol() != end.getCol()) {
 				return false;
 			}	
 		}

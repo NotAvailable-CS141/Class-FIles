@@ -111,7 +111,7 @@ public class UserInterface {
 	}
 	public void displayStats(int lives, int ammo) {
 		//Displays the statistics of the game such as lives left
-		System.out.println("Lives left." + lives + "     Rounds left:" + ammo);
+		System.out.println("Lives left: " + lives + "     Rounds left: " + ammo);
 	}
 	public void displayWin() {
 		//Displays winning message if player retrieves briefcase

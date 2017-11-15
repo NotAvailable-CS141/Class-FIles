@@ -177,17 +177,40 @@ public class GameEngine {
 	
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
-		
+		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
+		spy.setLocation(new Location(0,0));
+		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 	}
 	
-	public void pickUpPowerUp(){
+	public void pickUpPowerUp(PickUp p){
 		//Evaluates which PowerUp type, then respective action taken
-
+		switch(p.getType()) {
+			case AMMO:
+				spy.reload();
+				break;
+			case RADAR: 
+				for(Space[] array : grid.getGrid()) {
+					for(Space s : array) {
+						if(s.isRoom()) {
+							s.setVisible(true);
+						}
+					}
+				}
+				break;
+			case INVINCIBILITY:
+				spy.setInvincible(5);
+				break;
+			default: break;
+		}
 	}
 	
 	public void debugMode() {
 		//Enables debug mode, lights are turned on in the building
-		
+		for(Space[] array : grid.getGrid()) {
+			for(Space s : array) {
+				s.setVisible(true);
+			}
+		}
 	}
 	
 	/**
@@ -206,7 +229,7 @@ public class GameEngine {
 
 	public void createEntities() {
 		int ninjaCounter=0;
-		int pickCounter=0;
+		int pickUpCounter=0;
 		//loops thru grid
 		for(int x=0; x<9; x++) {
 			for(int y=0; y<9; y++) {
@@ -217,26 +240,31 @@ public class GameEngine {
 				}
 				//makes pickups at grid location
 				if(grid.getGrid()[x][y].hasPickUp()) {
-					pickups[pickCounter] = grid.getGrid()[x][y].getPickUp();
-					pickCounter++;
+					pickups[pickUpCounter] = grid.getGrid()[x][y].getPickUp();
+					pickUpCounter++;
 				}
 	
 			}
 		}
 	}
 	
+	/**
+	 * Loops through the ninja array, making each ninja take its turn.
+	 * If ninja is adjacent to spy, the ninja stabs the spy and returns the spy to its starting position.
+	 * Regardless, the ninja will pick a random direction to move one space in.
+	 */
 	public void moveNinjas() {
 		for(Ninja n : ninjas) {
 			if(n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
-				spy.takeDamage();
-				if(spy.getLives() <= 0) {
-					gameOver = true;
-				}
-				//moves the spy back to spawn point
-				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
-				spy.setLocation(new Location(0,0));
-				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
+				if(!spy.isInvincible()) {
+					spy.takeDamage();
+					if(spy.getLives() <= 0) {
+						gameOver = true;
+					}
+					//moves the spy back to spawn point
+					resetSpyLocation();
+				}	
 			}
 			
 			int direction;
