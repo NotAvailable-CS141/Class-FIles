@@ -14,9 +14,9 @@
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
-package edu.cpp.cs.cs141.sg;
+package edu.cpp.cs.cs141.FinalProject;
 
-import edu.cpp.cs.cs141.sg.PickUp.PickUpType;
+import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
 public class Grid {
 
