@@ -38,9 +38,13 @@ public class Spy {
 	/**
 	 * Creates a location object in Spy
 	 */
-	Location loc = new Location(8,0);
+	private Location loc = new Location(8,0);
 	
+	public int getLives() {return lives;}
+	public void takeDamage() {lives--;}
 	public Location getLocation(){ return loc;}
+	public void setLocation(Location l) {loc = l;}
+	
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
@@ -67,7 +71,6 @@ public class Spy {
 		if(invincibility>0) {
 			invincibility--;
 		}
-		
 		
 	}
 	
