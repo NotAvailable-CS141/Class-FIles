@@ -83,13 +83,13 @@ public class GameEngine {
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
 	public void newGame() {
-		grid.debug();
+		
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet());
 			int playerMove = ui.getMove();
 			
-			boolean playerMoved = false;
+			
 			//MOVING
 			if (playerMove == 1) {
 				if(spyMove()) {
@@ -105,9 +105,10 @@ public class GameEngine {
 			else if(playerMove == 3) {
 				spyLook();
 			}
-			if(playerMoved) {
-				moveNinjas();
+			else if(playerMove == 4) {
+				grid.debug();
 			}
+			
 		}
 	}
 
