@@ -51,6 +51,7 @@ public class Location {
 	 */
 	public boolean adjacentTo(Location l) {
 		// hmmmm one line in the whole method I wonder which line was changed...
+		// checks if adjacent up down left or right                                                  makes sure it isn't both of them(diagnal)
 		return (Math.abs(getCol() - l.getCol()) == 1 || Math.abs(getRow() - l.getRow()) == 1) && !(Math.abs(getCol() - l.getCol()) == 1 && Math.abs(getRow() - l.getRow()) == 1);
 	}
 }
