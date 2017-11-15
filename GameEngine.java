@@ -88,7 +88,47 @@ public class GameEngine {
 	public void newGame() {
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
-			ui.nextMove();
+			ui.displayStats(spy.getLives(), spy.hasBullet());
+			int playerMove = ui.getMove();
+			if (playerMove == 1) {
+				int playerDirection = ui.getDirection();
+				//Check the position to the right of the spy in the grid 
+				if (playerDirection == 1) {
+					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
+					Location futureLoc = new Location(spy.getLocation().getCol()+1, spy.getLocation().getRow());
+					
+					if(grid.isValidMove(currentLoc, futureLoc)) {
+						spy.move(1);
+						grid.movePlayer(currentLoc, futureLoc);
+					}
+				}
+				//Check the position to the left of the spy in the grid 
+				else if(playerDirection == 2) {
+					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
+					Location futureLoc = new Location(spy.getLocation().getCol()-1, spy.getLocation().getRow());
+					if(grid.isValidMove(currentLoc, futureLoc)) {
+						spy.move(2);
+						grid.movePlayer(currentLoc, futureLoc);
+					}
+				}
+				else if(playerDirection == 3) {
+					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
+					Location futureLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow()-1);
+					if(grid.isValidMove(currentLoc, futureLoc)) {
+						spy.move(3);
+						grid.movePlayer(currentLoc, futureLoc);
+					}
+				}
+				else if(playerDirection == 4) {
+					Location currentLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow());
+					Location futureLoc = new Location(spy.getLocation().getCol(), spy.getLocation().getRow()+1);
+					if(grid.isValidMove(currentLoc, futureLoc)) {
+						spy.move(4);
+						grid.movePlayer(currentLoc, futureLoc);
+					}
+				}
+				
+			}
 		}
 		
 	}
@@ -163,14 +203,6 @@ public class GameEngine {
 		for(Ninja n : ninjas) {
 			if(n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
-				spy.takeDamage();
-				if(spy.getLives() <= 0) {
-					gameOver = true;
-				}
-				//moves the spy back to spawn point
-				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
-				spy.setLocation(new Location(0,0));
-				grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 			}
 			
 			int direction;
@@ -197,9 +229,7 @@ public class GameEngine {
 				}
 			}while(grid.isValidMove(n.getLocation(), endLoc));
 				
-			n.moveTo(endLoc);
-			grid.getGrid()[nRow][nCol].setNinja(false);
-			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);
+			n.moveTo(endLoc);	
 		}
 	}
 }

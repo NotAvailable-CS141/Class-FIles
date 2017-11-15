@@ -38,13 +38,9 @@ public class Spy {
 	/**
 	 * Creates a location object in Spy
 	 */
-	private Location loc = new Location(8,0);
+	Location loc = new Location(8,0);
 	
-	public int getLives() {return lives;}
-	public void takeDamage() {lives--;}
 	public Location getLocation(){ return loc;}
-	public void setLocation(Location l) {loc = l;}
-	
 	/**
 	 * Allows the spy to shoot an enemy
 	 */
@@ -71,9 +67,47 @@ public class Spy {
 		if(invincibility>0) {
 			invincibility--;
 		}
-		
+		switch(dir) {
+		case 1:	
+			loc.setLocation(loc.getRow(), loc.getCol() + 1);
+			break;
+		case 2:
+			loc.setLocation(loc.getRow(), loc.getCol() - 1);
+			break;
+		case 3:
+			loc.setLocation(loc.getRow() - 1 , loc.getCol());
+			break;
+		case 4:
+			loc.setLocation(loc.getRow() + 1, loc.getCol());
+			break;
+		}
 	}
 	
+	/**
+	 * Reduces the spy's number of lives 
+	 */
+	public void die() {
+		if (lives > 0) {
+			lives--;
+		}
+	}
+	
+	/**
+	 * 
+	 * @return Spy's number of lives left
+	 */
+	public int getLives() {
+		return lives;
+	}
+	
+	public int hasBullet() {
+		if (hasBullet) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
 	
 
 }

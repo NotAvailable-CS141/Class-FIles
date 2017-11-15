@@ -14,9 +14,9 @@
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
-package edu.cpp.cs.cs141.FinalProject;
+package edu.cpp.cs.cs141.sg;
 
-import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
+import edu.cpp.cs.cs141.sg.PickUp.PickUpType;
 
 public class Grid {
 
@@ -57,6 +57,12 @@ private Space[][] grid;
 		placeBriefcase();
 	}
 	
+	public void movePlayer(Location oldLoc, Location newLoc) {
+		//Set the old location of the player to false, meaning that he is no longer in that space
+		grid[oldLoc.getCol()][oldLoc.getRow()].setPlayer(false);
+		//Set new locatiion of the player to true
+		grid[newLoc.getCol()][newLoc.getRow()].setPlayer(true);
+	}
 	public void placeBriefcase() {
 		boolean hasPlacedBriefCase = false;
 		do {
@@ -153,9 +159,12 @@ private Space[][] grid;
 		}
 		
 		if(grid[end.getRow()][end.getCol()].isRoom()) {
-			if(start.getRow()+1 != end.getRow() || start.getCol() != end.getCol()) {
+			if(start.getRow()!= end.getRow() || start.getCol() != end.getCol()) {
 				return false;
 			}	
+			else if (start.getRow()){
+				
+			}
 		}
 		
 		if(grid[end.getRow()][end.getCol()].hasNinja()) {
@@ -163,9 +172,8 @@ private Space[][] grid;
 		}
 		
 		if(grid[end.getRow()][end.getCol()].hasPlayer()) {
-			return false;
-		}
-		
+            return false;
+        }
 		return true;
 	}
 }
