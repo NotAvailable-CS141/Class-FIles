@@ -217,7 +217,7 @@ public class GameEngine {
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
-		spy.setLocation(new Location(0,0));
+		spy.setLocation(new Location(8,0));
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 	}
 	
