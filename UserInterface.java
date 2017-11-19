@@ -52,6 +52,7 @@ public class UserInterface {
 		boolean playerInput = false;
 		int playerChoice;
 		while(!playerInput) {
+			System.out.println("Welcome to Find The Briefcase:");
 			System.out.println("1. Start New Game.");
 			System.out.println("2. Load Game Save");
 			System.out.println("3. Help.");
