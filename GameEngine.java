@@ -89,26 +89,18 @@ public class GameEngine {
 			ui.displayStats(spy.getLives(), spy.hasBullet());
 			int playerMove = ui.getMove();
 			
-			
-			//MOVING
-			if (playerMove == 1) {
+			switch(playerMove) {
+			case 1: //MOVING
 				if(spyMove()) {
 					moveNinjas();
 				}
-			}
-			//SHOOTING
-			else if(playerMove == 2) {
+			case 2: //SHOOTING
 				spyShoot();
-			}
-			
-			//LOOKING
-			else if(playerMove == 3) {
+			case 3: //LOOKING
 				spyLook();
-			}
-			else if(playerMove == 4) {
+			case 4: //DEBUG
 				grid.debug();
-			}
-			
+			}	
 		}
 	}
 
