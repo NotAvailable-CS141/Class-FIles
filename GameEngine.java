@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.cpp.cs.cs141.FinalProject;
 
 /**
@@ -32,8 +29,6 @@ public class GameEngine {
 	boolean playerDead = false;
 	boolean gameOver = false;
 
-	
-
 	GameEngine(){
 		ui = new UserInterface();
 		grid = new Grid();
@@ -54,11 +49,6 @@ public class GameEngine {
 	 * @param ui
 	 */
 	public void startGame() {
-		//Temporary grid display for testing
-		
-		
-		
-		//Actual game code
 		int mainMenuOption;
 		mainMenuOption = ui.displayMainMenu();
 		switch(mainMenuOption) {
@@ -74,16 +64,13 @@ public class GameEngine {
 		default:
 			ui.displayUnexpectedError();
 			break; //Hands over control to Main which automatically exits program.
-		}
-		
-		
+		}		
 	}
 	
 	/**
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
-	public void newGame() {
-		
+	public void newGame() {	
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet());
@@ -91,9 +78,8 @@ public class GameEngine {
 			
 			switch(playerMove) {
 			case 1: //MOVING
-				if(spyMove()) {
-					moveNinjas();
-				}
+				if(spyMove())
+					moveNinjas();				
 			case 2: //SHOOTING
 				spyShoot();
 			case 3: //LOOKING
@@ -192,6 +178,7 @@ public class GameEngine {
 	public void loadedGame(String gameData) {
 		
 	}
+	
 	public boolean isGameOver(){
 		//Returns true if player has no more lives left, false otherwise
 		return gameOver;
