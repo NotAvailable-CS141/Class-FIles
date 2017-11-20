@@ -45,6 +45,7 @@ public class Spy {
 	public int getLives() {return lives;}
 	public void takeDamage() {lives--;}
 	public boolean isInvincible() {return invincibility > 0;}
+	public int getTurnsInvincible() {return invincibility;}
 	public void setInvincible(int i) {invincibility = i;}
 	public void reload() {hasBullet = true;}
 	/**

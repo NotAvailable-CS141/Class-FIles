@@ -110,9 +110,9 @@ public class UserInterface {
 		//Displays game grid with all assets
 		System.out.println(grid);
 	}
-	public void displayStats(int lives, int ammo) {
+	public void displayStats(int lives, int ammo, int turnsInv) {
 		//Displays the statistics of the game such as lives left
-		System.out.println("Lives left: " + lives + "     Ammo left: " + ammo);
+		System.out.println("Lives left: " + lives + "\tAmmo left: " + ammo + "\tTurns left Invincible: " + turnsInv);
 	}
 	public void displayWin() {
 		//Displays winning message if player retrieves briefcase
@@ -252,4 +252,7 @@ public class UserInterface {
 		System.out.println("...but the briefcase isn't there!");
 	}
 
+	public void displayPickUp(PickUp.PickUpType type) {
+		System.out.println("You picked up: " + type);
+	}
 }

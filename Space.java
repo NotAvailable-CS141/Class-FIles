@@ -54,6 +54,10 @@ public class Space {
     	 hasBriefcase = a;
      }
      
+     public boolean hasBriefcase() {
+    	 return hasBriefcase;
+     }
+     
      public void makePickUp(int x, int y, PickUpType a) {
     	 isPickUp = true;
          pickUp = new PickUp(a,x,y,true);
@@ -111,17 +115,19 @@ public class Space {
          else  {
         	 spaceRepresentation = "-";
               if(isPickUp) {
-                  switch(pickUp.getType()) {
-	                  case RADAR:
-	                      spaceRepresentation = "R";
-	                      break;
-	                  case AMMO:
-	                      spaceRepresentation = "A";
-	                      break;
-	                  case INVINCIBILITY:
-	                      spaceRepresentation = "I";
-	                      break;
-                  }
+            	  if(pickUp.isActive()) {
+            		  switch(pickUp.getType()) {
+		                  case RADAR:
+		                      spaceRepresentation = "R";
+		                      break;
+		                  case AMMO:
+		                      spaceRepresentation = "A";
+		                      break;
+		                  case INVINCIBILITY:
+		                      spaceRepresentation = "I";
+		                      break;
+	                  }
+            	  }
               }
               if(hasNinja){
                   spaceRepresentation = "N";

@@ -83,7 +83,7 @@ public class GameEngine {
 		
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
-			ui.displayStats(spy.getLives(), spy.hasBullet());
+			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
 			int playerMove = ui.getMove();
 	
 			//MOVING
@@ -159,6 +159,7 @@ public class GameEngine {
             default: break;    
         }
         if(grid.isValidMove(currentLoc, futureLoc)) {
+        	//if player tries to enter a room
         	if(grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].isRoom()) {
         		Space room = grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()];
         		if(room.hasBriefcase()) {
@@ -168,11 +169,18 @@ public class GameEngine {
         			ui.displayHasNoBriefcase();
         		}
         	} else {
+           		//moves the spy, visually and spatially, to the new location.
         		spy.move(playerDirection);
         		grid.movePlayer(currentLoc, futureLoc);
+        		//handles powerup
+        		if(grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].hasPickUp()) {
+        			PickUp p = grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].getPickUp();
+        			pickUpPowerUp(p);
+        			p.disable();
+        		}
         	}
             return true;
-        } else {
+        } else {//if player tries to make an invalid move
             ui.displayInvalidMoveError();
             return false;
         }
@@ -202,7 +210,7 @@ public class GameEngine {
 		
 		//Shows Grid and Stats
 		ui.displayGrid(grid.visual());
-		ui.displayStats(spy.getLives(), spy.hasBullet());
+		ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
 		
 		//New Menu after player looks
 		boolean doneWithMenu = false;
@@ -258,7 +266,8 @@ public class GameEngine {
 	
 	public void pickUpPowerUp(PickUp p){
 		//Evaluates which PowerUp type, then respective action taken
-		switch(p.getType()) {
+		PickUp.PickUpType type = p.getType();
+		switch(type) {
 			case AMMO:
 				spy.reload();
 				break;
@@ -276,6 +285,7 @@ public class GameEngine {
 				break;
 			default: break;
 		}
+		ui.displayPickUp(type);
 	}
 	
 	public void debugMode() {
