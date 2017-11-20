@@ -52,6 +52,7 @@ public class UserInterface {
 		boolean playerInput = false;
 		int playerChoice;
 		while(!playerInput) {
+			System.out.println("Welcome to Find The Briefcase");
 			System.out.println("1. Start New Game.");
 			System.out.println("2. Load Game Save");
 			System.out.println("3. Help.");
@@ -103,7 +104,7 @@ public class UserInterface {
 		System.out.println("A - Ammo (only 1 round)");
 		System.out.println("I - Invincibility");
 		System.out.println("R - Radar");
-		System.out.println("* - Unseen space");
+		System.out.println("* - Unseen space" + "\n");
 	}
 	public void displayGrid(String grid) {
 		//Displays game grid with all assets
