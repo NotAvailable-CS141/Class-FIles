@@ -219,20 +219,30 @@ public class GameEngine {
 		ui.displayStats(spy.getLives(), spy.hasBullet());
 		
 		//New Menu after player looks
+		boolean doneWithMenu = false;
+		while(!doneWithMenu) {
 			int lookMenuOption = ui.displayLookMenu();
 			switch(lookMenuOption) {
-			case 1:
+			case 1://Move
 				if(spyMove()) {
+					resetVisibility();
 					moveNinjas();
+					doneWithMenu = true;
 				}
 				break;
 			case 2:
 				spyShoot();
+				doneWithMenu = true;
 				break;		
 			case 3:
 				pauseGame();
 				break;
+			default:
+				System.out.println("Invalid Input. Try Again.");
+				break;
 			}
+		}
+			
 		
 	}
 
@@ -287,6 +297,16 @@ public class GameEngine {
 		for(Space[] array : grid.getGrid()) {
 			for(Space s : array) {
 				s.setVisible(true);
+			}
+		}
+	}
+	
+	public void resetVisibility() {
+		for(Space[] array : grid.getGrid()) {
+			for(Space s : array) {
+				if(!s.isRoom()) {
+					s.setVisible(false);
+				}
 			}
 		}
 	}

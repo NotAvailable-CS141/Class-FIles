@@ -29,17 +29,9 @@ public class Space {
     private boolean isPickUp;
     private boolean isRoom;
     private boolean debug;
+    private boolean hasRadar;
 
     private boolean hasBriefcase;
-    
-    //public Space(int x, int y, boolean hasNinja, PickUp pickUp, boolean visible, boolean isPick, boolean room) {
-    //    this.x = x;
-    //    this.y = y;
-    //    this.hasNinja = hasNinja;
-    //    this.visible = visible;
-    //    isPickUp = isPick;
-    //    isRoom = room;
-    //}
     
      public Space(int x, int y, boolean isRoom) {
         this.x = x;
@@ -51,7 +43,12 @@ public class Space {
         hasPlayer = false;
         hasBriefcase = false;
         debug=false;
+        hasRadar = false;
     }
+     
+     public void setRadar(boolean a) {
+    	 hasRadar = a;
+     }
      
      public void setBriefcase(boolean a) {
     	 hasBriefcase = a;
@@ -132,7 +129,7 @@ public class Space {
               if(isRoom) {
             	  spaceRepresentation = "#";
               }
-              if(hasBriefcase && debug) {
+              if(hasBriefcase && (debug || hasRadar)) {
             	  spaceRepresentation = "B"; 
               }
               if(hasPlayer){
@@ -155,4 +152,3 @@ public class Space {
 		
 	}
 }
-
