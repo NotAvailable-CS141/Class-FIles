@@ -219,4 +219,26 @@ private Space[][] grid;
         }
 		return true;
 	}
+	
+	public boolean hasValidMove(Location start) {
+		int nRow = start.getRow();
+		int nCol = start.getCol();
+		//up
+		if(isValidMove(start, new Location(nRow-1, nCol))) {
+			return true;
+		}
+		//right
+		if(isValidMove(start, new Location(nRow, nCol+1))) {
+			return true;
+		}
+		//down
+		if(isValidMove(start, new Location(nRow+1, nCol))) {
+			return true;
+		}
+		//left
+		if(isValidMove(start, new Location(nRow, nCol-1))) {
+			return true;
+		}
+		return false;
+	}
 }

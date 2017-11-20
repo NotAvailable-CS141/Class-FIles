@@ -366,9 +366,13 @@ public class GameEngine {
 			int direction;
 			int nRow = n.getLocation().getRow();
 			int nCol = n.getLocation().getCol();
+			Location startLoc = n.getLocation();
 			Location endLoc = new Location(-1, -1);
 			
 			do {
+				if(!grid.hasValidMove(startLoc)) {
+					break;
+				}
 				direction = (int)(Math.random()*4) + 1;
 				switch(direction) {
 					case 1://up
@@ -385,7 +389,7 @@ public class GameEngine {
 						break;
 					default: break;
 				}
-			}while(!grid.isValidMove(n.getLocation(), endLoc));
+			}while(!grid.isValidMove(startLoc, endLoc));
 				
 			n.moveTo(endLoc);
 			grid.getGrid()[nRow][nCol].setNinja(false);
