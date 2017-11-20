@@ -393,21 +393,7 @@ public class GameEngine {
 				
 			n.moveTo(endLoc);
 			grid.getGrid()[nRow][nCol].setNinja(false);
-			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);
-			
-			if(n.getLocation().adjacentTo(spy.getLocation())) {
-				//stabs the spy
-				if(!spy.isInvincible()) {
-					System.out.println("A ninja has stabbed you.");
-					spy.takeDamage();
-					if(spy.getLives() <= 0) {
-						gameOver = true;
-						ui.displayGameOver();
-					}
-					//moves the spy back to spawn point
-					resetSpyLocation();
-				}	
-			}
+			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);	
 		}
 	}
 }
