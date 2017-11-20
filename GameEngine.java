@@ -26,8 +26,8 @@ public class GameEngine {
 	private PickUp[] pickups;
 	private Grid grid;
 	private UserInterface ui;
-	boolean playerDead = false;
-	boolean gameOver = false;
+	private boolean playerDead = false;
+	private boolean gameOver = false;
 
 	
 
@@ -103,95 +103,81 @@ public class GameEngine {
 				pauseGame();
 				break;
 			}
+			
+			if(gameOver) {
+				if(playerDead) 
+					ui.displayGameOver();
+				else 
+					ui.displayWin();
+				
+				ui.exitGame();
+			}
 		}
 			
 	}
 
 	private void pauseGame() {
 		//Pause menu allows game to save, exit, enable debug mode, and resume game
-				int pauseMenuOption;
-				pauseMenuOption = ui.displayPauseMenu();
-				switch(pauseMenuOption) {
-				case 1:
-					//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
-					ui.saveGame();
-					break;
-				case 2:
-					ui.exitGame();
-					break;
-				case 3:
-					grid.debug();
-					break;
-				case 4:
-					return;
-				default:
-					ui.displayUnexpectedError();
-					break; //Hands over control to Main which automatically exits program.
-				}
+		int pauseMenuOption;
+		pauseMenuOption = ui.displayPauseMenu();
+		switch(pauseMenuOption) {
+		case 1:
+			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
+			ui.saveGame();
+			break;
+		case 2:
+			ui.exitGame();
+			break;
+		case 3:
+			grid.debug();
+			break;
+		case 4:
+			return;
+		default:
+			ui.displayUnexpectedError();
+			break; //Hands over control to Main which automatically exits program.
+		}
 	}
 
 	/**
-	 * @return true if spy moves, false if the move in invalid
+	 * @return true if spy moves, false if the move is invalid
 	 */
 	public boolean spyMove() {
-		int playerDirection = ui.getDirection();
-		//Check the position to the right of the spy in the grid 
-		if (playerDirection == 1) {//right
-			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
-			Location futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()+1);
-			
-			if(!grid.isValidMove(currentLoc, futureLoc)) {
-				ui.displayInvalidMoveError();
-				return false;
-			}
-			if(grid.isValidMove(currentLoc, futureLoc)) {
-				spy.move(1);
-				grid.movePlayer(currentLoc, futureLoc);
-				return true;
-			}
-		}
-		//Check the position to the left of the spy in the grid 
-		else if(playerDirection == 2) {//left
-			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
-			Location futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()-1);
-			if(!grid.isValidMove(currentLoc, futureLoc)) {
-				ui.displayInvalidMoveError();
-				return false;
-			}
-			if(grid.isValidMove(currentLoc, futureLoc)) {
-				spy.move(2);
-				grid.movePlayer(currentLoc, futureLoc);
-				return true;
-			}
-		}
-		else if(playerDirection == 3) {//up
-			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
-			Location futureLoc = new Location(spy.getLocation().getRow()-1, spy.getLocation().getCol());
-			if(!grid.isValidMove(currentLoc, futureLoc)) {
-				ui.displayInvalidMoveError();
-				return false;
-			}
-			if(grid.isValidMove(currentLoc, futureLoc)) {
-				spy.move(3);
-				grid.movePlayer(currentLoc, futureLoc);
-				return true;
-			}
-		}
-		else if(playerDirection == 4) {//down
-			Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
-			Location futureLoc = new Location(spy.getLocation().getRow()+1, spy.getLocation().getCol());
-			if(!grid.isValidMove(currentLoc, futureLoc)) {
-				ui.displayInvalidMoveError();
-				return false;
-			}
-			if(grid.isValidMove(currentLoc, futureLoc)) {
-				spy.move(4);
-				grid.movePlayer(currentLoc, futureLoc);
-				return true;
-			}
-		}
-		return false;
-	}
+        int playerDirection = ui.getDirection();
+        Location currentLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol());
+        Location futureLoc = new Location(0,0);
+        //Check the position to the right of the spy in the grid 
+        switch(playerDirection) {
+            case 1: futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()+1);
+                break;
+            case 2: futureLoc = new Location(spy.getLocation().getRow(), spy.getLocation().getCol()-1);
+                break;
+            case 3: futureLoc = new Location(spy.getLocation().getRow()-1, spy.getLocation().getCol());
+                break;
+            case 4: futureLoc = new Location(spy.getLocation().getRow()+1, spy.getLocation().getCol());
+                break;
+            default: break;    
+        }
+        if(grid.isValidMove(currentLoc, futureLoc)) {
+        	if(grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].isRoom()) {
+        		Space room = grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()];
+        		if(room.hasBriefcase()) {
+        			ui.displayHasBriefcase();
+        			gameOver = true;
+        		} else {
+        			ui.displayHasNoBriefcase();
+        		}
+        	} else {
+        		spy.move(playerDirection);
+        		grid.movePlayer(currentLoc, futureLoc);
+        	}
+            return true;
+        } else {
+            ui.displayInvalidMoveError();
+            return false;
+        }
+    }
+	
 	public void spyShoot() {
 		int playerDirection = ui.getDirection();
 		//Check the position to the right of the spy in the grid 

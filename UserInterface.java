@@ -195,6 +195,7 @@ public class UserInterface {
 	}
 	
 	public void exitGame() {
+		System.out.println("Thank you for playing!");
 		System.exit(0);
 	}
 
@@ -239,6 +240,16 @@ public class UserInterface {
 			}
 		}
 		return 0;
+	}
+
+	public void displayHasBriefcase() {
+		System.out.println("You enter the room...");
+		System.out.println("...you found the briefcase!");
+	}
+	
+	public void displayHasNoBriefcase() {
+		System.out.println("You enter the room...");
+		System.out.println("...but the briefcase isn't there!");
 	}
 
 }
