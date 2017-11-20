@@ -153,6 +153,7 @@ private Space[][] grid;
 			for(int j =0; j<9; j++)
 			{
 				grid[i][j].setVisible(true);
+				grid[i][j].setDebug(true);
 			}	
 		}
 		visual();

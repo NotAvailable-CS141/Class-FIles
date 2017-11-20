@@ -28,6 +28,7 @@ public class Space {
     private PickUp pickUp;
     private boolean isPickUp;
     private boolean isRoom;
+    private boolean debug;
 
     private boolean hasBriefcase;
     
@@ -49,6 +50,7 @@ public class Space {
         this.isRoom = isRoom;
         hasPlayer = false;
         hasBriefcase = false;
+        debug=false;
     }
      
      public void setBriefcase(boolean a) {
@@ -130,6 +132,9 @@ public class Space {
               if(isRoom) {
             	  spaceRepresentation = "#";
               }
+              if(hasBriefcase && debug) {
+            	  spaceRepresentation = "B"; 
+              }
               if(hasPlayer){
                   spaceRepresentation = "S";
               }
@@ -142,6 +147,11 @@ public class Space {
 
 	public void setVisible(boolean b) {
 		visible = b;
+		
+	}
+
+	public void setDebug(boolean b) {
+		debug = b;
 		
 	}
 }
