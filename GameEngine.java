@@ -66,7 +66,7 @@ public class GameEngine {
 		case 2:
 			//Choosing 2 loads game save. ui.loadGameSave() should return the information
 			//read from file. Since it is not yet implemented, the return type is void.
-			//ui.loadGameSave();
+			ui.loadGameSave();
 			break;
 		default:
 			ui.displayUnexpectedError();
@@ -210,9 +210,30 @@ public class GameEngine {
 		}
 	}
 	public void spyLook() {
+		//Makes correct spaces in whatever direction spy looks to visible
 		int playerDirection = ui.getDirection();
-		//Check the position to the right of the spy in the grid 
-			grid.look(spy.getLocation(), playerDirection);
+		grid.look(spy.getLocation(), playerDirection);
+		
+		//Shows Grid and Stats
+		ui.displayGrid(grid.visual());
+		ui.displayStats(spy.getLives(), spy.hasBullet());
+		
+		//New Menu after player looks
+			int lookMenuOption = ui.displayLookMenu();
+			switch(lookMenuOption) {
+			case 1:
+				if(spyMove()) {
+					moveNinjas();
+				}
+				break;
+			case 2:
+				spyShoot();
+				break;		
+			case 3:
+				pauseGame();
+				break;
+			}
+		
 	}
 
 	/**

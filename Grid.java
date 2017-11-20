@@ -59,22 +59,39 @@ private Space[][] grid;
 	
 	public void look(Location loc, int direction) {
 		//NEEDS BOUNDS CHECKING
-		if(loc.getCol()>2 && loc.getCol() < 7 && loc.getRow() > 2 && loc.getRow()<7) {
-			switch (direction) {
-			case 1: 
-				grid[loc.getCol()+1][loc.getRow()].setVisible(true);
-				grid[loc.getCol()+2][loc.getRow()].setVisible(true);
-			case 2: 
-				grid[loc.getCol()-1][loc.getRow()].setVisible(true);
-				grid[loc.getCol()-2][loc.getRow()].setVisible(true);
-			case 3: 
-				grid[loc.getCol()][loc.getRow()-1].setVisible(true);
-				grid[loc.getCol()][loc.getRow()-2].setVisible(true);
-			case 4: 
-				grid[loc.getCol()][loc.getRow()+1].setVisible(true);
-				grid[loc.getCol()][loc.getRow()+2].setVisible(true);
-		}
-		
+		switch(direction) {
+		case 1://right
+			if(loc.getCol()+1 < 9) {
+				grid[loc.getRow()][loc.getCol()+1].setVisible(true);
+			}
+			if(loc.getCol()+2 < 9 && !grid[loc.getRow()][loc.getCol()+1].isRoom()) {
+				grid[loc.getRow()][loc.getCol()+2].setVisible(true);
+			}
+			break;
+		case 2://left
+			if(loc.getCol()-1 > -1) {
+				grid[loc.getRow()][loc.getCol()-1].setVisible(true);
+			}
+			if(loc.getCol()-2 > -1 && !grid[loc.getRow()][loc.getCol()-1].isRoom()) {
+				grid[loc.getRow()][loc.getCol()-2].setVisible(true);
+			}
+			break;
+		case 3://up 
+			if(loc.getRow()-1 > -1) {
+				grid[loc.getRow()-1][loc.getCol()].setVisible(true);
+			}
+			if(loc.getRow()-2 > -1 && !grid[loc.getRow()-1][loc.getCol()].isRoom()) {
+				grid[loc.getRow()-2][loc.getCol()].setVisible(true);
+			}
+			break;
+		case 4://down
+			if(loc.getRow()+1 < 9) {
+				grid[loc.getRow()+1][loc.getCol()].setVisible(true);
+			}
+			if(loc.getRow()+2 < 9 && !grid[loc.getRow()+1][loc.getCol()].isRoom()) {
+				grid[loc.getRow()+2][loc.getCol()].setVisible(true);
+			}
+			break;
 		}
 	}
 	

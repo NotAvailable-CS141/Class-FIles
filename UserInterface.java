@@ -104,7 +104,7 @@ public class UserInterface {
 		System.out.println("A - Ammo (only 1 round)");
 		System.out.println("I - Invincibility");
 		System.out.println("R - Radar");
-		System.out.println("* - Unseen space" + "\n");
+		System.out.println("* - Unseen space" +"\n");
 	}
 	public void displayGrid(String grid) {
 		//Displays game grid with all assets
@@ -112,7 +112,7 @@ public class UserInterface {
 	}
 	public void displayStats(int lives, int ammo) {
 		//Displays the statistics of the game such as lives left
-		System.out.println("Lives left: " + lives + "     Rounds left: " + ammo);
+		System.out.println("Lives left: " + lives + "     Ammo left: " + ammo);
 	}
 	public void displayWin() {
 		//Displays winning message if player retrieves briefcase
@@ -199,7 +199,6 @@ public class UserInterface {
 	}
 
 	public int displayPauseMenu() {
-		// TODO Auto-generated method stub
 		boolean playerInput = false;
 		int playerChoice;
 		while(!playerInput) {
@@ -220,5 +219,26 @@ public class UserInterface {
 		}
 		return 0;
 		}
+
+	public int displayLookMenu() {
+		boolean playerInput = false;
+		int playerChoice;
+		while(!playerInput) {
+			System.out.println("Look Menu" + "\n" +
+				"1. Move" + "\n" +
+				"2. Shoot"+ "\n" +
+				"3. Pause Menu");
+			
+			playerChoice = getPlayerChoice();
+			
+			if (playerChoice > 0 && playerChoice < 5) {
+				return playerChoice;
+			}
+			else {
+				System.out.println("Invalid option. Please try again...");
+			}
+		}
+		return 0;
+	}
 
 }
