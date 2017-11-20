@@ -83,28 +83,55 @@ public class GameEngine {
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
 	public void newGame() {
-		grid.debug();
+		
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet());
 			int playerMove = ui.getMove();
 			
+			
 			//MOVING
-			if (playerMove == 1) {
+			switch (playerMove) {
+			case 1: 
 				if(spyMove()) {
 					moveNinjas();
 				}
-			}
-			//SHOOTING
-			else if(playerMove == 2) {
+				break;
+			case 2:
 				spyShoot();
-			}
-			
-			//LOOKING
-			else if(playerMove == 3) {
+				break;
+			case 3:
 				spyLook();
+				break;
+			case 4:
+				pauseGame();
+				break;
 			}
 		}
+			
+	}
+
+	private void pauseGame() {
+		//Pause menu allows game to save, exit, enable debug mode, and resume game
+				int pauseMenuOption;
+				pauseMenuOption = ui.displayPauseMenu();
+				switch(pauseMenuOption) {
+				case 1:
+					//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
+					ui.saveGame();
+					break;
+				case 2:
+					ui.exitGame();
+					break;
+				case 3:
+					grid.debug();
+					break;
+				case 4:
+					return;
+				default:
+					ui.displayUnexpectedError();
+					break; //Hands over control to Main which automatically exits program.
+				}
 	}
 
 	/**
@@ -212,7 +239,7 @@ public class GameEngine {
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
-		spy.setLocation(new Location(0,8));
+		spy.setLocation(new Location(8,0));
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 	}
 	
