@@ -19,10 +19,12 @@ package edu.cpp.cs.cs141.FinalProject;
 
 public class Ninja {
 	
-	Location location = new Location(0, 0);
+	private Location location = new Location(0, 0);
+	private boolean alive;
 	
 	public Ninja(int row, int column) {
 		location.setLocation(row,column);
+		alive = true;
 	}
 	
 	public Location getLocation() {return location;}
@@ -33,6 +35,14 @@ public class Ninja {
 	 */
 	public void moveTo(Location l) {
 		location = l;
+	}
+	
+	public void die() {
+		alive = false;
+	}
+	
+	public boolean isAlive() {
+		return alive;
 	}
 	
 }

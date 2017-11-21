@@ -21,6 +21,7 @@ import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 public class Grid {
 
 private Space[][] grid;
+private boolean debug;
 	
 //private boolean fogOfWar;
 
@@ -31,6 +32,7 @@ private Space[][] grid;
 	
 	public Grid()
 	{
+		debug = false;
 		grid = new Space[9][9];
 		for(int i =0; i<9; i++)
 		{
@@ -58,40 +60,41 @@ private Space[][] grid;
 	}
 	
 	public void look(Location loc, int direction) {
-		//NEEDS BOUNDS CHECKING
-		switch(direction) {
-		case 1://right
-			if(loc.getCol()+1 < 9) {
-				grid[loc.getRow()][loc.getCol()+1].setVisible(true);
+		if (!debug) {
+			switch(direction) {
+			case 1://right
+				if(loc.getCol()+1 < 9) {
+					grid[loc.getRow()][loc.getCol()+1].setVisible(true);
+				}
+				if(loc.getCol()+2 < 9 && !grid[loc.getRow()][loc.getCol()+1].isRoom()) {
+					grid[loc.getRow()][loc.getCol()+2].setVisible(true);
+				}
+				break;
+			case 2://left
+				if(loc.getCol()-1 > -1) {
+					grid[loc.getRow()][loc.getCol()-1].setVisible(true);
+				}
+				if(loc.getCol()-2 > -1 && !grid[loc.getRow()][loc.getCol()-1].isRoom()) {
+					grid[loc.getRow()][loc.getCol()-2].setVisible(true);
+				}
+				break;
+			case 3://up 
+				if(loc.getRow()-1 > -1) {
+					grid[loc.getRow()-1][loc.getCol()].setVisible(true);
+				}
+				if(loc.getRow()-2 > -1 && !grid[loc.getRow()-1][loc.getCol()].isRoom()) {
+					grid[loc.getRow()-2][loc.getCol()].setVisible(true);
+				}
+				break;
+			case 4://down
+				if(loc.getRow()+1 < 9) {
+					grid[loc.getRow()+1][loc.getCol()].setVisible(true);
+				}
+				if(loc.getRow()+2 < 9 && !grid[loc.getRow()+1][loc.getCol()].isRoom()) {
+					grid[loc.getRow()+2][loc.getCol()].setVisible(true);
+				}
+				break;
 			}
-			if(loc.getCol()+2 < 9 && !grid[loc.getRow()][loc.getCol()+1].isRoom()) {
-				grid[loc.getRow()][loc.getCol()+2].setVisible(true);
-			}
-			break;
-		case 2://left
-			if(loc.getCol()-1 > -1) {
-				grid[loc.getRow()][loc.getCol()-1].setVisible(true);
-			}
-			if(loc.getCol()-2 > -1 && !grid[loc.getRow()][loc.getCol()-1].isRoom()) {
-				grid[loc.getRow()][loc.getCol()-2].setVisible(true);
-			}
-			break;
-		case 3://up 
-			if(loc.getRow()-1 > -1) {
-				grid[loc.getRow()-1][loc.getCol()].setVisible(true);
-			}
-			if(loc.getRow()-2 > -1 && !grid[loc.getRow()-1][loc.getCol()].isRoom()) {
-				grid[loc.getRow()-2][loc.getCol()].setVisible(true);
-			}
-			break;
-		case 4://down
-			if(loc.getRow()+1 < 9) {
-				grid[loc.getRow()+1][loc.getCol()].setVisible(true);
-			}
-			if(loc.getRow()+2 < 9 && !grid[loc.getRow()+1][loc.getCol()].isRoom()) {
-				grid[loc.getRow()+2][loc.getCol()].setVisible(true);
-			}
-			break;
 		}
 	}
 	
@@ -165,6 +168,7 @@ private Space[][] grid;
 	 */
 	public void debug()
 	{
+		debug = true;
 		for(int i =0; i<9; i++){
 			
 			for(int j =0; j<9; j++)
@@ -240,5 +244,80 @@ private Space[][] grid;
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * This shoot method is responsible for killing/disabling ninjas within the grid 
+	 * @param location indicates the location of the spy and is used to determine row or column to begin ninja checking
+	 * @param playerDirection indicates the direction that the spy wants to shoot, 1 = right, 2 = left, 3 = up, 4 = down
+	 */
+	public Location shoot(Location location, int playerDirection) {
+		//Check that location is not out of bounds
+		Location ninjaLoc;
+		if (location.getCol() >= 0 && location.getCol() < 9 && location.getRow() >= 0 && location.getRow() < 9) {
+			//Determine what direction to shoot
+			switch(playerDirection) {
+			case 1:
+				//Cycle spaces to the right
+				for(int i = location.getCol(); i < 9; i++) {
+					//If the bullet hits a room, return control
+					if (grid[location.getRow()][i].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[location.getRow()][i].hasNinja()) {
+						grid[location.getRow()][i].setNinja(false);
+						ninjaLoc = new Location(location.getRow(),i);
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 2: 
+				//Cycle spaces to the left
+				for(int i = location.getCol(); i >= 0; i--) {
+					//If the bullet hits a room, return control
+					if (grid[location.getRow()][i].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[location.getRow()][i].hasNinja()) {
+						grid[location.getRow()][i].setNinja(false);
+						ninjaLoc = new Location(location.getRow(),i);
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 3:
+				//Cycle spaces above
+				for(int i = location.getRow();  i >= 0; i--) {
+					//If the bullet hits a room, return control
+					if (grid[i][location.getCol()].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[i][location.getCol()].hasNinja()) {
+						grid[i][location.getCol()].setNinja(false);
+						ninjaLoc = new Location(i,location.getCol());
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 4: 
+				//Cycle spaces below
+				for(int i = location.getRow();  i < 9; i++) {
+					//If the bullet hits a room, return control
+					if (grid[i][location.getCol()].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[i][location.getCol()].hasNinja()) {
+						grid[i][location.getCol()].setNinja(false);
+						ninjaLoc = new Location(i,location.getCol());
+						return (ninjaLoc);
+					}
+				}
+				break;
+			}
+		}
+		return (ninjaLoc = new Location(-1,-1));
 	}
 }

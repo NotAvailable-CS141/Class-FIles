@@ -86,7 +86,6 @@ public class GameEngine {
 			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
 			int playerMove = ui.getMove();
 	
-			//MOVING
 			switch (playerMove) {
 			case 1: 
 				if(spyMove()) {
@@ -189,20 +188,24 @@ public class GameEngine {
 	public void spyShoot() {
 		int playerDirection = ui.getDirection();
 		//Check the position to the right of the spy in the grid 
-		if (playerDirection == 1) {
-			spy.shoot();
-		}
-		//Check the position to the left of the spy in the grid 
-		else if(playerDirection == 2) {
-			spy.shoot();
-		}
-		else if(playerDirection == 3) {
-			spy.shoot();
-		}
-		else if(playerDirection == 4) {
-			spy.shoot();
+		if (playerDirection >= 0 && playerDirection <5) {
+			
+			if(spy.hasAmmo()) {
+				spy.shoot();
+				Location ninjaLoc;
+				ninjaLoc = grid.shoot(spy.getLocation(), playerDirection);
+			
+				if(ninjaLoc.getCol() != -1 && ninjaLoc.getRow() != -1) {
+					for(Ninja n : ninjas) {
+						if(n.getLocation().getCol() == ninjaLoc.getCol() && n.getLocation().getRow() == ninjaLoc.getRow()) {
+							n.die();
+						}
+					}
+				}
+			}
 		}
 	}
+	
 	public void spyLook() {
 		//Makes correct spaces in whatever direction spy looks to visible
 		int playerDirection = ui.getDirection();
@@ -349,7 +352,7 @@ public class GameEngine {
 	 */
 	public void moveNinjas() {
 		for(Ninja n : ninjas) {
-			if(n.getLocation().adjacentTo(spy.getLocation())) {
+			if(n.isAlive() && n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
 				if(!spy.isInvincible()) {
 					System.out.println("A ninja has stabbed you.");
@@ -362,38 +365,42 @@ public class GameEngine {
 					resetSpyLocation();
 				}	
 			}
+			if(n.isAlive()) {
+				int direction;
+				int nRow = n.getLocation().getRow();
+				int nCol = n.getLocation().getCol();
+				Location startLoc = n.getLocation();
+				Location endLoc = new Location(-1, -1);
 			
-			int direction;
-			int nRow = n.getLocation().getRow();
-			int nCol = n.getLocation().getCol();
-			Location startLoc = n.getLocation();
-			Location endLoc = new Location(-1, -1);
-			
-			do {
-				if(!grid.hasValidMove(startLoc)) {
-					break;
-				}
-				direction = (int)(Math.random()*4) + 1;
-				switch(direction) {
-					case 1://up
-						endLoc = new Location(nRow-1, nCol);
+				do {
+					if(!grid.hasValidMove(startLoc)) {
 						break;
-					case 2://right
-						endLoc = new Location(nRow, nCol+1);
-						break;
-					case 3://down
-						endLoc = new Location(nRow+1, nCol);
-						break;
-					case 4://left
-						endLoc = new Location(nRow, nCol-1);
-						break;
-					default: break;
-				}
-			}while(!grid.isValidMove(startLoc, endLoc));
+					}
+					direction = (int)(Math.random()*4) + 1;
+					switch(direction) {
+						case 1://up
+							endLoc = new Location(nRow-1, nCol);
+							break;
+						case 2://right
+							endLoc = new Location(nRow, nCol+1);
+							break;
+						case 3://down
+							endLoc = new Location(nRow+1, nCol);
+							break;
+						case 4://left
+							endLoc = new Location(nRow, nCol-1);
+							break;
+						default: break;
+					}
+					}
+					while(!grid.isValidMove(startLoc, endLoc) || grid.getGrid()[endLoc.getRow()][endLoc.getCol()].isRoom());
 				
-			n.moveTo(endLoc);
-			grid.getGrid()[nRow][nCol].setNinja(false);
-			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);	
+			
+				n.moveTo(endLoc);
+				grid.getGrid()[nRow][nCol].setNinja(false);
+				grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);	
+			}
+			
 		}
 	}
 }
