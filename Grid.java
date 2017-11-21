@@ -241,4 +241,79 @@ private Space[][] grid;
 		}
 		return false;
 	}
+	/**
+	 * This shoot method is responsible for killing/disabling ninjas within the grid 
+	 * @param location indicates the location of the spy and is used to determine row or column to begin ninja checking
+	 * @param playerDirection indicates the direction that the spy wants to shoot, 1 = right, 2 = left, 3 = up, 4 = down
+	 */
+	public Location shoot(Location location, int playerDirection) {
+		//Check that location is not out of bounds
+		Location ninjaLoc;
+		if (location.getCol() >= 0 && location.getCol() < 9 && location.getRow() >= 0 && location.getRow() < 9) {
+			//Determine what direction to shoot
+			switch(playerDirection) {
+			case 1:
+				//Cycle spaces to the right
+				for(int i = location.getCol(); i < 9; i++) {
+					//If the bullet hits a room, return control
+					if (grid[location.getRow()][i].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[location.getRow()][i].hasNinja()) {
+						grid[location.getRow()][i].setNinja(false);
+						ninjaLoc = new Location(location.getRow(),i);
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 2: 
+				//Cycle spaces to the left
+				for(int i = location.getCol(); i >= 0; i--) {
+					//If the bullet hits a room, return control
+					if (grid[location.getRow()][i].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[location.getRow()][i].hasNinja()) {
+						grid[location.getRow()][i].setNinja(false);
+						ninjaLoc = new Location(location.getRow(),i);
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 3:
+				//Cycle spaces above
+				for(int i = location.getRow();  i >= 0; i--) {
+					//If the bullet hits a room, return control
+					if (grid[i][location.getCol()].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[i][location.getCol()].hasNinja()) {
+						grid[i][location.getCol()].setNinja(false);
+						ninjaLoc = new Location(i,location.getCol());
+						return (ninjaLoc);
+					}
+				}
+				break;
+			case 4: 
+				//Cycle spaces below
+				for(int i = location.getRow();  i < 9; i++) {
+					//If the bullet hits a room, return control
+					if (grid[i][location.getCol()].isRoom()) {
+						return (ninjaLoc = new Location(-1,-1));
+					}
+					//Otherwise if it is a ninja, kill it and return control to avoid collateral
+					else if(grid[i][location.getCol()].hasNinja()) {
+						grid[i][location.getCol()].setNinja(false);
+						ninjaLoc = new Location(i,location.getCol());
+						return (ninjaLoc);
+					}
+				}
+				break;
+			}
+		}
+		return (ninjaLoc = new Location(-1,-1));
+	}
 }

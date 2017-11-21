@@ -108,5 +108,9 @@ public class Spy {
 		}
 	}
 	
+	public boolean hasAmmo() {
+		return hasBullet;
+	}
+	
 
 }
