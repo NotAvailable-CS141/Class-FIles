@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -17,8 +19,13 @@ package edu.cpp.cs.cs141.FinalProject;
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
 
-public class Location {
+public class Location implements Serializable{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6500434308332521738L;
 	private int row;
 	private int column; 
 	

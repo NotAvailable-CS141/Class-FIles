@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -17,8 +19,12 @@ package edu.cpp.cs.cs141.FinalProject;
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
 
-public class Ninja {
+public class Ninja implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8549242193453135971L;
 	private Location location = new Location(0, 0);
 	private boolean alive;
 	

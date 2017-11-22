@@ -16,8 +16,17 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
-public class PickUp {
+import java.io.Serializable;
+
+public class PickUp implements Serializable{
 	
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7138136614495246769L;
+
 	Location location;
 	
 	public static enum PickUpType{AMMO, RADAR, INVINCIBILITY}

@@ -16,10 +16,17 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
-public class Grid {
+public class Grid implements Serializable{
 
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5904995247957030234L;
 private Space[][] grid;
 private boolean debug;
 	

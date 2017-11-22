@@ -3,6 +3,8 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -15,7 +17,12 @@ package edu.cpp.cs.cs141.FinalProject;
  *  Ryan Guidry, Ethan Balderas, Fadhar Cartillo, Zhihang Yao, Daniel Gruhn
  */
 
-public class Spy {
+public class Spy implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4523575704147940785L;
+
 	//fields 
 	/**
 	 * The lives of the spy.

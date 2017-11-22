@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.IOException;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -151,6 +153,7 @@ public class GameEngine {
 			grid.debug();
 			break;
 		case 4:
+			ui.saveGame(grid, spy, ninjas);
 			return;
 		default:
 			ui.displayUnexpectedError();

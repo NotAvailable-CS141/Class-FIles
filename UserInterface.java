@@ -161,15 +161,15 @@ public class UserInterface {
 		System.out.println("That move is not permitted. Please try again.");
 	}
 	
-	/**
-	 * 
-	 */
-	public void saveGame(Grid grid, Spy spy, Ninja[] ninjas) {
+	
+	public void saveGame(Grid grid, Spy spy, Ninja[] ninjas){
 		int counter = 1;
 		File save = new File("SaveFile" + counter + ".file");
 		while(save.exists()) {
 			counter++;
 			save = new File("SaveFile" + counter + ".file");
+			
+
 		}
 		
 		try {
@@ -179,11 +179,12 @@ public class UserInterface {
 			oos.writeObject(grid);
 			oos.writeObject(spy);
 			oos.writeObject(ninjas);
-			System.out.println("Game Saved!");
+			System.out.println("Game saved as: SaveFile"+counter+".file");
 			
 			fos.close();
 			oos.close();
 		} catch(IOException e) {
+			e.printStackTrace();
 			System.out.println("You're not supposed to be able to see this!");
 		}		
 	}
@@ -212,10 +213,14 @@ public class UserInterface {
 	}
 	
 	public File querySaveFile() {
-		System.out.println("Please choose a save file to load(type a number):");
-		int counter = 1;
+		System.out.println("Enter the file name in the format 'SaveFile*' where * represents the number.");
+		String fileName = sc.nextLine();
+	
+		File file = null;
+		return file;
 		
 	}
+	
 	public int getMove() {
 		//First ask which direction w' getDirection()
 		//Then ask what action.
