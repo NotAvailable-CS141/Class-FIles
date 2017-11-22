@@ -19,6 +19,7 @@ package edu.cpp.cs.cs141.FinalProject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -193,33 +194,38 @@ public class UserInterface {
 	 * Loads game save from file.
 	 */
 	public GameEngine loadGame() {
-		File save = querySaveFile();
-		try {
-			FileInputStream fis = new FileInputStream(save);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			
-			GameEngine engine = (GameEngine) ois.readObject();
-			
-			fis.close();
-			ois.close();
-			
-			return engine;
-		} catch(IOException e) {
-			System.out.println("Error!");
-		} catch(ClassNotFoundException e) {
-			System.out.println("Error!");
-		}
-		return null;
-	}
-	
-	public File querySaveFile() {
-		System.out.println("Enter the file name in the format 'SaveFile*' where * represents the number.");
-		String fileName = sc.nextLine();
-	
-		File file = null;
-		return file;
+		boolean validFile;
+		GameEngine engine = null;
+		Scanner scan = new Scanner(System.in);
+		do{
+			System.out.println("Enter the file name in the format 'SaveFile*.fie' where * represents the number.");
+			String fileName = scan.nextLine();
 		
+			try {
+				File save = new File(fileName);
+				FileInputStream fis = new FileInputStream(save);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				
+				engine = (GameEngine) ois.readObject();
+				
+				fis.close();
+				ois.close();
+				
+				validFile = true;
+			} catch(IOException e) {
+				validFile = false;
+				System.out.println("File Not Found!");
+			} catch(ClassNotFoundException e) {
+				validFile = false;
+				System.out.println("File Not Found!");
+			}		
+		}
+		while(!validFile);
+		scan.close();
+		return engine;
 	}
+	
+	
 	
 	public int getMove() {
 		//First ask which direction w' getDirection()
