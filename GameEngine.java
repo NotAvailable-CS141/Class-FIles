@@ -37,6 +37,13 @@ public class GameEngine {
 		ninjas = new Ninja[6];
 		createEntities();
 	}
+	GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
+		ui = new UserInterface();
+		grid = g;
+		spy = s;
+		pickups = p;
+		ninjas = ni;
+	}
 	
 	//Methods
 	
@@ -74,7 +81,7 @@ public class GameEngine {
 		case 2:
 			//Choosing 2 loads game save. ui.loadGameSave() should return the information
 			//read from file. Since it is not yet implemented, the return type is void.
-			loadFromEngineObject(ui.loadGame());
+			loadedGame();
 			break;
 		default:
 			ui.displayUnexpectedError();
@@ -134,15 +141,51 @@ public class GameEngine {
 		}
 			
 	}
+	
+	public void loadedGame() {
+		loadFromEngineObject(ui.loadGame());
+		
+		while(!gameOver) {
+			ui.displayGrid(grid.visual());
+			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
+			int playerMove = ui.getMove();
+	
+			switch (playerMove) {
+			case 1: 
+				if(spyMove()) {
+					moveNinjas();
+				}
+				break;
+			case 2:
+				spyShoot();
+				break;
+			case 3:
+				spyLook();
+				break;
+			case 4:
+				pauseGame();
+				break;
+			}
+			
+			if(gameOver) {
+				if(playerDead) 
+					ui.displayGameOver();
+				else 
+					ui.displayWin();
+				
+				ui.exitGame();
+			}
+		}
+	}
 
-	private void pauseGame() {
+	public void pauseGame() {
 		//Pause menu allows game to save, exit, enable debug mode, and resume game
 		int pauseMenuOption;
 		pauseMenuOption = ui.displayPauseMenu();
 		switch(pauseMenuOption) {
 		case 1:
 			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
-			ui.saveGame(grid, spy, ninjas);
+			ui.saveGame(grid, spy, ninjas, pickups, playerDead, gameOver);
 			break;
 		case 2:
 			ui.exitGame();

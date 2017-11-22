@@ -163,7 +163,7 @@ public class UserInterface {
 	}
 	
 	
-	public void saveGame(Grid grid, Spy spy, Ninja[] ninjas){
+	public void saveGame(Grid g, Spy s, Ninja[] n, PickUp[] p, boolean is, boolean go){
 		int counter = 1;
 		File save = new File("SaveFile" + counter + ".file");
 		while(save.exists()) {
@@ -177,9 +177,12 @@ public class UserInterface {
 			FileOutputStream fos = new FileOutputStream(save);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject(grid);
-			oos.writeObject(spy);
-			oos.writeObject(ninjas);
+			oos.writeObject(g);
+			oos.writeObject(s);
+			oos.writeObject(n);
+			oos.writeObject(p);
+			oos.writeBoolean(is);
+			oos.writeBoolean(go);
 			System.out.println("Game saved as: SaveFile"+counter+".file");
 			
 			fos.close();
@@ -195,7 +198,12 @@ public class UserInterface {
 	 */
 	public GameEngine loadGame() {
 		boolean validFile;
-		GameEngine engine = null;
+		Grid g = new Grid();
+		Spy s = new Spy();
+		Ninja[] n = new Ninja[6];
+		PickUp[] p = new PickUp[3];
+		boolean isDead;
+		boolean go;
 		Scanner scan = new Scanner(System.in);
 		do{
 			System.out.println("Enter the file name in the format 'SaveFile*.fie' where * represents the number.");
@@ -206,8 +214,12 @@ public class UserInterface {
 				FileInputStream fis = new FileInputStream(save);
 				ObjectInputStream ois = new ObjectInputStream(fis);
 				
-				engine = (GameEngine) ois.readObject();
-				
+				g = (Grid)ois.readObject();
+				s = (Spy)ois.readObject();
+				n = (Ninja[])ois.readObject();
+				p = (PickUp[])ois.readObject();
+				isDead = (boolean)ois.readBoolean();
+				go = (boolean)ois.readBoolean();
 				fis.close();
 				ois.close();
 				
@@ -221,8 +233,9 @@ public class UserInterface {
 			}		
 		}
 		while(!validFile);
+		GameEngine ge = new GameEngine(g, s, n, p);
 		scan.close();
-		return engine;
+		return ge;
 	}
 	
 	
