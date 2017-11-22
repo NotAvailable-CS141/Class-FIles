@@ -27,22 +27,50 @@ import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class UserInterface {
-	
-	Scanner sc = new Scanner(System.in);
-	
+Scanner sc = new Scanner(System.in);
 	public int getPlayerChoice() {
+		
 		int playerChoice;
 		while(true) {
+			
 			try {
-				playerChoice = sc.nextInt();
-				return playerChoice;
+				if(sc.hasNext()) {
+					playerChoice = sc.nextInt();
+					
+					return playerChoice;
+				}
 			}
 			catch(java.util.InputMismatchException e) {
-				sc.nextLine();
+				System.out.print("Invalid Input. Try Again. YOU MONSTER.");
+				//sc.nextLine();
 			}
 			//exception Handle
 		}
+		
 	}
+	
+	public String getFileName() {
+		
+		String fileName;
+		while(true) {
+			
+			try {
+				if(sc.hasNext()) {
+					sc.nextLine();
+					fileName = sc.nextLine();
+					
+					return fileName;
+				}
+			}
+			catch(java.util.InputMismatchException e) {
+				System.out.print("Invalid Input. Try Again. YOU MONSTER.");
+				//sc.nextLine();
+			}
+			//exception Handle
+		}
+		
+	}
+	
 	
 	/**
 	 * The displayMainMenu() method Displays the starting options for the player. These options are 
@@ -132,7 +160,7 @@ public class UserInterface {
 	 * @param turnsInv
 	 */
 	public void displayStats(int lives, int ammo, int turnsInv) {
-		System.out.println("Lives left: " + lives + "\tAmmo left: " + ammo + "\tTurns left Invincible: " + turnsInv);
+		System.out.println("Lives left: " + lives + "\tAmmo left: " + ammo + "\tTurns left Invincible: " + turnsInv + "\n");
 	}
 	
 	/**
@@ -181,8 +209,8 @@ public class UserInterface {
 			oos.writeObject(s);
 			oos.writeObject(n);
 			oos.writeObject(p);
-			oos.writeBoolean(is);
-			oos.writeBoolean(go);
+			//oos.writeBoolean(is);
+			//oos.writeBoolean(go);
 			System.out.println("Game saved as: SaveFile"+counter+".file");
 			
 			fos.close();
@@ -202,13 +230,15 @@ public class UserInterface {
 		Spy s = new Spy();
 		Ninja[] n = new Ninja[6];
 		PickUp[] p = new PickUp[3];
+		
 		boolean isDead;
 		boolean go;
-		Scanner scan = new Scanner(System.in);
-		do{
-			System.out.println("Enter the file name in the format 'SaveFile*.fie' where * represents the number.");
-			String fileName = scan.nextLine();
 		
+		do{
+			//Scanner scan = new Scanner(System.in);
+			System.out.println("Enter the file name in the format 'SaveFile*.file' where * represents the number.");
+			String fileName = getFileName();
+			
 			try {
 				File save = new File(fileName);
 				FileInputStream fis = new FileInputStream(save);
@@ -218,23 +248,26 @@ public class UserInterface {
 				s = (Spy)ois.readObject();
 				n = (Ninja[])ois.readObject();
 				p = (PickUp[])ois.readObject();
-				isDead = (boolean)ois.readBoolean();
-				go = (boolean)ois.readBoolean();
+				//isDead = (boolean)ois.readBoolean();
+				//go = (boolean)ois.readBoolean();
 				fis.close();
 				ois.close();
 				
 				validFile = true;
-			} catch(IOException e) {
+			}catch(IOException e) {
+				// e.printStackTrace();
 				validFile = false;
 				System.out.println("File Not Found!");
 			} catch(ClassNotFoundException e) {
+				//e.printStackTrace();
 				validFile = false;
-				System.out.println("File Not Found!");
+				System.out.println("File Not Found2!");
 			}		
 		}
+		
 		while(!validFile);
 		GameEngine ge = new GameEngine(g, s, n, p);
-		scan.close();
+		
 		return ge;
 	}
 	
@@ -324,12 +357,11 @@ public class UserInterface {
 		while(!playerInput) {
 			System.out.println("Look Menu" + "\n" +
 				"1. Move" + "\n" +
-				"2. Shoot"+ "\n" +
-				"3. Pause Menu");
+				"2. Shoot"+ "\n");
 			
 			playerChoice = getPlayerChoice();
 			
-			if (playerChoice > 0 && playerChoice < 5) {
+			if (playerChoice > 0 && playerChoice < 3) {
 				return playerChoice;
 			}
 			else {

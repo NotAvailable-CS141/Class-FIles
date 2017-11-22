@@ -38,7 +38,7 @@ public class GameEngine {
 		createEntities();
 	}
 	GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
-		ui = new UserInterface();
+		//ui = new UserInterface();
 		grid = g;
 		spy = s;
 		pickups = p;
@@ -144,7 +144,8 @@ public class GameEngine {
 	
 	public void loadedGame() {
 		loadFromEngineObject(ui.loadGame());
-		
+		gameOver = false;
+		playerDead = false;
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
@@ -294,9 +295,6 @@ public class GameEngine {
 				spyShoot();
 				doneWithMenu = true;
 				break;		
-			case 3:
-				pauseGame();
-				break;
 			default:
 				System.out.println("Invalid Input. Try Again.");
 				break;
