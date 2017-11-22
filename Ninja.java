@@ -41,7 +41,7 @@ public class Ninja {
 		alive = false;
 	}
 	
-	public boolean isDead() {
+	public boolean isAlive() {
 		return alive;
 	}
 	

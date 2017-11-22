@@ -29,8 +29,6 @@ public class GameEngine {
 	private boolean playerDead = false;
 	private boolean gameOver = false;
 
-	
-
 	GameEngine(){
 		ui = new UserInterface();
 		grid = new Grid();
@@ -40,14 +38,24 @@ public class GameEngine {
 		createEntities();
 	}
 	
-	/**
-	 * Methods
-	 */
+	//Methods
+	
+	public Spy getSpy() {return spy;}
+	public void setSpy(Spy spy) {this.spy = spy;}
+	public Ninja[] getNinjas() {return ninjas;}
+	public void setNinjas(Ninja[] ninjas) {this.ninjas = ninjas;}
+	public PickUp[] getPickups() {return pickups;}
+	public void setPickups(PickUp[] pickups) {this.pickups = pickups;}
+	public boolean getPlayerDead() {return playerDead;}
+	public boolean isGameOver(){return gameOver;}
+	public void setGameOver(boolean go) {gameOver = go;}
+	public boolean isPlayerDead() {return playerDead;}
+	public void setPlayerDead(boolean playerDead) {this.playerDead = playerDead;}
 	
 	/**
 	 * The startGame method evaluates the user's choice that is displayed by the UserInterface method 
 	 * displayMainMenu(). If the user chose 1, a new game is started. If the user chose 2, UserInterface 
-	 * loadGameSave() method is called which returns the read information to the GameEngine. 
+	 * loadGame() method is called which returns the read information to the GameEngine. 
 	 * @param ui
 	 */
 	public void startGame() {
@@ -66,7 +74,7 @@ public class GameEngine {
 		case 2:
 			//Choosing 2 loads game save. ui.loadGameSave() should return the information
 			//read from file. Since it is not yet implemented, the return type is void.
-			ui.loadGameSave();
+			loadFromEngineObject(ui.loadGame());
 			break;
 		default:
 			ui.displayUnexpectedError();
@@ -76,6 +84,18 @@ public class GameEngine {
 		
 	}
 	
+	/**
+	 * @param loadGame
+	 */
+	private void loadFromEngineObject(GameEngine e) {
+		setSpy(e.getSpy());
+		setNinjas(e.getNinjas());
+		setPickups(e.getPickups());
+		setGrid(e.getGrid());
+		setPlayerDead(e.isPlayerDead());
+		setGameOver(e.isGameOver());
+	}
+
 	/**
 	 * newGame() method is the main game loop when the user chooses to start a brand new game.
 	 */
@@ -122,7 +142,7 @@ public class GameEngine {
 		switch(pauseMenuOption) {
 		case 1:
 			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
-			ui.saveGame();
+			ui.saveGame(grid, spy, ninjas);
 			break;
 		case 2:
 			ui.exitGame();
@@ -242,23 +262,6 @@ public class GameEngine {
 			
 		
 	}
-
-	/**
-	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
-	 * @param gameData
-	 */
-	public void loadedGame(String gameData) {
-		
-	}
-	public boolean isGameOver(){
-		//Returns true if player has no more lives left, false otherwise
-		return gameOver;
-	}
-	
-	public boolean isPlayerDead() {
-		//Returns true if player's health is zero, false otherwise
-		return playerDead;
-	}
 	
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
@@ -352,7 +355,7 @@ public class GameEngine {
 	 */
 	public void moveNinjas() {
 		for(Ninja n : ninjas) {
-			if(!n.isDead() && n.getLocation().adjacentTo(spy.getLocation())) {
+			if(n.isAlive() && n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
 				if(!spy.isInvincible()) {
 					System.out.println("A ninja has stabbed you.");
@@ -365,40 +368,41 @@ public class GameEngine {
 					resetSpyLocation();
 				}	
 			}
+			if(n.isAlive()) {
+				int direction;
+				int nRow = n.getLocation().getRow();
+				int nCol = n.getLocation().getCol();
+				Location startLoc = n.getLocation();
+				Location endLoc = new Location(-1, -1);
 			
-			int direction;
-			int nRow = n.getLocation().getRow();
-			int nCol = n.getLocation().getCol();
-			Location startLoc = n.getLocation();
-			Location endLoc = new Location(-1, -1);
-			
-			do {
-				if(!grid.hasValidMove(startLoc)) {
-					break;
-				}
-				direction = (int)(Math.random()*4) + 1;
-				switch(direction) {
-					case 1://up
-						endLoc = new Location(nRow-1, nCol);
+				do {
+					if(!grid.hasValidMove(startLoc)) {
 						break;
-					case 2://right
-						endLoc = new Location(nRow, nCol+1);
-						break;
-					case 3://down
-						endLoc = new Location(nRow+1, nCol);
-						break;
-					case 4://left
-						endLoc = new Location(nRow, nCol-1);
-						break;
-					default: break;
-				}
-			}while(!grid.isValidMove(startLoc, endLoc));
+					}
+					direction = (int)(Math.random()*4) + 1;
+					switch(direction) {
+						case 1://up
+							endLoc = new Location(nRow-1, nCol);
+							break;
+						case 2://right
+							endLoc = new Location(nRow, nCol+1);
+							break;
+						case 3://down
+							endLoc = new Location(nRow+1, nCol);
+							break;
+						case 4://left
+							endLoc = new Location(nRow, nCol-1);
+							break;
+						default: break;
+					}
+					}
+					while(!grid.isValidMove(startLoc, endLoc) || grid.getGrid()[endLoc.getRow()][endLoc.getCol()].isRoom());
 				
 			
-			n.moveTo(endLoc);
-			grid.getGrid()[nRow][nCol].setNinja(false);
-			grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);	
-			
+				n.moveTo(endLoc);
+				grid.getGrid()[nRow][nCol].setNinja(false);
+				grid.getGrid()[endLoc.getRow()][endLoc.getCol()].setNinja(true);	
+			}
 			
 		}
 	}

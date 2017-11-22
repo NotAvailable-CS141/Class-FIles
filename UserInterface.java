@@ -17,6 +17,12 @@
 
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -106,21 +112,40 @@ public class UserInterface {
 		System.out.println("R - Radar");
 		System.out.println("* - Unseen space" +"\n");
 	}
+	
+	/**
+	 * Displays game grid with all assets/.
+	 * 
+	 * @param grid
+	 *  	the grid to be displayed.
+	 */
 	public void displayGrid(String grid) {
-		//Displays game grid with all assets
 		System.out.println(grid);
 	}
+	
+	/**
+	 * Displays the statistics of the game such as lives left, ammo, and turns left invincible.
+	 * 
+	 * @param lives
+	 * @param ammo
+	 * @param turnsInv
+	 */
 	public void displayStats(int lives, int ammo, int turnsInv) {
-		//Displays the statistics of the game such as lives left
 		System.out.println("Lives left: " + lives + "\tAmmo left: " + ammo + "\tTurns left Invincible: " + turnsInv);
 	}
+	
+	/**
+	 * Displays winning message if player retrieves briefcase
+	 */
 	public void displayWin() {
-		//Displays winning message if player retrieves briefcase
 		System.out.println("MISSION ACCOMPLISHED! Good job 007.");
 		exitGame();
 	}
+	
+	/**
+	 * Displays game over message if player dies 3 times
+	 */
 	public void displayGameOver() {
-		//Displays game over message if player dies 3 times
 		System.out.println("You ran out of lives.");
 		System.out.println("");
 		System.out.println("Game Over.");
@@ -136,13 +161,61 @@ public class UserInterface {
 		System.out.println("That move is not permitted. Please try again.");
 	}
 	
-	public void saveGame() {
-		//saves the game to file
+	/**
+	 * 
+	 */
+	public void saveGame(Grid grid, Spy spy, Ninja[] ninjas) {
+		int counter = 1;
+		File save = new File("SaveFile" + counter + ".file");
+		while(save.exists()) {
+			counter++;
+			save = new File("SaveFile" + counter + ".file");
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream(save);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(grid);
+			oos.writeObject(spy);
+			oos.writeObject(ninjas);
+			System.out.println("Game Saved!");
+			
+			fos.close();
+			oos.close();
+		} catch(IOException e) {
+			System.out.println("You're not supposed to be able to see this!");
+		}		
 	}
-	public void loadGameSave() {
-		//loads game save from file
+	
+	/**
+	 * Loads game save from file.
+	 */
+	public GameEngine loadGame() {
+		File save = querySaveFile();
+		try {
+			FileInputStream fis = new FileInputStream(save);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			GameEngine engine = (GameEngine) ois.readObject();
+			
+			fis.close();
+			ois.close();
+			
+			return engine;
+		} catch(IOException e) {
+			System.out.println("Error!");
+		} catch(ClassNotFoundException e) {
+			System.out.println("Error!");
+		}
+		return null;
 	}
-
+	
+	public File querySaveFile() {
+		System.out.println("Please choose a save file to load(type a number):");
+		int counter = 1;
+		
+	}
 	public int getMove() {
 		//First ask which direction w' getDirection()
 		//Then ask what action.

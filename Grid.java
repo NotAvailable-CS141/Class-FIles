@@ -21,6 +21,7 @@ import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 public class Grid {
 
 private Space[][] grid;
+private boolean debug;
 	
 //private boolean fogOfWar;
 
@@ -31,6 +32,7 @@ private Space[][] grid;
 	
 	public Grid()
 	{
+		debug = false;
 		grid = new Space[9][9];
 		for(int i =0; i<9; i++)
 		{
@@ -58,40 +60,41 @@ private Space[][] grid;
 	}
 	
 	public void look(Location loc, int direction) {
-		//NEEDS BOUNDS CHECKING
-		switch(direction) {
-		case 1://right
-			if(loc.getCol()+1 < 9) {
-				grid[loc.getRow()][loc.getCol()+1].setVisible(true);
+		if (!debug) {
+			switch(direction) {
+			case 1://right
+				if(loc.getCol()+1 < 9) {
+					grid[loc.getRow()][loc.getCol()+1].setVisible(true);
+				}
+				if(loc.getCol()+2 < 9 && !grid[loc.getRow()][loc.getCol()+1].isRoom()) {
+					grid[loc.getRow()][loc.getCol()+2].setVisible(true);
+				}
+				break;
+			case 2://left
+				if(loc.getCol()-1 > -1) {
+					grid[loc.getRow()][loc.getCol()-1].setVisible(true);
+				}
+				if(loc.getCol()-2 > -1 && !grid[loc.getRow()][loc.getCol()-1].isRoom()) {
+					grid[loc.getRow()][loc.getCol()-2].setVisible(true);
+				}
+				break;
+			case 3://up 
+				if(loc.getRow()-1 > -1) {
+					grid[loc.getRow()-1][loc.getCol()].setVisible(true);
+				}
+				if(loc.getRow()-2 > -1 && !grid[loc.getRow()-1][loc.getCol()].isRoom()) {
+					grid[loc.getRow()-2][loc.getCol()].setVisible(true);
+				}
+				break;
+			case 4://down
+				if(loc.getRow()+1 < 9) {
+					grid[loc.getRow()+1][loc.getCol()].setVisible(true);
+				}
+				if(loc.getRow()+2 < 9 && !grid[loc.getRow()+1][loc.getCol()].isRoom()) {
+					grid[loc.getRow()+2][loc.getCol()].setVisible(true);
+				}
+				break;
 			}
-			if(loc.getCol()+2 < 9 && !grid[loc.getRow()][loc.getCol()+1].isRoom()) {
-				grid[loc.getRow()][loc.getCol()+2].setVisible(true);
-			}
-			break;
-		case 2://left
-			if(loc.getCol()-1 > -1) {
-				grid[loc.getRow()][loc.getCol()-1].setVisible(true);
-			}
-			if(loc.getCol()-2 > -1 && !grid[loc.getRow()][loc.getCol()-1].isRoom()) {
-				grid[loc.getRow()][loc.getCol()-2].setVisible(true);
-			}
-			break;
-		case 3://up 
-			if(loc.getRow()-1 > -1) {
-				grid[loc.getRow()-1][loc.getCol()].setVisible(true);
-			}
-			if(loc.getRow()-2 > -1 && !grid[loc.getRow()-1][loc.getCol()].isRoom()) {
-				grid[loc.getRow()-2][loc.getCol()].setVisible(true);
-			}
-			break;
-		case 4://down
-			if(loc.getRow()+1 < 9) {
-				grid[loc.getRow()+1][loc.getCol()].setVisible(true);
-			}
-			if(loc.getRow()+2 < 9 && !grid[loc.getRow()+1][loc.getCol()].isRoom()) {
-				grid[loc.getRow()+2][loc.getCol()].setVisible(true);
-			}
-			break;
 		}
 	}
 	
@@ -165,6 +168,7 @@ private Space[][] grid;
 	 */
 	public void debug()
 	{
+		debug = true;
 		for(int i =0; i<9; i++){
 			
 			for(int j =0; j<9; j++)
