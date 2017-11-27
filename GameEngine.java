@@ -263,9 +263,13 @@ public class GameEngine {
 					for(Ninja n : ninjas) {
 						if(n.getLocation().getCol() == ninjaLoc.getCol() && n.getLocation().getRow() == ninjaLoc.getRow()) {
 							n.die();
+							ui.displayNinjaKilled();
 						}
 					}
 				}
+			}
+			else {
+				ui.displayNoAmmo();
 			}
 		}
 	}
@@ -399,7 +403,7 @@ public class GameEngine {
 			if(n.isAlive() && n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
 				if(!spy.isInvincible()) {
-					System.out.println("A ninja has stabbed you.");
+					ui.displayStabbed();
 					spy.takeDamage();
 					if(spy.getLives() <= 0) {
 						gameOver = true;

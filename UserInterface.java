@@ -384,4 +384,18 @@ Scanner sc = new Scanner(System.in);
 	public void displayPickUp(PickUp.PickUpType type) {
 		System.out.println("You picked up: " + type);
 	}
+	
+	public void displayStabbed() {
+		System.out.println("A ninja has stabbed you.");
+	}
+	
+	public void displayNinjaKilled() {
+		System.out.println("Ninja was killed.");
+	}
+
+	public void displayNoAmmo() {
+		System.out.println("You are unable to shoot, you have no remaining ammo.");
+		// TODO Auto-generated method stub
+		
+	}
 }
