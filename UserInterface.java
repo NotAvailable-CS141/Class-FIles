@@ -42,7 +42,7 @@ Scanner sc = new Scanner(System.in);
 			}
 			catch(java.util.InputMismatchException e) {
 				System.out.print("Invalid Input. Try Again. YOU MONSTER.");
-				//sc.nextLine();
+				sc.nextLine();
 			}
 			//exception Handle
 		}
@@ -64,7 +64,7 @@ Scanner sc = new Scanner(System.in);
 			}
 			catch(java.util.InputMismatchException e) {
 				System.out.print("Invalid Input. Try Again. YOU MONSTER.");
-				//sc.nextLine();
+				sc.nextLine();
 			}
 			//exception Handle
 		}
