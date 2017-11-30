@@ -16,6 +16,13 @@ package edu.cpp.cs.cs141.FinalProject;
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
+
+/**
+ * {@link GameEngine} Class is the brain of the Find The Briefcase game. It holds all the game objects and is responsible
+ * for the logic and game execution. The {@link GameEngine} Class evaluates all player input that has been retrieved by the
+ * {@link UserInterface} Class and runs the game conditions based on the player input. When the {@link GameEngine} needs to communicate
+ * with the player, {@link GameEngine} instructs the {@link UserInterface} to retrieve input as well as display messages to the player.
+ */
 public class GameEngine {
 	
 	/**
@@ -29,8 +36,6 @@ public class GameEngine {
 	private boolean playerDead = false;
 	private boolean gameOver = false;
 
-	
-
 	GameEngine(){
 		ui = new UserInterface();
 		grid = new Grid();
@@ -39,45 +44,132 @@ public class GameEngine {
 		ninjas = new Ninja[6];
 		createEntities();
 	}
+	GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
+		grid = g;
+		spy = s;
+		pickups = p;
+		ninjas = ni;
+	}
 	
+	//Methods
 	/**
-	 * Methods
+	 * getSpy() method returns the spy object. This method is meant to be used for loading functionality.
+	 * @return spy
 	 */
+	public Spy getSpy() {return spy;}
 	
 	/**
-	 * The startGame method evaluates the user's choice that is displayed by the UserInterface method 
-	 * displayMainMenu(). If the user chose 1, a new game is started. If the user chose 2, UserInterface 
-	 * loadGameSave() method is called which returns the read information to the GameEngine. 
-	 * @param ui
+	 * setSpy(Spy spy) method sets the active spy object to the temporary spy object. 
+	 * This method is meant to be used for loading functionality.
+	 */
+	public void setSpy(Spy spy) {this.spy = spy;}
+	
+	/**
+	 * getNinjas() method returns the array of ninjas. This method is meant to be used for loading functionality.
+	 * @return ninjas
+	 */
+	public Ninja[] getNinjas() {return ninjas;}
+	
+	/**
+	 * setNinjas(Ninja[] ninjas) method sets the active Ninja array object to the temporary Ninja array object. 
+	 * This method is meant to be used for loading functionality.
+	 */
+	public void setNinjas(Ninja[] ninjas) {this.ninjas = ninjas;}
+	
+	/**
+	 * getPickups() method returns the array of pickups. This method is meant to be used for loading functionality.
+	 * @return pickups
+	 */
+	public PickUp[] getPickups() {return pickups;}
+	
+	/**
+	 * setPickups(PickUp[] pickups) method sets the active PickUp array object to the temporary PickUp array object. 
+	 * This method is meant to be used for loading functionality.
+	 */
+	public void setPickups(PickUp[] pickups) {this.pickups = pickups;}
+	
+	/**
+	 * isGameOver() method returns the boolean value of gameOver
+	 * @return gameOver
+	 */
+	public boolean isGameOver(){return gameOver;}
+	
+	/**
+	 * setGameOver(boolean go) sets the active gameOver boolean value to the temporary boolean go value.
+	 * @param go
+	 */
+	public void setGameOver(boolean go) {gameOver = go;}
+	
+	/**
+	 * isPlayerDead() method returns the boolean value of playerDead
+	 * @return playerDead
+	 */
+	public boolean isPlayerDead() {return playerDead;}
+	
+	/**
+	 * setPlayerDead(boolean playerDead) method sets the active playerDead boolean value to the temporary 
+	 * playerDead boolean value
+	 * @param playerDead
+	 */
+	public void setPlayerDead(boolean playerDead) {this.playerDead = playerDead;}
+	
+	/**
+	 * getGrid() method returns the grid object
+	 * @return the grid
+	 */
+	public Grid getGrid() {return grid;}
+
+	/**
+	 * setGrid(Grid grid) sets the temporary grid to the active grid object.
+	 * @param grid 
+	 */
+	public void setGrid(Grid grid) {this.grid = grid;}
+	
+	/**
+	 * startGame() method evaluates the user's choice that is displayed by the UserInterface method 
+	 * displayMainMenu(). If the user chose 1, a new game is started. If the user chose 2, loadGame() 
+	 * method is called. 
 	 */
 	public void startGame() {
-		//Temporary grid display for testing
-		
-		
-		
-		//Actual game code
+	
 		int mainMenuOption;
 		mainMenuOption = ui.displayMainMenu();
 		switch(mainMenuOption) {
 		case 1:
-			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
 			newGame();
 			break;
 		case 2:
-			//Choosing 2 loads game save. ui.loadGameSave() should return the information
-			//read from file. Since it is not yet implemented, the return type is void.
-			ui.loadGameSave();
+			loadedGame();
 			break;
 		default:
 			ui.displayUnexpectedError();
-			break; //Hands over control to Main which automatically exits program.
+			break; 
 		}
 		
 		
 	}
 	
 	/**
-	 * newGame() method is the main game loop when the user chooses to start a brand new game.
+	 * loadFromEngineObject(GameEngine e) is called by the loadedGame() method to set the active GameEngine
+	 * object's attributes which are the Spy, Ninja[], PickUp[], and Grid from a temporary GameEngine e that
+	 * contains the initialized attributes which were read from a save file.
+	 * @param e
+	 */
+	private void loadFromEngineObject(GameEngine e) {
+		setSpy(e.getSpy());
+		setNinjas(e.getNinjas());
+		setPickups(e.getPickups());
+		setGrid(e.getGrid());
+	
+	}
+
+	/**
+	 * newGame() method is the main game loop when the user chooses to start a brand new game and executes until the gameOver
+	 * condition is not satisfied. The method displays the grid,
+	 * the statistics (Spy's lives, Spy's bullet count, Spy's turns left invincible). It retrieves the desired move
+	 * prompted and returned by ui.getMove(), evaluates and executes the desired option. Once the option is executed,
+	 * the gameOver condition is checked, if gameOver == true, playerDead condition is checked which evaluates if the spy is dead
+	 * If indeed the spy is dead, displayGameOver() is called and terminates program execution, otherwise displayWin() is called.
 	 */
 	public void newGame() {
 		
@@ -114,15 +206,58 @@ public class GameEngine {
 		}
 			
 	}
-
-	private void pauseGame() {
+	
+	/**
+	 * loadedGame() is similar to newGame(), except that loadedGame() calls ui.loadGame() which returns the
+	 * temporarily constructed GameEngine object from a specified game save file, and copies the data to the
+	 * active GameEngine/this.
+	 */
+	public void loadedGame() {
+		loadFromEngineObject(ui.loadGame());
+		while(!gameOver) {
+			ui.displayGrid(grid.visual());
+			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
+			int playerMove = ui.getMove();
+	
+			switch (playerMove) {
+			case 1: 
+				if(spyMove()) {
+					moveNinjas();
+				}
+				break;
+			case 2:
+				spyShoot();
+				break;
+			case 3:
+				spyLook();
+				break;
+			case 4:
+				pauseGame();
+				break;
+			}
+			
+			if(gameOver) {
+				if(playerDead) 
+					ui.displayGameOver();
+				else 
+					ui.displayWin();
+				
+				ui.exitGame();
+			}
+		}
+	}
+	/**
+	 * pauseGame() method pauses game execution so that the user can save, exit, enable debug mode. The method calls
+	 * ui.displayPauseMenu() which displays the pause menu options and return the player choice for evaluation in this method.
+	 */
+	public void pauseGame() {
 		//Pause menu allows game to save, exit, enable debug mode, and resume game
 		int pauseMenuOption;
 		pauseMenuOption = ui.displayPauseMenu();
 		switch(pauseMenuOption) {
 		case 1:
 			//Choosing 1 starts a new game. Calls newGame method which initializes new game objects.
-			ui.saveGame();
+			ui.saveGame(grid, spy, ninjas, pickups);
 			break;
 		case 2:
 			ui.exitGame();
@@ -139,6 +274,8 @@ public class GameEngine {
 	}
 
 	/**
+	 * spyMove() method is responsible for moving the spy's location by evaluating the desired direction while playing.
+	 * It also evaluates if the player picks up a power up when moving, or if he finds the briefcase.
 	 * @return true if spy moves, false if the move is invalid
 	 */
 	public boolean spyMove() {
@@ -168,10 +305,10 @@ public class GameEngine {
         			ui.displayHasNoBriefcase();
         		}
         	} else {
-           		//moves the spy, visually and spatially, to the new location.
+           		//Moves the spy, visually and spatially, to the new location.
         		spy.move(playerDirection);
         		grid.movePlayer(currentLoc, futureLoc);
-        		//handles powerup
+        		//Handles powerup
         		if(grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].hasPickUp()) {
         			PickUp p = grid.getGrid()[futureLoc.getRow()][futureLoc.getCol()].getPickUp();
         			pickUpPowerUp(p);
@@ -185,6 +322,13 @@ public class GameEngine {
         }
     }
 	
+	/**
+	 * spyShoot() method is responsible for the spy's shooting mechanic by evaluating the desired direction. If the direction
+	 * is valid, spy.hasAmmo() is called and returns a boolean value if the spy has not used his only bullet. spy.shoot is then
+	 * called which reduces the ammo counter, then grid.shoot(spy.getLocation(), playerDirection) is executed which determines if
+	 * a ninja is present in any of the spaces in the desired location. If a ninja is found, the respective ninja is killed/deactivated
+	 * and no longer displayed. Otherwise, Missed Shot message is displayed by the UserInterface.
+	 */
 	public void spyShoot() {
 		int playerDirection = ui.getDirection();
 		//Check the position to the right of the spy in the grid 
@@ -199,13 +343,25 @@ public class GameEngine {
 					for(Ninja n : ninjas) {
 						if(n.getLocation().getCol() == ninjaLoc.getCol() && n.getLocation().getRow() == ninjaLoc.getRow()) {
 							n.die();
+							ui.displayNinjaKilled();
 						}
 					}
 				}
+				else {
+					ui.displayMissedShot();
+				}
+			}
+			else {
+				ui.displayNoAmmo();
 			}
 		}
 	}
 	
+	/**
+	 * spyLook() is a special menu that is responsible for looking two spaces in the desired direction. It displays the
+	 * modified grid with the space's visibility enabled, displays the player's statistics. Then ui.displayLookMenu is called
+	 * and evaluated. The options left after looking is to move or shoot.
+	 */
 	public void spyLook() {
 		//Makes correct spaces in whatever direction spy looks to visible
 		int playerDirection = ui.getDirection();
@@ -231,9 +387,6 @@ public class GameEngine {
 				spyShoot();
 				doneWithMenu = true;
 				break;		
-			case 3:
-				pauseGame();
-				break;
 			default:
 				System.out.println("Invalid Input. Try Again.");
 				break;
@@ -242,24 +395,12 @@ public class GameEngine {
 			
 		
 	}
-
+	
 	/**
-	 * loadedGame(String gameData) is the main game loop when the user chooses to load a game from file.
-	 * @param gameData
+	 * resetSpyLocation() method is called when the Player/Spy is stabbed by a Ninja and still has enough lives to keep
+	 * playing. This method returns the spy to the starting point and changes grid visibility according to the spy's new
+	 * location. 
 	 */
-	public void loadedGame(String gameData) {
-		
-	}
-	public boolean isGameOver(){
-		//Returns true if player has no more lives left, false otherwise
-		return gameOver;
-	}
-	
-	public boolean isPlayerDead() {
-		//Returns true if player's health is zero, false otherwise
-		return playerDead;
-	}
-	
 	public void resetSpyLocation() {
 		//Return the spy to the starting position on the Grid
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(false);
@@ -267,8 +408,12 @@ public class GameEngine {
 		grid.getGrid()[spy.getLocation().getRow()][spy.getLocation().getCol()].setPlayer(true);
 	}
 	
+	
+	/**
+	 * pickUpPowerUp() evaluates which PowerUp type has been found, then respective functionaity/action is taken.
+	 * @param p
+	 */
 	public void pickUpPowerUp(PickUp p){
-		//Evaluates which PowerUp type, then respective action taken
 		PickUp.PickUpType type = p.getType();
 		switch(type) {
 			case AMMO:
@@ -291,15 +436,10 @@ public class GameEngine {
 		ui.displayPickUp(type);
 	}
 	
-	public void debugMode() {
-		//Enables debug mode, lights are turned on in the building
-		for(Space[] array : grid.getGrid()) {
-			for(Space s : array) {
-				s.setVisible(true);
-			}
-		}
-	}
-	
+	/**
+	 * resetVisibility() method is changes the grid's visibility so that no objects are visible other than the spy
+	 * and the undiscovered rooms. Functionality is designed to be used during look() function execution.
+	 */
 	public void resetVisibility() {
 		for(Space[] array : grid.getGrid()) {
 			for(Space s : array) {
@@ -310,20 +450,11 @@ public class GameEngine {
 		}
 	}
 	
+	
+	
 	/**
-	 * @return the grid
+	 * createEntities() method is responsible for initializing Ninja[] and PickUp[] objects locations relative to the grid.
 	 */
-	public Grid getGrid() {
-		return grid;
-	}
-
-	/**
-	 * @param grid the grid to set
-	 */
-	public void setGrid(Grid grid) {
-		this.grid = grid;
-	}
-
 	public void createEntities() {
 		int ninjaCounter=0;
 		int pickUpCounter=0;
@@ -346,7 +477,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * Loops through the ninja array, making each ninja take its turn.
+	 * moveNinjas() method oops through the ninja array, making each ninja take its turn.
 	 * If ninja is adjacent to spy, the ninja stabs the spy and returns the spy to its starting position.
 	 * Regardless, the ninja will pick a random direction to move one space in.
 	 */
@@ -355,7 +486,7 @@ public class GameEngine {
 			if(n.isAlive() && n.getLocation().adjacentTo(spy.getLocation())) {
 				//stabs the spy
 				if(!spy.isInvincible()) {
-					System.out.println("A ninja has stabbed you.");
+					ui.displayStabbed();
 					spy.takeDamage();
 					if(spy.getLives() <= 0) {
 						gameOver = true;

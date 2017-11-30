@@ -25,9 +25,8 @@ package edu.cpp.cs.cs141.FinalProject;
 public class Main {
 
 	/**
-	 * 
-	 * The main method instantiates a {@link UserInterface} and 
-	 * runs UserInterface's method {@see edu.cpp.cs.cs141.FinalProject.UserInterface#start()}.
+	 * The main method instantiates a {@link GameEngine} and 
+	 * runs GameEngine's startGame method {@see edu.cpp.cs.cs141.FinalProject.GameEngine#startGame()}.
 	 * 
 	 * @param args is a string args needed to initiate the main method
 	 */
