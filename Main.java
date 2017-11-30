@@ -18,7 +18,7 @@ package edu.cpp.cs.cs141.FinalProject;
  */
 
 /**
- * This class depicts the Main methods which is used to run the entire program;
+ * This class depicts the {@link Main} methods which is used to run the entire program;
  * Incorporated in the class is one main method used to run.
  *
  */

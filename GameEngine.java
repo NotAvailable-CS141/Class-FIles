@@ -19,9 +19,9 @@ package edu.cpp.cs.cs141.FinalProject;
 
 /**
  * {@link GameEngine} Class is the brain of the Find The Briefcase game. It holds all the game objects and is responsible
- * for the logic and game execution. The {@link GameEngine} Class evaluates all player input that has been retrieved by the
- * {@link UserInterface} Class and runs the game conditions based on the player input. When the {@link GameEngine} needs to communicate
- * with the player, {@link GameEngine} instructs the {@link UserInterface} to retrieve input as well as display messages to the player.
+ * for the logic and game execution. The GameEngine Class evaluates all player input that has been retrieved by the
+ * {@link UserInterface} Class and runs the game conditions based on the player input. When the GameEngine needs to communicate
+ * with the player, GameEngine instructs the UserInterface to retrieve input as well as display messages to the player.
  */
 public class GameEngine {
 	
@@ -53,7 +53,7 @@ public class GameEngine {
 	
 	//Methods
 	/**
-	 * getSpy() method returns the spy object. This method is meant to be used for loading functionality.
+	 * {@link getSpy()} method returns the spy object. This method is meant to be used for loading functionality.
 	 * @return spy
 	 */
 	public Spy getSpy() {return spy;}

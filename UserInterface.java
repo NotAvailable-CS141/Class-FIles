@@ -28,14 +28,14 @@ import java.util.Scanner;
 
 /**
  * {@link UserInterface} Class is the object that is responsible for all communication between the Player/User
- * and the {@link GameEngine}. The {@link UserInterface} takes all input from the player and hands it over to the {@link GameEngine}
- * so that the information can be evaluated and executed. It also serves as the {@link GameEngine}'s method of
+ * and the {@link GameEngine}. The UserInterface takes all input from the player and hands it over to the GameEngine
+ * so that the information can be evaluated and executed. It also serves as the GameEngine's method of
  * communicating messages to the player.
  */
 public class UserInterface {
 	
 	/**
-	 * Scanner object provided by {@link java.io} that allows user input. 
+	 * Scanner object provided by java.io that allows user input. 
 	 */
 	Scanner sc = new Scanner(System.in);
 	
