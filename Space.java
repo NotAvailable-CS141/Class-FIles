@@ -16,11 +16,18 @@
  */
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
-public class Space {
+public class Space implements Serializable{
 
-    private int x;
+   
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4750266959645292953L;
+	private int x;
     private int y;
     private boolean hasPlayer;
     private boolean hasNinja;
