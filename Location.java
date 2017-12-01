@@ -1,5 +1,7 @@
 package edu.cpp.cs.cs141.FinalProject;
 
+import java.io.Serializable;
+
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -17,21 +19,52 @@ package edu.cpp.cs.cs141.FinalProject;
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
 
-public class Location {
-
+/**
+ * The {@link Location} is the underlying storage of a row and column that
+ *  is used by the {@link Space}, {@link Spy}, {@link Ninja}, {@link PickUp} 
+ *  and {@link Grid} to represent an object's location in the Grid. 
+ */
+public class Location implements Serializable{
+	
+	/**
+	 * An ID given to Location to convert from bytes back into an object for saving and
+	 * loading.
+	 */
+	private static final long serialVersionUID = 6500434308332521738L;
+	
+	/**
+	 * The {@link row} variable stores the row component of an object's location.
+	 */
 	private int row;
+	
+	/**
+	 * The {@link column} variable stores the column component of an object's location.
+	 */
 	private int column; 
 	
-	public Location(int x, int y) {
-		row = x;
-		column = y;
+	/**
+	 * The Location object's constructor with provided row and column with
+	 * @param r and @param c
+	 */
+	public Location(int r, int c) {
+		row = r;
+		column = c;
 	}
 	
-	public void setLocation(int x, int y) {
-		row = x;
-		column = y;
+	/**
+	 * This method copies the location component @param r to {@link row} and 
+	 * @param c to {@link column} to this active Location object 
+	 */
+	public void setLocation(int r, int c) {
+		row = r;
+		column = c;
 	}
 	
+	/**
+	 * This method returns a 2D array of type int, with the {@link row} as the first value,
+	 * and the {@link column} as the second value. 
+	 * @return
+	 */
 	public int[] getLocation() {
 		int[] array = new int[2];
 		array[0] = row;
@@ -39,7 +72,16 @@ public class Location {
 		return array;
 	}
 	
+	/**
+	 * getRow() method returns the integer {@link row} value.
+	 * @return row
+	 */
 	public int getRow() {return row;}
+	
+	/**
+	 * getCol() method returns the integer {@link col} value.
+	 * @return col
+	 */
 	public int getCol() {return column;}
 	
 	
@@ -50,8 +92,8 @@ public class Location {
 	 * @return whether l is adjacent to this
 	 */
 	public boolean adjacentTo(Location l) {
-		// hmmmm one line in the whole method I wonder which line was changed...
-		// checks if adjacent up down left or right                                                  makes sure it isn't both of them(diagnal)
+		
+		// checks if adjacent up down left or right 
 		return (Math.abs(getCol() - l.getCol()) == 1 && getRow() == l.getRow()) || 
 				(Math.abs(getRow() - l.getRow()) == 1 && getCol() == l.getCol());
 	}
