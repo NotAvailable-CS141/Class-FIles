@@ -1,5 +1,3 @@
-package edu.cpp.cs.cs141.FinalProject;
-
 /**
  * CS 141: Intro to Programming and Problem Solving
  * Professor: Edwin Rodr&iacute;guez
@@ -16,33 +14,83 @@ package edu.cpp.cs.cs141.FinalProject;
  * Team Not Available
  *  Ryan Guidry, Ethan Balderas, Fadhar Castillo, Zhihang Yao, Daniel Gruhn
  */
+package edu.cpp.cs.cs141.FinalProject;
 
-public class Ninja {
-	
+import java.io.Serializable;
+
+
+
+/**
+ * {@link Ninja} Class represents the enemies in the game. They patrol the grid and try to kill the Spy.
+ */
+public class Ninja implements Serializable {
+
+	/**
+	 * An ID given to Ninja to convert from bytes back into an object for saving and
+	 * loading.
+	 */
+	private static final long serialVersionUID = 8549242193453135971L;
+
+	/**
+	 * The location of the Ninja; stored as a location item. To modify the location
+	 * use {@link moveTo(Location l)} To return the location use
+	 * {@link getLocation()}
+	 */
 	private Location location = new Location(0, 0);
+
+	/**
+	 * The current state of a Ninja 
+	 * To modify the Ninja to not alive use {@link die()};
+	 * {@link die()} To return the status of the Ninja use {@link isAlive()}
+	 */
 	private boolean alive;
-	
+
+	/**
+	 * The default constructor for Ninja The Ninja is set to alive when constructed
+	 * 
+	 * @param row;
+	 *            the row location in the array.
+	 * @param column;
+	 *            the column location in the array.
+	 */
 	public Ninja(int row, int column) {
-		location.setLocation(row,column);
+		location.setLocation(row, column);
 		alive = true;
 	}
-	
-	public Location getLocation() {return location;}
-	
+
 	/**
-	 *  The ninja will move in a random direction after checking to see if 
-	 *  the spy is adjacent to it.
+	 * Returns the location of the Ninja
+	 * 
+	 * @return the location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * The Ninja will move in a random direction after checking to see if the spy is
+	 * adjacent to it. The ninja's location is set to the Location inputed
+	 * 
+	 * @param l; the loaction to move to
 	 */
 	public void moveTo(Location l) {
 		location = l;
 	}
-	
+
+	/**
+	 * Sets the ninja's alive status to false
+	 */
 	public void die() {
 		alive = false;
 	}
-	
+
+	/**
+	 * Returns the current status of the Ninja
+	 * 
+	 * @return isAlive();
+	 */
 	public boolean isAlive() {
 		return alive;
 	}
-	
+
 }
