@@ -17,28 +17,32 @@
 package edu.cpp.cs.cs141.FinalProject;
 
 import java.io.Serializable;
-
 import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
+/**
+ * {@link Space} Class are all of the parts that a grid encompasses. It keeps track using its fields what is on its space. 
+ * Other than keeping track of what is present, it also has a method that will allow the display of a symbol that represents
+ * what is on the space.
+ */
 public class Space implements Serializable{
 
-   
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4750266959645292953L;
-	private int x;
-    private int y;
-    private boolean hasPlayer;
-    private boolean hasNinja;
-    private boolean visible;
-    private PickUp pickUp;
-    private boolean isPickUp;
-    private boolean isRoom;
-    private boolean debug;
-    private boolean hasRadar;
-
-    private boolean hasBriefcase;
+	
+	
+	/**
+	 * Fields
+	 */
+	private int x; //Row of the Space
+    private int y; //Column of the Space
+    private boolean hasPlayer; //field used to indicate if a player is on the space
+    private boolean hasNinja; //field used to indicate if a ninja is on the space
+    private boolean visible; //field used to indicate if a space is visible
+    private PickUp pickUp; //field used to represent a pick up on the space
+    private boolean isPickUp; //field used to indicate if a pickup is on the space
+    private boolean isRoom; //field used to indicate if a space is a room
+    private boolean debug; //field used to indicate if a space is in debug mode
+    private boolean hasRadar; //field used to indicate if a radar has been activated
+    private boolean hasBriefcase; //field used to indicate if a space has the briefcase
     
      public Space(int x, int y, boolean isRoom) {
         this.x = x;
@@ -52,28 +56,53 @@ public class Space implements Serializable{
         debug=false;
         hasRadar = false;
     }
-     
-     public void setRadar(boolean a) {
+    
+    /**
+     * Method that sets if the space has a radar to whatever the input is  
+     * 
+     * @param a
+     */
+    public void setRadar(boolean a) {
     	 hasRadar = a;
      }
      
-     public void setBriefcase(boolean a) {
+    /**
+     * Sets the condition if a briefcase is on the space
+     * @param a
+     */
+    public void setBriefcase(boolean a) {
     	 hasBriefcase = a;
-     }
+    }
      
-     public boolean hasBriefcase() {
-    	 return hasBriefcase;
-     }
+    /**
+     * @return if the space has the briefcase
+     */
+    public boolean hasBriefcase() {
+    	return hasBriefcase;
+    }
      
-     public void makePickUp(int x, int y, PickUpType a) {
+    /**
+     * Makes a pickup on the space
+     * @param x //x coordinate
+     * @param y //y coordinate
+     * @param a //type of pick up
+     */
+    public void makePickUp(int x, int y, PickUpType a) {
     	 isPickUp = true;
          pickUp = new PickUp(a,x,y,true);
-     }
+    }
      
-     public void setPlayer(boolean a) {
+    /**
+     * Sets if space has player using the input
+     * @param a
+     */
+    public void setPlayer(boolean a) {
     	 hasPlayer = a;
-     }
+    }
      
+    /**
+     * @return if the space has a player
+     */
     public boolean hasPlayer() {
     	if(hasPlayer) {
     		return true;
@@ -81,6 +110,9 @@ public class Space implements Serializable{
     	return false;
     }
     
+    /**
+     * @return if the space is a room
+     */
     public boolean isRoom() {
     	if(isRoom) {
     		return true;
@@ -88,6 +120,9 @@ public class Space implements Serializable{
     	return false;
     }
     
+    /**
+     * @return if the space has a pickup
+     */
     public boolean hasPickUp() {
     	if(isPickUp) {
     		return true;
@@ -95,10 +130,16 @@ public class Space implements Serializable{
     	return false;
     }
     
+    /**
+     * @return the pick up on the space
+     */
     public PickUp getPickUp() {
     	return pickUp;
     }
 
+    /**
+     * @return if the space has a ninja
+     */
     public boolean hasNinja() {
     	if(hasNinja) {
     		return true;
@@ -106,11 +147,22 @@ public class Space implements Serializable{
     	return false;
     }
 
+    /**
+     * sets if there is a ninja on space based on input
+     * @param a
+     */
     public void setNinja(boolean a) {
     	hasNinja = a;
     }
     
-     public String toString(){
+    /**
+     * @override
+     * 
+     * This method overrides the toString() method in {@link String} class. 
+     * This method will return a certain symbol to the {@link Grid} class depending on the
+     * values of the fields of the Space.
+     */
+    public String toString(){
          String spaceRepresentation="";
          if(!visible) //automatically in debug for checkpoint
          {
@@ -155,11 +207,19 @@ public class Space implements Serializable{
          return "[" + spaceRepresentation + "]";
      }
 
+	/**
+	 * Sets the visibility of the space
+	 * @param b
+	 */
 	public void setVisible(boolean b) {
 		visible = b;
 		
 	}
 
+	/**
+	 * Sets the value of debug for the space
+	 * @param b
+	 */
 	public void setDebug(boolean b) {
 		debug = b;
 		
