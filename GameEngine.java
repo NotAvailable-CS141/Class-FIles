@@ -36,7 +36,7 @@ public class GameEngine {
 	private boolean playerDead = false;
 	private boolean gameOver = false;
 
-	GameEngine(){
+	public GameEngine(){
 		ui = new UserInterface();
 		grid = new Grid();
 		spy = new Spy();
@@ -44,7 +44,8 @@ public class GameEngine {
 		ninjas = new Ninja[6];
 		createEntities();
 	}
-	GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
+	
+	public GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
 		grid = g;
 		spy = s;
 		pickups = p;
@@ -131,7 +132,6 @@ public class GameEngine {
 	 * method is called. 
 	 */
 	public void startGame() {
-	
 		int mainMenuOption;
 		mainMenuOption = ui.displayMainMenu();
 		switch(mainMenuOption) {
@@ -145,8 +145,6 @@ public class GameEngine {
 			ui.displayUnexpectedError();
 			break; 
 		}
-		
-		
 	}
 	
 	/**
@@ -160,7 +158,6 @@ public class GameEngine {
 		setNinjas(e.getNinjas());
 		setPickups(e.getPickups());
 		setGrid(e.getGrid());
-	
 	}
 
 	/**
@@ -172,7 +169,6 @@ public class GameEngine {
 	 * If indeed the spy is dead, displayGameOver() is called and terminates program execution, otherwise displayWin() is called.
 	 */
 	public void newGame() {
-		
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
@@ -203,8 +199,7 @@ public class GameEngine {
 				
 				ui.exitGame();
 			}
-		}
-			
+		}	
 	}
 	
 	/**
