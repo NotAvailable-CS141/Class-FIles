@@ -24,19 +24,47 @@ package edu.cpp.cs.cs141.FinalProject;
  * with the player, GameEngine instructs the UserInterface to retrieve input as well as display messages to the player.
  */
 public class GameEngine {
-	
+	//Fields
 	/**
-	 * Fields
+	 * The {@link Spy} object is the entity that the Player controls during game execution.
 	 */
 	private Spy spy;
+	
+	/*
+	 * The {@link Ninja} array holds the total number of Ninja enemies for the game.
+	 */
 	private Ninja[] ninjas;
+	/*
+	 * The {@link PickUp} array holds the total number of PickUp objects that the player/spy
+	 * can acquire during game execution.
+	 */
 	private PickUp[] pickups;
+	
+	/**
+	 * The {@link Grid} object is the board that holds all entity location data. 
+	 */
 	private Grid grid;
+	
+	/**
+	 * The {@link UserInterface} object enables user input and {@link GameEngine} output
+	 */
 	private UserInterface ui;
+	
+	/**
+	 * boolean that keeps track whether the Player has been killed.
+	 */
 	private boolean playerDead = false;
+	
+	/**
+	 * boolean that keeps track whether the Game is over.
+	 */
 	private boolean gameOver = false;
 
-	public GameEngine(){
+	/**
+	 * {@link GameEngine GameEngine()} constructor initializes all game assets for proper
+	 * game execution.
+	 */
+	GameEngine(){
 		ui = new UserInterface();
 		grid = new Grid();
 		spy = new Spy();
@@ -45,7 +73,15 @@ public class GameEngine {
 		createEntities();
 	}
 	
-	public GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
+	/**
+	 * {@link GameEngine GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p)} overloaded
+	 * constructor that creates an instance of GameEngine from loaded game data from file.
+	 * @param g loaded Grid object from file.
+	 * @param s loaded Spy object from file.
+	 * @param ni loaded Ninja objects from file.
+	 * @param p loaded PickUp objects from file.
+	 */
+	GameEngine(Grid g, Spy s, Ninja[] ni, PickUp[] p){
 		grid = g;
 		spy = s;
 		pickups = p;
@@ -54,84 +90,85 @@ public class GameEngine {
 	
 	//Methods
 	/**
-	 * {@link getSpy()} method returns the spy object. This method is meant to be used for loading functionality.
+	 * {@link GameEngine getSpy()} method returns the spy object. This method is meant to be used for loading functionality.
 	 * @return spy
 	 */
 	public Spy getSpy() {return spy;}
 	
 	/**
-	 * setSpy(Spy spy) method sets the active spy object to the temporary spy object. 
+	 * {@link GameEngine setSpy(Spy spy)} method sets the active spy object to the temporary spy object. 
 	 * This method is meant to be used for loading functionality.
 	 */
 	public void setSpy(Spy spy) {this.spy = spy;}
 	
 	/**
-	 * getNinjas() method returns the array of ninjas. This method is meant to be used for loading functionality.
+	 * {@link GameEngine getNinjas()} method returns the array of ninjas. This method is meant to be used for loading functionality.
 	 * @return ninjas
 	 */
 	public Ninja[] getNinjas() {return ninjas;}
 	
 	/**
-	 * setNinjas(Ninja[] ninjas) method sets the active Ninja array object to the temporary Ninja array object. 
+	 * {@link GameEngine setNinjas(Ninja[] ninjas)} method sets the active Ninja array object to the temporary Ninja array object. 
 	 * This method is meant to be used for loading functionality.
 	 */
 	public void setNinjas(Ninja[] ninjas) {this.ninjas = ninjas;}
 	
 	/**
-	 * getPickups() method returns the array of pickups. This method is meant to be used for loading functionality.
+	 * {@link GameEngine getPickups()} method returns the array of pickups. This method is meant to be used for loading functionality.
 	 * @return pickups
 	 */
 	public PickUp[] getPickups() {return pickups;}
 	
 	/**
-	 * setPickups(PickUp[] pickups) method sets the active PickUp array object to the temporary PickUp array object. 
+	 * {@link GameEngine (PickUp[] pickups)} method sets the active PickUp array object to the temporary PickUp array object. 
 	 * This method is meant to be used for loading functionality.
 	 */
 	public void setPickups(PickUp[] pickups) {this.pickups = pickups;}
 	
 	/**
-	 * isGameOver() method returns the boolean value of gameOver
+	 * {@link GameEngine isGameOver()} method returns the boolean value of gameOver
 	 * @return gameOver
 	 */
 	public boolean isGameOver(){return gameOver;}
 	
 	/**
-	 * setGameOver(boolean go) sets the active gameOver boolean value to the temporary boolean go value.
+	 * {@link GameEngine setGameOver(boolean go)} sets the active gameOver boolean value to the temporary boolean go value.
 	 * @param go
 	 */
 	public void setGameOver(boolean go) {gameOver = go;}
 	
 	/**
-	 * isPlayerDead() method returns the boolean value of playerDead
+	 * {@link GameEngine isPlayerDead()} method returns the boolean value of playerDead
 	 * @return playerDead
 	 */
 	public boolean isPlayerDead() {return playerDead;}
 	
 	/**
-	 * setPlayerDead(boolean playerDead) method sets the active playerDead boolean value to the temporary 
+	 * {@link GameEngine setPlayerDead(boolean playerDead)} method sets the active playerDead boolean value to the temporary 
 	 * playerDead boolean value
 	 * @param playerDead
 	 */
 	public void setPlayerDead(boolean playerDead) {this.playerDead = playerDead;}
 	
 	/**
-	 * getGrid() method returns the grid object
+	 * {@link GameEngine getGrid()} method returns the grid object
 	 * @return the grid
 	 */
 	public Grid getGrid() {return grid;}
 
 	/**
-	 * setGrid(Grid grid) sets the temporary grid to the active grid object.
+	 * {@link GameEngine setGrid(Grid grid)} sets the temporary grid to the active grid object.
 	 * @param grid 
 	 */
 	public void setGrid(Grid grid) {this.grid = grid;}
 	
 	/**
-	 * startGame() method evaluates the user's choice that is displayed by the UserInterface method 
+	 * {@link GameEngine startGame()} method evaluates the user's choice that is displayed by the UserInterface method 
 	 * displayMainMenu(). If the user chose 1, a new game is started. If the user chose 2, loadGame() 
 	 * method is called. 
 	 */
 	public void startGame() {
+	
 		int mainMenuOption;
 		mainMenuOption = ui.displayMainMenu();
 		switch(mainMenuOption) {
@@ -145,10 +182,12 @@ public class GameEngine {
 			ui.displayUnexpectedError();
 			break; 
 		}
+		
+		
 	}
 	
 	/**
-	 * loadFromEngineObject(GameEngine e) is called by the loadedGame() method to set the active GameEngine
+	 * {@link GameEngine loadFromEngineObject(GameEngine e)} is called by the loadedGame() method to set the active GameEngine
 	 * object's attributes which are the Spy, Ninja[], PickUp[], and Grid from a temporary GameEngine e that
 	 * contains the initialized attributes which were read from a save file.
 	 * @param e
@@ -158,10 +197,11 @@ public class GameEngine {
 		setNinjas(e.getNinjas());
 		setPickups(e.getPickups());
 		setGrid(e.getGrid());
+	
 	}
 
 	/**
-	 * newGame() method is the main game loop when the user chooses to start a brand new game and executes until the gameOver
+	 * {@link GameEngine newGame()} method is the main game loop when the user chooses to start a brand new game and executes until the gameOver
 	 * condition is not satisfied. The method displays the grid,
 	 * the statistics (Spy's lives, Spy's bullet count, Spy's turns left invincible). It retrieves the desired move
 	 * prompted and returned by ui.getMove(), evaluates and executes the desired option. Once the option is executed,
@@ -169,6 +209,7 @@ public class GameEngine {
 	 * If indeed the spy is dead, displayGameOver() is called and terminates program execution, otherwise displayWin() is called.
 	 */
 	public void newGame() {
+		
 		while(!gameOver) {
 			ui.displayGrid(grid.visual());
 			ui.displayStats(spy.getLives(), spy.hasBullet(), spy.getTurnsInvincible());
@@ -199,11 +240,12 @@ public class GameEngine {
 				
 				ui.exitGame();
 			}
-		}	
+		}
+			
 	}
 	
 	/**
-	 * loadedGame() is similar to newGame(), except that loadedGame() calls ui.loadGame() which returns the
+	 * {@link GameEngine loadedGame()} is similar to newGame(), except that loadedGame() calls ui.loadGame() which returns the
 	 * temporarily constructed GameEngine object from a specified game save file, and copies the data to the
 	 * active GameEngine/this.
 	 */
@@ -242,7 +284,7 @@ public class GameEngine {
 		}
 	}
 	/**
-	 * pauseGame() method pauses game execution so that the user can save, exit, enable debug mode. The method calls
+	 * {@link GameEngine pauseGame()} method pauses game execution so that the user can save, exit, enable debug mode. The method calls
 	 * ui.displayPauseMenu() which displays the pause menu options and return the player choice for evaluation in this method.
 	 */
 	public void pauseGame() {
@@ -269,7 +311,7 @@ public class GameEngine {
 	}
 
 	/**
-	 * spyMove() method is responsible for moving the spy's location by evaluating the desired direction while playing.
+	 * {@link GameEngine spyMove()} method is responsible for moving the spy's location by evaluating the desired direction while playing.
 	 * It also evaluates if the player picks up a power up when moving, or if he finds the briefcase.
 	 * @return true if spy moves, false if the move is invalid
 	 */
@@ -318,7 +360,7 @@ public class GameEngine {
     }
 	
 	/**
-	 * spyShoot() method is responsible for the spy's shooting mechanic by evaluating the desired direction. If the direction
+	 * {@link GameEngine spyShoot()} method is responsible for the spy's shooting mechanic by evaluating the desired direction. If the direction
 	 * is valid, spy.hasAmmo() is called and returns a boolean value if the spy has not used his only bullet. spy.shoot is then
 	 * called which reduces the ammo counter, then grid.shoot(spy.getLocation(), playerDirection) is executed which determines if
 	 * a ninja is present in any of the spaces in the desired location. If a ninja is found, the respective ninja is killed/deactivated
@@ -353,7 +395,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * spyLook() is a special menu that is responsible for looking two spaces in the desired direction. It displays the
+	 * {@link GameEngine spyLook()} is a special menu that is responsible for looking two spaces in the desired direction. It displays the
 	 * modified grid with the space's visibility enabled, displays the player's statistics. Then ui.displayLookMenu is called
 	 * and evaluated. The options left after looking is to move or shoot.
 	 */
@@ -392,7 +434,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * resetSpyLocation() method is called when the Player/Spy is stabbed by a Ninja and still has enough lives to keep
+	 * {@link GameEngine resetSpyLocation()} method is called when the Player/Spy is stabbed by a Ninja and still has enough lives to keep
 	 * playing. This method returns the spy to the starting point and changes grid visibility according to the spy's new
 	 * location. 
 	 */
@@ -405,7 +447,7 @@ public class GameEngine {
 	
 	
 	/**
-	 * pickUpPowerUp() evaluates which PowerUp type has been found, then respective functionaity/action is taken.
+	 * {@link GameEngine pickUpPowerUp()} evaluates which PowerUp type has been found, then respective functionaity/action is taken.
 	 * @param p
 	 */
 	public void pickUpPowerUp(PickUp p){
@@ -432,7 +474,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * resetVisibility() method is changes the grid's visibility so that no objects are visible other than the spy
+	 * {@link GameEngine resetVisibility()} method is changes the grid's visibility so that no objects are visible other than the spy
 	 * and the undiscovered rooms. Functionality is designed to be used during look() function execution.
 	 */
 	public void resetVisibility() {
@@ -448,7 +490,7 @@ public class GameEngine {
 	
 	
 	/**
-	 * createEntities() method is responsible for initializing Ninja[] and PickUp[] objects locations relative to the grid.
+	 * {@link GameEngine createEntities()} method is responsible for initializing Ninja[] and PickUp[] objects locations relative to the grid.
 	 */
 	public void createEntities() {
 		int ninjaCounter=0;
@@ -472,7 +514,7 @@ public class GameEngine {
 	}
 	
 	/**
-	 * moveNinjas() method oops through the ninja array, making each ninja take its turn.
+	 * {@link GameEngine moveNinjas()} method oops through the ninja array, making each ninja take its turn.
 	 * If ninja is adjacent to spy, the ninja stabs the spy and returns the spy to its starting position.
 	 * Regardless, the ninja will pick a random direction to move one space in.
 	 */

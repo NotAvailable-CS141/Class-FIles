@@ -20,23 +20,38 @@ import java.io.Serializable;
 
 import edu.cpp.cs.cs141.FinalProject.PickUp.PickUpType;
 
-public class Grid implements Serializable{
-
-	
 /**
-	 * 
+ * {@link Grid} class is the underlying game board for the Find the Briefcase game.
+ * It holds the location information of the collection of {@link Ninja} objects, the {@link Spy} object,
+ * the collection of {@link PickUp} objects and enables the movement of such objects along the grid.
+ */
+public class Grid implements Serializable{
+	
+	//Fields
+	/**
+	 * An ID given to Grid to convert from bytes back into an object for saving and
+	 * loading.
 	 */
 	private static final long serialVersionUID = 5904995247957030234L;
-private Space[][] grid;
-private boolean debug;
+	/**
+	 * Two Dimensional array of Space objects, that hold the vacancy or occupied state
+	 * of each individual space within the 81 space grid.
+	 */
+	private Space[][] grid;
 	
-//private boolean fogOfWar;
+	/**
+	 * debug boolean holds the state of grid visibility 
+	 */
+	private boolean debug;
+	
 
 	/**
-	 * creates a grid of strings that represent different units
-	 * @param String
+	 * {@link Grid Grid()} constructor creates a grid of strings that represent different units.
+	 * It first begins by setting debug mode off, then initializes the two dimensional
+	 * {@link Grid grid} array to an empty space and designates the location of the rooms that
+	 * can possibly hold the briefcase. Finally it calls {@link Grid placeEverything()} to
+	 * randomly place Ninjas, PowerUps, and Briefcase throughout the Grid.
 	 */
-	
 	public Grid()
 	{
 		debug = false;
@@ -57,7 +72,14 @@ private boolean debug;
 		}
 		placeEverything();
 	}
-		
+	
+	/**
+	 * {@link Grid placeEverything()} wrapper method sets the Spy/Player's location to row 8,
+	 * column 0 then calls {@link Grid placePickUps()} to randomly place the 3 PickUps on the
+	 * empty spaces in the grid, {@link Grid placeNinjas()} to randomly place the 6 Ninjas
+	 * on part of the remaining empty spaces. It finally concludes execution by calling
+	 * {@link Grid placeBriefcase()} which randomly chooses 1 of 9 rooms to place the Briefcase.
+	 */
 	public void placeEverything()
 	{
 		grid[8][0].setPlayer(true);
@@ -66,6 +88,12 @@ private boolean debug;
 		placeBriefcase();
 	}
 	
+	/**
+	 * {@link Grid look(Location loc, int direction} method is utilized to change visibility of
+	 * the 2 adjacent spaces of the Spy. The Spy's location is provided by the parameter
+	 * @param loc. The parameter @param direction is used to limit the Spy's field of view
+	 * to only what is directly in front of him.
+	 */
 	public void look(Location loc, int direction) {
 		if (!debug) {
 			switch(direction) {
@@ -105,6 +133,13 @@ private boolean debug;
 		}
 	}
 	
+	/**
+	 * {@link Grid movePlayer(Location oldLoc, Location newLoc)} is used to change the Spy/Player's
+	 * visual location within the grid. It first sets the old location of the player to false, 
+	 * meaning that he is no longer in that space then sets the new location of the player to 
+	 * true.  The current location is provided by @param oldLoc , and the future location is
+	 * provided by @param newLoc.
+	 */
 	public void movePlayer(Location oldLoc, Location newLoc) {
 		//Set the old location of the player to false, meaning that he is no longer in that space
 		grid[oldLoc.getRow()][oldLoc.getCol()].setPlayer(false);
@@ -112,6 +147,10 @@ private boolean debug;
 		grid[newLoc.getRow()][newLoc.getCol()].setPlayer(true);
 	}
 	
+	/**
+	 * {@link Grid placeBriefcase} method randomly chooses one of 9 available rooms to place the
+	 * the briefcase in. 
+	 */
 	public void placeBriefcase() {
 		boolean hasPlacedBriefCase = false;
 		do {
@@ -125,6 +164,10 @@ private boolean debug;
 		
 	}
 	
+	/**
+	 * {@link Grid placePickUps()} method randomly chooses the locations to place the 3 pickups 
+	 * within the grid.
+	 */
 	public void placePickUps() {
 		int numberOfPowerUps = 3;
 		do{
@@ -145,6 +188,10 @@ private boolean debug;
 		  while(numberOfPowerUps > 0);
 	}
 	
+	/**
+	 * {@link Grid placeNinjas()} method randomly chooses the locations to place the 6 Ninjas 
+	 * within the grid.
+	 */
 	public void placeNinjas() {
 		int numberOfNinjas = 6;
 		do{
@@ -162,16 +209,8 @@ private boolean debug;
 		  while(numberOfNinjas > 0);
 	}
 	
-	/**
-	 * show some nice ascii art for a map
-	 */
-	public String boardStateToString()
-	{
-		return "";
-	}
-	
 	/** 
-	 * sets the visibility of all spaces on the grid to true
+	 * {@link Grid debug()} method sets the visibility of all spaces on the grid to true.
 	 */
 	public void debug()
 	{
@@ -187,6 +226,12 @@ private boolean debug;
 		visual();
 	}
 	
+	/**
+	 * {@link Grid visual()} method cycles through the 2 dimensional array of Space and concatenates
+	 * the space character representation by calling each individual space's method {@link Space toString()}
+	 * which changes the character to the appropriate string representation.
+	 * @return board The concatenated string version of the grid ready to be displayed.
+	 */
 	public String visual() {
 		String board = "";
 		for(int i =0; i<9; i++){
@@ -200,10 +245,23 @@ private boolean debug;
 		return board;
 	}
 	
+	/**
+	 * {@link Grid getGrid()} method returns the entire 2 dimensional array of spaces.
+	 * @return
+	 */
 	public Space[][] getGrid() {
 		return grid;
 	}
 	
+	/**
+	 * {@link Grid isValidMove(Location start, Location end)} method verifies that the
+	 * desired space in which the Ninja or Spy/Player wants to move to does not have a
+	 * room, Ninja, player or is not out of bounds. 
+	 * @param start indicates the location of the entity calling isValidMove
+	 * @param end indicates the location where the entity wants to move to.
+	 * By the nature of this method, the entity can move anywhere in the grid.
+	 * @return boolean
+	 */
 	public boolean isValidMove(Location start, Location end) {
 		if(grid[start.getRow()][start.getCol()].isRoom()) {
 			if(end.getCol() != start.getCol() || end.getRow()+1 != start.getRow()) {
@@ -231,6 +289,12 @@ private boolean debug;
 		return true;
 	}
 	
+	/**
+	 * {@link Grid hasValidMove(Location start)} wrapper method limits movement of an entity
+	 * to the space directly adjacent to the entity calling hasValidMove.
+	 * @param start indicates the location of the entity calling hasValidMove.
+	 * @return
+	 */
 	public boolean hasValidMove(Location start) {
 		int nRow = start.getRow();
 		int nCol = start.getCol();
@@ -252,10 +316,16 @@ private boolean debug;
 		}
 		return false;
 	}
+	
 	/**
-	 * This shoot method is responsible for killing/disabling ninjas within the grid 
-	 * @param location indicates the location of the spy and is used to determine row or column to begin ninja checking
-	 * @param playerDirection indicates the direction that the spy wants to shoot, 1 = right, 2 = left, 3 = up, 4 = down
+	 * {@link Grid shoot(Location location, int playerDirection} method is responsible for 
+	 * killing/disabling Ninjas within the grid.
+	 * @param location indicates the location of the spy and is used to determine row or 
+	 * column to begin Ninja checking.
+	 * @param playerDirection indicates the direction that the spy wants to shoot, 1 = right,
+	 * 2 = left, 3 = up, 4 = down
+	 * @return ninjaLoc returns the location of a Ninja if one is found in the spaces toward
+	 * the desired direction.
 	 */
 	public Location shoot(Location location, int playerDirection) {
 		//Check that location is not out of bounds

@@ -34,14 +34,16 @@ import java.util.Scanner;
  */
 public class UserInterface {
 	
+	//Fields
 	/**
 	 * Scanner object provided by java.io that allows user input. 
 	 */
-	Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
+	//Methods
 	/**
-	 * getPlayerChoice() method is used to retrieve user integer selection. This method is not meant to be used
-	 * by itself. Other methods call getPlayerChoice() and evaluate the value returned.
+	 * {@link UserInterface getPlayerChoice()} method is used to retrieve user integer selection. This method is not meant to be used
+	 * by itself. Other methods call {@link UserInterface getPlayerChoice()} and evaluate the value returned.
 	 * @return playerChoice
 	 */
 	public int getPlayerChoice() {
@@ -60,14 +62,12 @@ public class UserInterface {
 				System.out.println("Invalid Input. Try Again. YOU MONSTER.");
 				sc.nextLine();
 			}
-			//exception Handle
 		}
-		
 	}
 	
 	/**
-	 * getFileName() method is used to retrieve user string that indicates the file name of the desired save file. 
-	 * This method is not meant to be used by itself. This method is called by laodGame() which evaluates the returned string.
+	 * {@link UserInterface getFileName()} method is used to retrieve user string that indicates the file name of the desired save file. 
+	 * This method is not meant to be used by itself. This method is called by {@link UserInterface loadGame()} which evaluates the returned string.
 	 * @return fileName
 	 */
 	public String getFileName() {
@@ -90,9 +90,9 @@ public class UserInterface {
 	}
 	
 	/**
-	 * getMove() method displays the game options for the player. The player can shoose to Move, Shoot, Look, or Pause the game.
-	 * This method return the integer value of the player's choice (retrieved by getPlayerChoice()) so it can be handled by the
-	 *  GameEngine and continue game execution. 
+	 * {@link UserInterface getMove()} method displays the game options for the player. The player can shoose to Move, Shoot, Look, or Pause the game.
+	 * This method return the integer value of the player's choice (retrieved by {@link UserInterface getPlayerChoice()}) so it can be handled by the
+	 * {@link GameEngine} and continue game execution. 
 	 * @return playerChoice
 	 */
 	public int getMove() {
@@ -117,8 +117,8 @@ public class UserInterface {
 	}
 	
 	/**
-	 * getDirection() method displays the possible direction for the Move, Shoot or Look functionalities
-	 * and retrieves the player's choice with getPlayerChoice().
+	 * {@link UserInterface getDirection()} method displays the possible direction for the Move, Shoot or Look functionalities
+	 * and retrieves the player's choice with {@link UserInterface getPlayerChoice()}.
 	 * @return playerChoice
 	 */
 	public int getDirection() {
@@ -143,7 +143,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayMainMenu() method Displays the starting options for the player. These options are 
+	 * {@link UserInterface displayMainMenu()} method Displays the starting options for the player. These options are 
 	 * 1. Start New Game, 2. Load Game Save, 3. Help, 4. Exit Game. The method prompts the user to choose an option, then proceeds
 	 * to evaluate the user response. Depending on the response, it will return an integer in the range of 0 and 2.
 	 * A return of 0 means that the user wants to exit the game; Return of 1 means that the user wants to Start New Game;
@@ -190,8 +190,8 @@ public class UserInterface {
 	}
 
 	/**
-	 * displayPauseMenu() method displays the Pause Menu functionalities and retrieves the player's choice
-	 *  with getPlayerChoice().
+	 * {@link UserInterface displayPauseMenu()} method displays the Pause Menu functionalities and retrieves the player's choice
+	 *  with {@link UserInterface getPlayerChoice()}.
 	 * @return playerChoice
 	 */
 	public int displayPauseMenu() {
@@ -216,8 +216,8 @@ public class UserInterface {
 	}
 
 	/**
-	 * displayLookMenu() method displays the Look Menu functionalities and retrieves the player's choice
-	 *  with getPlayerChoice().
+	 * {@link UserInterface displayLookMenu()} method displays the Look Menu functionalities and retrieves the player's choice
+	 *  with {@link UserInterface getPlayerChoice()}.
 	 * @return playerChoice
 	 */
 	public int displayLookMenu() {
@@ -239,7 +239,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayHelp() method displays the rules of the game for the user. This method does not return a value due to
+	 * {@link UserInterface displayHelp()} method displays the rules of the game for the user. This method does not return a value due to
 	 * the display only nature of the method.
 	 */
 	public void displayHelp() {
@@ -271,7 +271,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayGrid() displays the string game grid with all assets that was created by the Grid object.
+	 * {@link UserInterface displayGrid()} displays the string game grid with all assets that was created by the Grid object.
 	 * 
 	 * @param grid
 	 *  	the grid to be displayed.
@@ -281,8 +281,8 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayStats() displays the statistics of the game such as lives left, ammo, and turns left invincible. Arguments are provided
-	 *  by the GameEngine object.
+	 * {@link UserInterface displayStats()} displays the statistics of the game such as lives left, ammo, and turns left invincible. 
+	 * Arguments are provided by the {@link GameEngine} object.
 	 * 
 	 * @param lives
 	 * @param ammo
@@ -293,7 +293,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayWin() displays winning message if player retrieves briefcase and terminates program execution.
+	 * {@link UserInterface displayWin()} displays winning message if player retrieves briefcase and terminates program execution.
 	 */
 	public void displayWin() {
 		System.out.println("MISSION ACCOMPLISHED! Good job 007.");
@@ -301,7 +301,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayGameOver() displays game over message if player dies 3 times and terminates program execution.
+	 * {@link UserInterface displayGameOver()} displays game over message if player dies 3 times and terminates program execution.
 	 */
 	public void displayGameOver() {
 		System.out.println("You ran out of lives.");
@@ -311,7 +311,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayUnexpectedError() displays an Unexpected game error message and terminates program execution to prevent unstable behavior.
+	 * {@link UserInterface displayUnexpectedError()} displays an Unexpected game error message and terminates program execution to prevent unstable behavior.
 	 */
 	public void displayUnexpectedError() {
 		System.out.println("Unexpected Error Ocurred! Exiting Game.");
@@ -319,14 +319,14 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayInvalidMoveError() displays an error message if the player tries to make an illegal move.
+	 * {@link UserInterface displayInvalidMoveError()} displays an error message if the player tries to make an illegal move.
 	 */
 	public void displayInvalidMoveError() {
 		System.out.println("That move is not permitted. Please try again.");
 	}
 	
 	/**
-	 * displayHasBriefcase() method displays a message when the briefcase is found in the room.
+	 * {@link UserInterface displayHasBriefcase()} method displays a message when the briefcase is found in the room.
 	 */
 	public void displayHasBriefcase() {
 		System.out.println("You enter the room...");
@@ -334,7 +334,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * displayHasNoBriefcase() method displays a message when the briefcase is not found in the room.
+	 * {@link UserInterface displayHasNoBriefcase()} method displays a message when the briefcase is not found in the room.
 	 */
 	public void displayHasNoBriefcase() {
 		System.out.println("You enter the room...");
@@ -343,42 +343,42 @@ public class UserInterface {
 
 
 	/**
-	 * displayPickUp() method displays a the PickUp type that has been activated.
+	 * {@link UserInterface displayPickUp()} method displays the {@link PickUp} type that has been activated.
 	 */
 	public void displayPickUp(PickUp.PickUpType type) {
 		System.out.println("You picked up: " + type);
 	}
 	
 	/**
-	 * displayStabbed() method displays a message when the Spy has been stabbed by a ninja.
+	 * {@link UserInterface displayStabbed()} method displays a message when the Spy has been stabbed by a ninja.
 	 */
 	public void displayStabbed() {
 		System.out.println("A ninja has stabbed you.");
 	}
 	
 	/**
-	 * displayNinjaKilled() method displays a message when the Spy has shot and killed a ninja.
+	 * {@link UserInterface displayNinjaKilled()} method displays a message when the Spy has shot and killed a ninja.
 	 */
 	public void displayNinjaKilled() {
 		System.out.println("Ninja was killed.");
 	}
 
 	/**
-	 * displayNoAmmo() method displays a message when the Spy cannot shoot because he has ran out of ammo.
+	 * {@link UserInterface displayNoAmmo()} method displays a message when the Spy cannot shoot because he has ran out of ammo.
 	 */
 	public void displayNoAmmo() {
 		System.out.println("You are unable to shoot, you have no remaining ammo.");
 	}
 
 	/**
-	 * displayMissedShot() method displays a message when the Spy has shot but did not hit any ninjas.
+	 * {@link UserInterface displayMissedShot()} method displays a message when the Spy has shot but did not hit any ninjas.
 	 */
 	public void displayMissedShot() {
 		System.out.println("Missed Shot. No confirmed kill.");
 	}
 	
 	/**
-	 * saveGame(Grid g, Spy s, Ninja[] n, PickUp[] p) method writes the game objects to file. It creates a new
+	 * {@link UserInterface saveGame(Grid g, Spy s, Ninja[] n, PickUp[] p)} method writes the game objects to file. It creates a new
 	 * file with 'SaveFile*.file' file name and extension where * represents a number.
 	 * @param g
 	 * @param s
@@ -415,8 +415,8 @@ public class UserInterface {
 	}
 	
 	/**
-	 * loadGame() method loads game save by reading the written objects from a specified file. This method
-	 * returns a temporarily constructed GameEngine object that is used to copy the read objects to the 
+	 * {@link UserInterface loadGame()} method loads game save by reading the written objects from a specified file. This method
+	 * returns a temporarily constructed {@link GameEngine} object that is used to copy the read objects to the 
 	 * active GameEngine object.
 	 * @return ge
 	 */
@@ -463,7 +463,7 @@ public class UserInterface {
 	}
 	
 	/**
-	 * exitGame() method display a thank you message and terminates program execution.
+	 * {@link UserInterface exitGame()} method display a thank you message and terminates program execution.
 	 */
 	public void exitGame() {
 		System.out.println("Thank you for playing!");
